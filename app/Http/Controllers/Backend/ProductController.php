@@ -608,7 +608,7 @@ class ProductController extends Controller
     */
     public function edit($id)
     {
-        $thuocTinhArr = $phuKienArr = $soSanhArr = $tuongTuArr = [];
+        $thuocTinhArr = [];
         $hinhArr = (object) [];
         $detail = SanPham::find($id);
 
@@ -618,17 +618,7 @@ class ProductController extends Controller
 
         if( $tmp ){
             $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
-        }
-        $tmpPhuKien = explode(",", $detail->sp_phukien);
-        $phuKienArr = SanPham::whereIn('id', $tmpPhuKien)->lists('name', 'id');
-        //get compare
-        $compare1 = Compare::where('sp_1', $id)->lists('sp_2')->toArray();              
-        $compare2 = Compare::where('sp_2', $id)->lists('sp_1')->toArray();        
-        $tmpSoSanh = array_merge($compare1, $compare2); 
-        $soSanhArr = SanPham::whereIn('id', $tmpSoSanh)->lists('name', 'id');
-
-        $tmpTuongTu = explode(",", $detail->sp_tuongtu);
-        $tuongTuArr = SanPham::whereIn('id', $tmpTuongTu)->lists('name', 'id');
+        }        
 
         $loaiSpArr = LoaiSp::all();
         
@@ -651,10 +641,9 @@ class ProductController extends Controller
             }
             
         }        
-        $colorArr = Color::all();  
-        $priceArr = ProductPrice::where('product_id', $id)->get();
+        $colorArr = Color::all();          
             
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta', 'phuKienArr', 'tuongTuArr', 'soSanhArr', 'priceArr'));
+        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta'));
     }
     public function ajaxDetail(Request $request)
     {       

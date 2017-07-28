@@ -247,7 +247,6 @@
   </section>
   <!-- /.content -->
 </div>
-@include ('backend.product.search-modal')
 <input type="hidden" id="route_upload_tmp_image_multiple" value="{{ route('image.tmp-upload-multiple') }}">
 <input type="hidden" id="route_upload_tmp_image" value="{{ route('image.tmp-upload') }}">
 <style type="text/css">
