@@ -84,7 +84,7 @@ class CateController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$destionation);
+            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
             
             $dataArr['icon_url'] = $destionation;
         }
@@ -186,7 +186,7 @@ class CateController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('icho.upload_path').$dataArr['icon_url'], config('icho.upload_path').$destionation);
+            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
             
             $dataArr['icon_url'] = $destionation;
         }

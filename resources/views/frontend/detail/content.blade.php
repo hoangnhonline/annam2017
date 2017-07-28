@@ -84,7 +84,7 @@
 				            	<span class="error hide">Số lượng sản phẩm hiện tại chỉ còn 16 sản phẩm</span>
 				            </div>
 				            <div class="panel panel-default block-buy block-panel-products ">
-								<!-- <div class="panel-heading">Nội dung mô tả trong từng sản phẩm tại iCho.vn</div> -->
+								<!-- <div class="panel-heading">Nội dung mô tả trong từng sản phẩm tại annammobile.com</div> -->
 								<div class="panel-body">
 									<div class="block-delivery">
 				                	<?php echo $settingArr['mo_ta_sp']; ?>

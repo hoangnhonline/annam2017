@@ -47,7 +47,7 @@
                     <div id="address-box">                        
                         <div id="address-list" style="margin-top:12px">                                                       
                             <div class="tit-name">Email:</div>
-                            <div class="tit-contain"><a href="mailto:muahang@icho.vn">muahang@icho.vn</a></div>
+                            <div class="tit-contain"><a href="mailto:muahang@annammobile.com">muahang@annammobile.com</a></div>
                             <div class="tit-name">Skype:</div>
                             <div class="tit-contain"><script type="text/javascript" src="https://secure.skypeassets.com/i/scom/js/skype-uri.js"></script>
                             <div id="SkypeButton_Call_thao_tho_trang_1" style="padding: 0px; margin-top: -15px;margin-left: -15px;">
@@ -107,7 +107,7 @@
               <div class="col-sm-4">
                 <div class="introduce-title">Kết nối</div>
                   <div class="social-link">
-                      <a href="https://www.facebook.com/www.icho.vn" target="_blank"><i class="fa fa-facebook"></i></a>
+                      <a href="https://www.facebook.com/www.annammobile.com" target="_blank"><i class="fa fa-facebook"></i></a>
                       <a href="#"><i class="fa fa-pinterest-p"></i></a>
                       <a href="#"><i class="fa fa-vk"></i></a>
                       <a href="#"><i class="fa fa-twitter"></i></a>
@@ -120,7 +120,7 @@
             </div>
 
             <div id="footer-menu-box">
-                <p class="text-center">Copyrights &#169; 2016 iCho.vn. All Rights Reserved.</p>
+                <p class="text-center">Copyrights &#169; 2016 annammobile.com. All Rights Reserved.</p>
             </div><!-- /#footer-menu-box -->
         </div>
 </footer>

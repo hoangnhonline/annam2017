@@ -4,26 +4,26 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="csrf-token" content="{{ csrf_token() }}" />
-  <title>iCho.vn | Dashboard</title>
+  <title>annammobile.com | Dashboard</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{{ URL::asset('http://code.jquery.com/ui/1.12.0/themes/base/jquery-ui.css') }}">
   
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="{{ URL::asset('backend/bootstrap/css/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('admin/bootstrap/css/bootstrap.min.css') }}">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/AdminLTE.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('admin/dist/css/AdminLTE.css') }}">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
-  <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/skins/_all-skins.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('admin/dist/css/skins/_all-skins.min.css') }}">
   <!-- iCheck -->
-  <link rel="stylesheet" href="{{ URL::asset('backend/plugins/iCheck/flat/blue.css') }}">
-  <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/select2.min.css') }}">
-  <link rel="stylesheet" href="{{ URL::asset('backend/dist/css/sweetalert2.min.css') }}">  
+  <link rel="stylesheet" href="{{ URL::asset('admin/plugins/iCheck/flat/blue.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('admin/dist/css/select2.min.css') }}">
+  <link rel="stylesheet" href="{{ URL::asset('admin/dist/css/sweetalert2.min.css') }}">  
 
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -36,7 +36,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper">
   @include('layout.backend.header')
-  @if(Auth::user()->email != "huongll@icho.vn" && \Request::route()->getName() != "compare.index" )
+  @if(Auth::user()->email != "huongll@annammobile.com" && \Request::route()->getName() != "compare.index" )
     @include('layout.backend.sidebar')
   @endif
 
@@ -63,9 +63,9 @@
   <!-- /.content-wrapper -->
   <footer class="main-footer">
     <div class="pull-right hidden-xs">
-      <b>Version</b> 2.3.5
+      <b>Version</b> 4.0.0
     </div>
-    <strong>Copyright &copy; 2014-2016 <a href="mailto:hoangnhonline@gmail.com">hoangnhonline@gmail.com</a>.</strong> All rights
+    <strong>Copyright &copy; 2016-2020 <a href="mailto:hoangnhonline@gmail.com">hoangnhonline@gmail.com</a>.</strong> All rights
     reserved.
   </footer>
 
@@ -75,11 +75,11 @@
 <input type="hidden" id="route_get_slug" value="{{ route('get-slug') }}">
   <div class="control-sidebar-bg"></div>
 </div>
-<input type="hidden" id="upload_url" value="{{ config('icho.upload_url') }}">
+<input type="hidden" id="upload_url" value="{{ config('annam.upload_url') }}">
 <!-- ./wrapper -->
 
 <!-- jQuery 2.2.3 -->
-<script src="{{ URL::asset('backend/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
+<script src="{{ URL::asset('admin/plugins/jQuery/jquery-2.2.3.min.js') }}"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="{{ URL::asset('https://code.jquery.com/ui/1.10.0/jquery-ui.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -87,24 +87,24 @@
   $.widget.bridge('uibutton', $.ui.button);
 </script>
 <!-- Bootstrap 3.3.6 -->
-<script src="{{ URL::asset('backend/bootstrap/js/bootstrap.min.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/ajax-upload.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/form.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/sweetalert2.min.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/select2.min.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/es6-promise.min.js') }}"></script>
+<script src="{{ URL::asset('admin/bootstrap/js/bootstrap.min.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/ajax-upload.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/form.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/sweetalert2.min.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/select2.min.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/es6-promise.min.js') }}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.11.2/moment.min.js"></script>
 
 <!-- Slimscroll -->
-<script src="{{ URL::asset('backend/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
+<script src="{{ URL::asset('admin/plugins/slimScroll/jquery.slimscroll.min.js') }}"></script>
 <!-- AdminLTE App -->
-<script src="{{ URL::asset('backend/dist/js/app.min.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/app.min.js') }}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="{{ URL::asset('backend/dist/js/pages/dashboard.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
-<script src="{{ URL::asset('backend/dist/js/demo.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/lazy.js') }}"></script>
-<script src="{{ URL::asset('backend/dist/js/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/demo.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/lazy.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/ckeditor/ckeditor.js') }}"></script>
 
 <script type="text/javascript" type="text/javascript">
 $(document).on('click', '#btnSaveNoti', function(){

@@ -26,6 +26,7 @@ class UserController extends Controller
             'role' => 1,
             'status' => 1
         ));*/
+        //dd(Hash::make('123465@'));
         return view('backend.login');
     }
 
@@ -54,7 +55,7 @@ class UserController extends Controller
         if (Auth::validate($dataArr)) {
 
             if (Auth::attempt($dataArr)) {
-              if($request->email == "huongll@icho.vn"){
+              if($request->email == "huongll@annammobile.com"){
                 return redirect()->route('product.short');
               }else{
                 return redirect()->route('product.index');

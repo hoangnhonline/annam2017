@@ -99,10 +99,10 @@
 
 <style type="text/css">
   .nav-tabs {
-    border-bottom: 1px solid #3c8dbc !important;
+    border-bottom: 1px solid #444345 !important;
 }
 .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
-  border: 1px solid #3c8dbc !important;
+  border: 1px solid #444345 !important;
   border-bottom-color: transparent !important;
 }
 

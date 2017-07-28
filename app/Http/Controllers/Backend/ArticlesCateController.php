@@ -119,7 +119,7 @@ class ArticlesCateController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
+            File::move(config('annam.upload_path').$dataArr['image_url'], config('annam.upload_path').$destionation);
             
             $dataArr['image_url'] = $destionation;
         }

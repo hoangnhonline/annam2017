@@ -101,10 +101,10 @@ class OrderController extends Controller
                         'order'    => $order
                     ],
                     function($message) use ($customer, $method_id) {
-                        $message->subject('Cảm ơn bạn đã đặt hàng tại iCho.vn');
+                        $message->subject('Cảm ơn bạn đã đặt hàng tại annammobile.com');
                         $message->to($customer->email);
-                        $message->from('icho.vn@gmail.com', 'iCho.vn');
-                        $message->sender('icho.vn@gmail.com', 'iCho.vn');
+                        $message->from('annammobile.com@gmail.com', 'annammobile.com');
+                        $message->sender('annammobile.com@gmail.com', 'annammobile.com');
                 });*/
                 break;
             case "3":
@@ -120,10 +120,10 @@ class OrderController extends Controller
                 /*Mail::send('frontend.email.thanks',
                     [],
                     function($message) use ($customer) {
-                        $message->subject('Cảm ơn bạn đã đặt hàng tại Icho.vn');
+                        $message->subject('Cảm ơn bạn đã đặt hàng tại annammobile.com');
                         $message->to($customer->email);
-                        $message->from('icho.vn@gmail.com', 'icho.vn');
-                        $message->sender('icho.vn@gmail.com', 'icho.vn');
+                        $message->from('annammobile.com@gmail.com', 'annammobile.com');
+                        $message->sender('annammobile.com@gmail.com', 'annammobile.com');
                 });*/
                 break;            
             case "4":
@@ -140,10 +140,10 @@ class OrderController extends Controller
         //         'arrProductInfo'    => $arrProductInfo
         //     ],
         //     function($message) use ($email) {
-        //         $message->subject('Đơn đặt hàng tại Icho.vn');
+        //         $message->subject('Đơn đặt hàng tại annammobile.com');
         //         $message->to($email);
-        //         $message->from('icho.vn@gmail.com', 'icho.vn');
-        //         $message->sender('icho.vn@gmail.com', 'icho.vn');
+        //         $message->from('annammobile.com@gmail.com', 'annammobile.com');
+        //         $message->sender('annammobile.com@gmail.com', 'annammobile.com');
         // });
         return 'success';
     }

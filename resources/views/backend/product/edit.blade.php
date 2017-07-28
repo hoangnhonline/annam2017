@@ -359,7 +359,7 @@
                         <div class="form-group col-md-12" style="margin-top:10px;margin-bottom:10px">  
                           <label class="col-md-3 row">Ảnh quà tặng </label>
                           <div class="col-md-9">
-                            <img id="thumbnail_image_pro" src="{{ $detail->image_pro ? Helper::showImage($detail->image_pro) : URL::asset('backend/dist/img/img.png') }}" class="img-thumbnail" width="150">
+                            <img id="thumbnail_image_pro" src="{{ $detail->image_pro ? Helper::showImage($detail->image_pro) : URL::asset('admin/dist/img/img.png') }}" class="img-thumbnail" width="150">
                             
                             <input type="file" id="file-pro" style="display:none" />
                          
@@ -434,7 +434,7 @@
 <style type="text/css">
   .nav-tabs>li.active>a{
     color:#FFF !important;
-    background-color: #3C8DBC !important;
+    background-color: #444345 !important;
   }
 
 </style>
@@ -449,7 +449,7 @@ function filterAjax(type){
           async: true,      
           data: str_params + '&search_type=' + type,
           beforeSend:function(){
-            $('#contentSearch').html('<div style="text-align:center"><img src="{{ URL::asset('backend/dist/img/loading.gif')}}"></div>');
+            $('#contentSearch').html('<div style="text-align:center"><img src="{{ URL::asset('admin/dist/img/loading.gif')}}"></div>');
           },        
           success: function (response) {
             $('#contentSearch').html(response);
@@ -673,12 +673,12 @@ $(document).on('click', 'button.btnSaveSearch',function(){
       var editor = CKEDITOR.replace( 'chi_tiet',{
           language : 'vi',
           height: 300,
-          filebrowserBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=files') }}",
-          filebrowserImageBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=images') }}",
-          filebrowserFlashBrowseUrl: "{{ URL::asset('/backend/dist/js/kcfinder/browse.php?type=flash') }}",
-          filebrowserUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=files') }}",
-          filebrowserImageUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=images') }}",
-          filebrowserFlashUploadUrl: "{{ URL::asset('/backend/dist/js/kcfinder/upload.php?type=flash') }}"
+          filebrowserBrowseUrl: "{{ URL::asset('/admin/dist/js/kcfinder/browse.php?type=files') }}",
+          filebrowserImageBrowseUrl: "{{ URL::asset('/admin/dist/js/kcfinder/browse.php?type=images') }}",
+          filebrowserFlashBrowseUrl: "{{ URL::asset('/admin/dist/js/kcfinder/browse.php?type=flash') }}",
+          filebrowserUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=files') }}",
+          filebrowserImageUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=images') }}",
+          filebrowserFlashUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=flash') }}"
       });
       var editor2 = CKEDITOR.replace( 'khuyen_mai',{
           language : 'vi',

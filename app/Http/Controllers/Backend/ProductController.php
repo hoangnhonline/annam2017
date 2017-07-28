@@ -342,7 +342,7 @@ class ProductController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('icho.upload_path').$dataArr['image_pro'], config('icho.upload_path').$destionation);
+            File::move(config('annam.upload_path').$dataArr['image_pro'], config('annam.upload_path').$destionation);
             
             $dataArr['image_pro'] = $destionation;
         }  
@@ -420,7 +420,7 @@ class ProductController extends Controller
         {
             foreach ($hinhXoaArr as $image_id_xoa) {
                 $model = SpHinh::find($image_id_xoa);
-                $urlXoa = config('icho.upload_path')."/".$model->image_url;
+                $urlXoa = config('annam.upload_path')."/".$model->image_url;
                 if(is_file($urlXoa)){
                     unlink($urlXoa);
                 }
@@ -448,7 +448,7 @@ class ProductController extends Controller
 
                         $destionation = date('Y/m/d'). '/'. end($tmp);
                         
-                        File::move(config('icho.upload_path').$image_url, config('icho.upload_path').$destionation);
+                        File::move(config('annam.upload_path').$image_url, config('annam.upload_path').$destionation);
 
                         $imageArr['name'][] = $destionation;
 
@@ -727,7 +727,7 @@ class ProductController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('icho.upload_path').$dataArr['image_pro'], config('icho.upload_path').$destionation);
+            File::move(config('annam.upload_path').$dataArr['image_pro'], config('annam.upload_path').$destionation);
             
             $dataArr['image_pro'] = $destionation;
         }  

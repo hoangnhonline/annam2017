@@ -2,7 +2,7 @@
 @section('content')
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-@if(Auth::user()->email != "huongll@icho.vn")
+@if(Auth::user()->email != "huongll@annammobile.com")
 <section class="content-header">
   <h1>
     Sản phẩm
@@ -88,7 +88,7 @@
                
                 <td>                  
                   <a style="color:#333;" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name }} {{ $item->name_extend }}</a> &nbsp; @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
                   
                   
@@ -145,7 +145,7 @@
 .pagination{
   margin: 0px !important;
 }
-@if(Auth::user()->email == "huongll@icho.vn")
+@if(Auth::user()->email == "huongll@annammobile.com")
 .content-wrapper{
   margin-left: 0px !important;
 }
