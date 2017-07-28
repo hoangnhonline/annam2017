@@ -64,18 +64,7 @@
             <div class="form-group">
               <label><input type="checkbox" name="is_sale" value="1" {{ $arrSearch['is_sale'] == 1 ? "checked" : "" }}> Giảm giá</label>              
             </div>
-            <div class="form-group">
-              <label><input type="checkbox" name="het_hang" value="1" {{ $arrSearch['het_hang'] == 1 ? "checked" : "" }}> Hết hàng</label>              
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" name="chua_nhap_gia" value="1" {{ $arrSearch['chua_nhap_gia'] == 1 ? "checked" : "" }}> Chưa nhập giá</label>
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" name="thieu_kich_thuoc" value="1" {{ $arrSearch['thieu_kich_thuoc'] == 1 ? "checked" : "" }}> Thiếu kích thước</label>
-            </div>
-            <div class="form-group">
-              <label><input type="checkbox" name="thieu_can_nang" value="1" {{ $arrSearch['thieu_can_nang'] == 1 ? "checked" : "" }}> Thiếu cân nặng</label>
-            </div>           
+               
             <button type="submit" style="margin-top:-5px" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
         </div>
@@ -141,17 +130,6 @@
                 </td>
                 <td style="white-space:nowrap; text-align:right">
                   <a class="btn btn-default btn-sm" href="{{ route('chi-tiet', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-                  
-                  @if( in_array($item->cate_id, [31,85]))
-                  <?php 
-                  if($item->cate_id == 31){
-                    $countTuongThich = DB::table('sp_tuongthich')->where('sp_1', $item->id)->count();
-                  }else{
-                    $countTuongThich = DB::table('sp_tuongthich')->where('sp_1', $item->id)->where('cate_id', '<>', 31)->count();
-                  }
-                  ?>
-                  <!--<a href="{{ route( 'product.tuong-thich', [ 'id' => $item->id ]) }}" class="btn btn-info btn-sm"><span class="badge">{{ $countTuongThich }}</span> SP tương thích</a>-->
-                  @endif
                   <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
 
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>

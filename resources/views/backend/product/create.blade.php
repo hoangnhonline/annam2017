@@ -46,8 +46,6 @@
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                     <li role="presentation"><a href="#thuoctinh" aria-controls="thuoctinh" role="tab" data-toggle="tab">Thuộc tính</a></li>
-                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Thông tin liên quan</a></li>  
-                    <li role="presentation"><a href="#quatang" aria-controls="messages" role="tab" data-toggle="tab">Quà tặng</a></li>                    
                   </ul>
 
                   <!-- Tab panes -->
@@ -79,15 +77,7 @@
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
-                        </div>
-                        <div class="form-group" >                  
-                          <label>Tên mở rộng</label>
-                          <input type="text" class="form-control" name="name_extend" id="name_extend" value="{{ old('name_extend') }}">
-                        </div>
-                        <div class="form-group">                  
-                          <label>Slug mở rộng</label>                  
-                          <input type="text" class="form-control" name="slug_extend" id="slug_extend" value="{{ old('slug_extend') }}">
-                        </div>
+                        </div>                        
                         <div class="col-md-6 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_hot" alue="1"> Sản phẩm HOT </label>
@@ -103,61 +93,7 @@
                             <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
                         </div>
 
-                        <div class="form-group col-md-12 none-padding" >                  
-                          <div class="col-md-3 none-padding">
-                              <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ">
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến">
-                          </div>
-                          <div class="col-md-6 none-padding">
-                            <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-12 none-padding" >                  
-                          <div class="col-md-3 none-padding">
-                              <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ">
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến">
-                          </div>
-                          <div class="col-md-6 none-padding">
-                            <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-12 none-padding" >                  
-                          <div class="col-md-3 none-padding">
-                              <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ">
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến">
-                          </div>
-                          <div class="col-md-6 none-padding">
-                            <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-12 none-padding" >                  
-                          <div class="col-md-3 none-padding">
-                              <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ">
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến">
-                          </div>
-                          <div class="col-md-6 none-padding">
-                            <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng">
-                          </div>
-                        </div>
-                        <div class="form-group col-md-12 none-padding" >                  
-                          <div class="col-md-3 none-padding">
-                              <input type="text" class="form-control" name="no_from[]" placeholder="Số lượng từ">
-                          </div>
-                          <div class="col-md-3">
-                              <input type="text" class="form-control" name="no_to[]" placeholder="Số lượng đến">
-                          </div>
-                          <div class="col-md-6 none-padding">
-                            <input type="text" class="form-control" name="price_multi[]" placeholder="Giá tương ứng">
-                          </div>
-                        </div>                        
+                      
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
                     <div role="tabpanel" class="tab-pane" id="profile">
@@ -192,13 +128,7 @@
                       <div class="col-md-4 none-padding pleft-5">
                         <label>Chiều cao<span class="red-star">*</span></label>                  
                         <input type="text" class="form-control" name="chieu_cao" id="chieu_cao" value="{{ old('chieu_cao') }}">                        
-                      </div>
-                      @if($loai_id == 7)
-                      <div class="form-group">
-                        <label>Số khe RAM (Mainboard)</label>                  
-                        <input type="text" class="form-control" name="khe_ram" id="khe_ram" value="{{ old('khe_ram') }}">                        
-                      </div>
-                      @endif
+                      </div>                     
                       <div class="clearfix"></div> 
                       <div class="form-group">
                         <div class="checkbox">
@@ -262,74 +192,14 @@
                      @endif
                      
                      </div>
-                     <div role="tabpanel" class="tab-pane" id="messages">
-                     @if($loai_id == 3)
-                        <div class="col-md-12">
-                        <label>Mục đích sử dụng</label>
-                        <ul id="list_muc_dich">
-                          <li class="col-md-6"><div class="form-group">
-                          <input type="checkbox" name="muc_dich[]" value="1" class="muc_dich" id="van_phong" {{ in_array(1, $mucDichArr) ? "checked" : "" }}>&nbsp;&nbsp;<label for="van_phong">Văn phòng</label>
-                          </div>
-                          </li>
-                          <li class="col-md-6">
-                            <div class="form-group">
-                          <input type="checkbox" name="muc_dich[]" value="2" class="muc_dich" id="do_hoa" {{ in_array(2, $mucDichArr) ? "checked" : "" }}>&nbsp;&nbsp;<label for="do_hoa">Đồ họa</label></div></li>
-                          <li class="col-md-6">
-                            <div class="form-group">
-                          <input type="checkbox" name="muc_dich[]" value="3" class="muc_dich" id="game" {{ in_array(3, $mucDichArr) ? "checked" : "" }}>&nbsp;&nbsp;<label for="game">Game</label></div></li>
-                          <li class="col-md-6">
-                            <div class="form-group">
-                            <input type="checkbox" name="muc_dich[]" value="4" class="muc_dich" id="am_thanh" {{ in_array(4, $mucDichArr) ? "checked" : "" }}>&nbsp;&nbsp;<label for="am_thanh">Âm thanh</label></div></li>
-                        </ul>
-                      </div>
-                      @endif
-                        <div class="col-md-4">
-                            <button class="btn btn-warning btn-sm btnLienQuan" data-value="phukien" type="button" id="btnPhuKien">Phụ kiện đi kèm</button>
-                            <div class="clearfix"></div>
-                            <div id="dataPhuKien" class="col-md-12 none-padding" style="min-height:150px; margin-top:5px"></div>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning btn-sm btnLienQuan" data-value="tuongtu" type="button" id="btnTuongTu">Sản phẩm tương tự</button>
-                            <div class="clearfix"></div>
-                            <div id="dataTuongTu" class="col-md-12 none-padding" style="min-height:150px; margin-top:5px"></div>
-                        </div>
-                        <div class="col-md-4">
-                            <button class="btn btn-warning btn-sm btnLienQuan" data-value="sosanh" type="button" id="btnSoSanh">Sản phẩm so sánh</button>
-                            <div class="clearfix"></div>
-                            <div id="dataSoSanh" class="col-md-12 none-padding" style="min-height:150px; margin-top:5px"></div>
-                        </div>                        
-                        <div class="clearfix"></div>
-                     </div><!--end thong tin lien quan -->
-                      <div role="tabpanel" class="tab-pane" id="quatang">
-                        <div class="col-md-12 none-padding pleft-5">
-                          <label>Kiểu hiển thị</label>
-                          <select name="pro_style" id="pro_style" class="form-control">
-                              <option value="0">Không có quà</option>
-                              <option value="1">Hover ảnh</option>
-                              <option value="2">Icon phía trên</option>                         </select>
-                        </div>
-                        <div class="form-group col-md-12" style="margin-top:10px;margin-bottom:10px">  
-                          <label class="col-md-3 row">Ảnh quà tặng </label>
-                          <div class="col-md-9">
-                            <img id="thumbnail_image_pro" src="{{ old('image_pro') ? Helper::showImage(old('image_pro')) : URL::asset('admin/dist/img/img.png') }}" class="img-thumbnail" width="150">
-                            
-                            <input type="file" id="file-pro" style="display:none" />
-                         
-                            <button class="btn btn-default" id="btnUploadPro" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                          </div>
-                          <div style="clear:both"></div>
-                        </div>
-                        <div class="clearfix"></div>
-                      </div><!--end quatang -->
+              
+                    
                   </div>
 
                 </div>
                   
             </div>
-            <div class="box-footer">
-              <input type="hidden" name="str_sp_sosanh" id="str_sp_sosanh" value="{{ old('str_sp_sosanh') }}" >
-              <input type="hidden" name="str_sp_tuongtu" id="str_sp_tuongtu" value="{{ old('str_sp_tuongtu') }}" >
-              <input type="hidden" name="str_sp_phukien" id="str_sp_phukien" value="{{ old('str_sp_phukien') }}" >
+            <div class="box-footer">              
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
               <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index')}}">Hủy</a>
@@ -372,8 +242,6 @@
       </div>
       <!--/.col (left) -->      
     </div>
- <input type="hidden" name="image_pro" id="image_pro" value="{{ old('image_pro') }}"/> 
- <input type="hidden" name="pro_name" id="pro_name" value="{{ old('pro_name') }}"/>
     </form>
     <!-- /.row -->
   </section>
@@ -392,212 +260,16 @@
 @stop
 @section('javascript_page')
 <script type="text/javascript">
-function filterAjax(type){  
-  var str_params = $('#formSearchAjax').serialize();
-  $.ajax({
-          url: '{{ route("product.ajax-search") }}',
-          type: "POST",
-          async: true,      
-          data: str_params + '&search_type=' + type,
-          beforeSend:function(){
-            $('#contentSearch').html('<div style="text-align:center"><img src="{{ URL::asset('admin/dist/img/loading.gif')}}"></div>');
-          },        
-          success: function (response) {
-            $('#contentSearch').html(response);
-            $('#myModalSearch').modal('show');
-            //$('.selectpicker').selectpicker();            
-            //check lai nhung checkbox da checked
-            if( type == "phukien"){
-              var str_checked = $('#str_sp_phukien').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }else if( type == "tuongtu"){
-              var str_checked = $('#str_sp_tuongtu').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }else{
-              var str_checked = $('#str_sp_sosanh').val();
-              tmpArr = str_checked.split(",");              
-              for (i = 0; i < tmpArr.length; i++) { 
-                  $('input.checkSelect[value="'+ tmpArr[i] +'"]').prop('checked', true);
-              }
-            }
-          }
-    });
-}
+
 $(document).on('click', '.remove-image', function(){
   if( confirm ("Bạn có chắc chắn không ?")){
     $(this).parents('.col-md-3').remove();
   }
 });
-$(document).on('click', '.checkSelect', function(){
-  var type = $('#search_type').val();
-  var obj = $(this);
-  if( type == "phukien"){
-    var str_sp_phukien = $('#str_sp_phukien').val();
-    if(obj.prop('checked') == true){
-      str_sp_phukien += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_phukien = str_sp_phukien.replace(str, '');
-    }
-    $('#str_sp_phukien').val(str_sp_phukien);
-  }else if( type == "tuongtu"){
-    var str_sp_tuongtu = $('#str_sp_tuongtu').val();
-    if(obj.prop('checked') == true){
-      str_sp_tuongtu += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_tuongtu = str_sp_tuongtu.replace(str, '');
-    }
-    $('#str_sp_tuongtu').val(str_sp_tuongtu);
-  }else{ // so sanh
-    var str_sp_sosanh = $('#str_sp_sosanh').val();
-    if(obj.prop('checked') == true){
-      str_sp_sosanh += obj.val() + ',';
-    }else{
-      var str = obj.val() + ',';
-      str_sp_sosanh = str_sp_sosanh.replace(str, '');
-    }
-    $('#str_sp_sosanh').val(str_sp_sosanh);
-  }
-});
-$(document).on('click', '.btnRemoveRelated', function(){
-  if( confirm ("Bạn có chắc chắn không ?")){
-    var obj = $(this);
-    var type = obj.attr('data-type');
-    var value = obj.attr('data-value');
-    var str_sp = $('#str_sp_' + type).val();
-    console.log(str_sp);
-      var str = value + ',';
-      console.log(value);
-      console.log(str);
-      str_sp = str_sp.replace(str, '');
-    console.log(str_sp);
-    $('#str_sp_' + type).val(str_sp);
-    $('#row-'+ type + '-' + value).remove();
-    
 
 
-
-  }
-});
-$(document).on('change', '#loai_id_search, #cate_id_search', function(){
-  filterAjax($('#search_type').val());
-});
-$(document).on('click', '#btnSearchAjax', function(){
-  filterAjax($('#search_type').val());
-});
-$(document).on('keypress', '#name_search', function(e){
-  if(e.which == 13) {
-      e.preventDefault();
-      filterAjax($('#search_type').val());
-  }
-});
-$(document).on('click', 'button.btnSaveSearch',function(){
-  var type = $('#search_type').val();  
-  if (type == "phukien"){
-    str_value = $('#str_sp_phukien').val();
-  }else if( type == "tuongtu"){
-    str_value = $('#str_sp_tuongtu').val();
-  }else{
-    str_value = $('#str_sp_sosanh').val();
-  }
-  if( str_value != '' ){
-    
-    $.ajax({
-          url: '{{ route("product.ajax-save-related") }}',
-          type: "POST",
-          async: true,      
-          data: {          
-            type : type,    
-            str_value : str_value,
-            _token: "{{ csrf_token() }}"
-          },     
-          success: function (response) {
-            if (type == "phukien"){
-              
-              $('#dataPhuKien').html(response);
-
-            }else if( type == "tuongtu"){
-
-              $('#dataTuongTu').html(response);
-
-            }else{
-
-              $('#dataSoSanh').html(response);
-
-            }
-            $('#myModalSearch').modal('hide');
-            
-          }
-    });
-    
-  }else{
-    alert('Vui lòng chọn ít nhất 1 sản phẩm.');
-    return false;
-  }
-
-});
     $(document).ready(function(){
-      $('#btnUploadPro').click(function(){        
-        $('#file-pro').click();
-      });      
-      var files = "";
-      $('#file-pro').change(function(e){
-         files = e.target.files;
-         
-         if(files != ''){
-           var dataForm = new FormData();        
-          $.each(files, function(key, value) {
-             dataForm.append('file', value);
-          });   
-          
-          dataForm.append('date_dir', 1);
-          dataForm.append('folder', 'tmp');
-
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_image_pro').attr('src',$('#upload_url').val() + response.image_path);
-                $( '#image_pro' ).val( response.image_path );
-                $( '#pro_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
-      $('.btnLienQuan').click(function(){
-        var type = $(this).attr('data-value');
-        if( type == "phukien") {
-          $('#label-search').html("phụ kiện đi kèm");
-        }else if( type == "tuongtu" ){
-          $('#label-search').html("sản phẩm tương tự");
-        }else{
-          $('#label-search').html("sản phẩm so sánh");
-        }
-        filterAjax(type);
-      });      
+    
       $('#loai_id').change(function(){
         location.href="{{ route('product.create') }}?loai_id=" + $(this).val();
       })
@@ -720,32 +392,7 @@ $(document).on('click', 'button.btnSaveSearch',function(){
             });
          }
       });  
-       $('#name_extend').change(function(){
-         var name = $.trim( $(this).val() );
-         if( name != '' && $('#slug_extend').val() == ''){
-            $.ajax({
-              url: $('#route_get_slug').val(),
-              type: "POST",
-              async: false,      
-              data: {
-                str : name
-              },              
-              success: function (response) {
-                if( response.str ){                  
-                  $('#slug_extend').val( response.str );
-                }                
-              },
-              error: function(response){                             
-                  var errors = response.responseJSON;
-                  for (var key in errors) {
-                    
-                  }
-                  //$('#btnLoading').hide();
-                  //$('#btnSave').show();
-              }
-            });
-         }
-      });     
+     
      
       
     });
