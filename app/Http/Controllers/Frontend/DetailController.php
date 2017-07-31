@@ -7,9 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\SanPham;
+use App\Models\Product;
 use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
+use App\Models\ProductImg;
 use App\Models\ThuocTinh;
 use App\Models\LoaiThuocTinh;
 use App\Models\Banner;
@@ -42,16 +42,16 @@ class DetailController extends Controller
 
         $spThuocTinhArr = $productArr = [];
         $slug = $request->slug;
-        $detail = SanPham::where('slug', $slug)->where('cate_id', '>', 0)->where('loai_id', '>', 0)->first();
+        $detail = Product::where('slug', $slug)->where('cate_id', '>', 0)->where('loai_id', '>', 0)->first();
         if(!$detail){
             return redirect()->route('home');
         }
         $rsLoai = LoaiSp::find( $detail->loai_id );
         $rsCate = Cate::find( $detail->cate_id );
 
-        $hinhArr = SpHinh::where('sp_id', $detail->id)->get()->toArray();
+        $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();
         // hien thuoc tinh
-        $tmp = SpThuocTinh::where('sp_id', $detail->id)->select('thuoc_tinh')->first();
+        $tmp = SpThuocTinh::where('product_id', $detail->id)->select('thuoc_tinh')->first();
         
         if( $tmp ){
             $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
@@ -87,17 +87,17 @@ class DetailController extends Controller
         $tmpArr = array_merge($phuKienArr, $tuongtuArr, $sosanhArr);
         
         if( !empty($tmpArr)){
-            $productTmpArr = SanPham::whereIn('san_pham.id', $tmpArr)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->select('san_pham.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->get();
+            $productTmpArr = Product::whereIn('product.id', $tmpArr)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->select('product.id as product_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'product_img.image_url', 'is_sale')->get();
             foreach($productTmpArr as $product){
-                $productArr[$product->sp_id] = $product;
+                $productArr[$product->product_id] = $product;
             }
         }
-        $lienquanArr = SanPham::where('san_pham.cate_id', $detail->cate_id)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->where('san_pham.id', '<>', $detail->id)
-                ->select('san_pham.id as sp_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'sp_hinh.image_url', 'is_sale')->orderBy('san_pham.id', 'desc')->limit(10)->get();        
+        $lienquanArr = Product::where('product.cate_id', $detail->cate_id)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->where('product.id', '<>', $detail->id)
+                ->select('product.id as product_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'product_img.image_url', 'is_sale')->orderBy('product.id', 'desc')->limit(10)->get();        
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
@@ -108,7 +108,7 @@ class DetailController extends Controller
             $seo['title'] = $seo['description'] = $seo['keywords'] = $detail->name;
         }               
         
-        $socialImage = SpHinh::find($detail->thumbnail_id)->image_url;
+        $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
 
         return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'phuKienArr', 'tuongtuArr', 'sosanhArr', 'lienquanArr', 'seo', 'socialImage'));
     }
@@ -160,11 +160,11 @@ class DetailController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
 
         
-        $productArr = SanPham::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->select('sp_hinh.image_url', 'san_pham.*')
-                //->where('sp_hinh.image_url', '<>', '')
-                ->orderBy('san_pham.id', 'desc')
+        $productArr = Product::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->select('product_img.image_url', 'product.*')
+                //->where('product_img.image_url', '<>', '')
+                ->orderBy('product.id', 'desc')
                 ->paginate(24);
 
         return view('frontend.cate.child', compact('productArr', 'cateArr', 'rs', 'rsCate'));

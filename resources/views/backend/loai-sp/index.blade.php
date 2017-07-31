@@ -1,4 +1,4 @@
-@extends('layout.backend')
+@extends('backend.layout')
 @section('content')
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
@@ -34,10 +34,7 @@
               <th style="width: 1%">#</th>
               <th style="width: 1%;white-space:nowrap">Thứ tự</th>
               <th>Tên</th>
-              <th style="text-align:center">Danh mục con</th>
-              <th style="text-align:center">Icon</th>         
-              <th>Style hiển thị</th>
-              <th style="text-align:center">Màu nền</th>
+              <th style="text-align:center">Danh mục con</th>            
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -65,28 +62,9 @@
                 <td style="text-align:center">
                   <img class="img-thumbnail" src="{{ $item->icon_mau ? config( 'annam.upload_url' ).$item->icon_mau  : 'http://placehold.it/60x60' }}" width="40" />
                 </td>               
-                <td>
-                 <?php
-                  if( $item->home_style == 1 ) echo "Banner lớn đứng ";
-                  elseif( $item->home_style == 2 ) echo "Banner nhỏ đứng ";
-                  elseif( $item->home_style == 3 ) echo "Banner ngang ";
-                  else echo "Không banner";
-                  ?>
-                </td>
-                <td style="text-align:center">
-                  @if( $item->bg_color )
-                    <span class="img-thumbnail" style="width:40px; height:40px;background-color:{{ $item->bg_color }};display:block;margin:auto">&nbsp;</span>
-                  @else
-                  Mặc định
-                  @endif
-                </td>
+               
                 <td style="white-space:nowrap; text-align:right">
-                <a class="btn btn-default btn-sm" href="{{ route('danh-muc-cha', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-                  @if($item->home_style > 0)
-                  <a class="btn btn-primary btn-sm" href="{{ route('banner.index', ['object_type' => 1, 'object_id' => $item->id]) }}" ><span class="badge">
-                    {{ $item->banners->count() }}
-                  </span> Banner </a>
-                  @endif
+                <a class="btn btn-default btn-sm" href="{{ route('danh-muc-cha', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
                   <a href="{{ route( 'loai-sp.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
                   @if( $item->cates->count() == 0)
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'loai-sp.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>

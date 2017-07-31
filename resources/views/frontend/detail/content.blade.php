@@ -153,7 +153,7 @@
 										@endif
 										</div>
 									@if($rsLoai->is_hover == 1)
-	                                <?php $str_sosanh = $detail->id.'-'.$product->sp_id; ?>
+	                                <?php $str_sosanh = $detail->id.'-'.$product->product_id; ?>
 	                                <a href="{{ route('so-sanh', ['id' => $str_sosanh]) }}" class="compare"> So sánh chi tiết</a>
 	                                @endif									
 								</div>

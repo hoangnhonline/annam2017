@@ -133,20 +133,20 @@
                 <div class="best-sell">
                     <h3 class="title-bold">Phụ kiện kèm theo</h3>
                     <ul class="products-block">
-                        @foreach( $phuKienArr as $sp_id)
-                        @if( isset($productArr[$sp_id]) )
+                        @foreach( $phuKienArr as $product_id)
+                        @if( isset($productArr[$product_id]) )
                         <li>
                             <div class="products-block-left">
-                                <a href="{{ route('chi-tiet', $productArr[$sp_id]->slug )}}">
-                                    <img src="{{ Helper::showImage( $productArr[$sp_id]->image_url) }}" alt="{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}" title="{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}">
+                                <a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">
+                                    <img src="{{ Helper::showImage( $productArr[$product_id]->image_url) }}" alt="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}" title="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}">
                                 </a>
                             </div>
                             <div class="products-block-right">
                                 <h3 class="product-name">
-                                    <a href="{{ route('chi-tiet', $productArr[$sp_id]->slug )}}" title="{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}">{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}</a>
+                                    <a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}" title="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}">{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}</a>
                                 </h3>
-                                <p class="product-price">{{ $productArr[$sp_id]->is_sale == 1 ? number_format($productArr[$sp_id]->price_sale) : number_format($productArr[$sp_id]->price)}}đ</p>
-                                <button type="button" class="add_to_cart_button" href="{{ route('chi-tiet', $productArr[$sp_id]->slug )}}">Mua</button>
+                                <p class="product-price">{{ $productArr[$product_id]->is_sale == 1 ? number_format($productArr[$product_id]->price_sale) : number_format($productArr[$product_id]->price)}}đ</p>
+                                <button type="button" class="add_to_cart_button" href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">Mua</button>
                             </div>
                         </li>
                         @endif
@@ -245,18 +245,18 @@
             <div class="page-product-box noprint">
                 <h3 class="heading">Sản phẩm tương tự</h3>
                 <ul class="product-list owl-carousel" data-dots="false" data-loop="true" data-nav = "true" data-margin = "20" data-autoplayTimeout="1000" data-autoplayHoverPause = "true" data-responsive='{"0":{"items":1},"600":{"items":3},"1000":{"items":5}}'>
-                    @foreach( $tuongtuArr as $sp_id)
-                        @if( isset($productArr[$sp_id]) )
+                    @foreach( $tuongtuArr as $product_id)
+                        @if( isset($productArr[$product_id]) )
                         <li>
                         <div class="product-container">
                             <div class="left-block">
-                                @if($productArr[$sp_id]->is_sale == 1)
+                                @if($productArr[$product_id]->is_sale == 1)
                                 <span class="discount">
-                                  -{{ $productArr[$sp_id]->sale_percent ? $productArr[$sp_id]->sale_percent : 
-                                                                100-round($productArr[$sp_id]->price_sale*100/$productArr[$sp_id]->price) }}%</span>
+                                  -{{ $productArr[$product_id]->sale_percent ? $productArr[$product_id]->sale_percent : 
+                                                                100-round($productArr[$product_id]->price_sale*100/$productArr[$product_id]->price) }}%</span>
                                 @endif
-                                <a href="{{ route('chi-tiet', $productArr[$sp_id]->slug )}}">
-                                  <img class="img-responsive" alt="{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}" src="{{ Helper::showImage( $productArr[$sp_id]->image_url) }}" alt="{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}" />
+                                <a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">
+                                  <img class="img-responsive" alt="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}" src="{{ Helper::showImage( $productArr[$product_id]->image_url) }}" alt="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}" />
                                 </a>
                                 <!--<figure class="mask-info">
                                     <span>Màn hình: Retina HD, 5.5 inches</span><span>HĐH: iOS 9</span><span>CPU: A9 64 bit, RAM 2GB</span><span>Camera: 12.0MP, 1 SIM</span><span>Dung lượng pin: 2750 mAh</span>
@@ -267,20 +267,20 @@
                                 </figure>-->
                             </div>
                             <div class="right-block">
-                                <h3 class="product-name"><a href="{{ route('chi-tiet', $productArr[$sp_id]->slug )}}">{{ $productArr[$sp_id]->name }} {{ $productArr[$sp_id]->name_extend }}</a></h3>
+                                <h3 class="product-name"><a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}</a></h3>
                                 <div class="content_price">
-                                    @if( $productArr[$sp_id]->is_sale == 1)
-                                    <span class="price product-price">{{ number_format($productArr[$sp_id]->price_sale) }}</span>
-                                    <span class="price old-price">{{ number_format($productArr[$sp_id]->price) }}</span>
+                                    @if( $productArr[$product_id]->is_sale == 1)
+                                    <span class="price product-price">{{ number_format($productArr[$product_id]->price_sale) }}</span>
+                                    <span class="price old-price">{{ number_format($productArr[$product_id]->price) }}</span>
                                     @else
-                                    <span class="price product-price">{{ number_format($productArr[$sp_id]->price) }}</span>                                    
+                                    <span class="price product-price">{{ number_format($productArr[$product_id]->price) }}</span>                                    
                                     @endif
                                 </div>
                                 
-                                <?php $str_sosanh = $detail->id.'-'.$sp_id; ?>
+                                <?php $str_sosanh = $detail->id.'-'.$product_id; ?>
                                 <a href="{{ route('so-sanh', ['id' => $str_sosanh]) }}" class="compare-txt"> So sánh chi tiết</a>
                                 
-                                <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('chi-tiet', $productArr[$sp_id]->slug )}}">Mua</a>
+                                <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">Mua</a>
                             </div>
                         </div>
                     </li> 
@@ -329,7 +329,7 @@
                                     @endif
                                 </div>
                                 @if($rsLoai->is_hover == 1)
-                                <?php $str_sosanh = $detail->id.'-'.$product->sp_id; ?>
+                                <?php $str_sosanh = $detail->id.'-'.$product->product_id; ?>
                                 <a href="{{ route('so-sanh', ['id' => $str_sosanh]) }}" class="compare-txt"> So sánh chi tiết</a>
                                 @endif
                                 <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('chi-tiet', $product->slug )}}">Mua</a>

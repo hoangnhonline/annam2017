@@ -1,4 +1,4 @@
-@extends('layout.backend')
+@extends('backend.layout')
 @section('content')
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
@@ -77,7 +77,7 @@
 
                   <p>{{ $item->description }}</p>
                 </td> 
-                <td style="text-align:center"><a class="btn btn-info" href="{{ route('cate.index', [$item->id])}}">{{ $item->sanPham->count() }}</a></td>                           
+                <td style="text-align:center"><a class="btn btn-info" href="{{ route('cate.index', [$item->id])}}">{{ $item->Product->count() }}</a></td>                           
                 <td>
                   <?php
                   if( $item->home_style == 1 ) echo "Banner lớn đứng ";
@@ -100,7 +100,7 @@
                   <a class="btn-sm btn btn-primary" href="{{ route('banner.index', ['object_type' => 2, 'object_id' => $item->id]) }}" ><span class="badge">{{ $item->banners->count() }}</span> Banner </a>
                   @endif
                   <a href="{{ route( 'cate.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
-                  @if($item->sanPham->count() == 0)
+                  @if($item->Product->count() == 0)
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'cate.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>
                   @endif
                   

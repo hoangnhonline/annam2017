@@ -197,7 +197,7 @@
       
       function update_product_quantity(id, quantity) {
         $.ajax({
-          url: "{{route('update-sanpham')}}",
+          url: "{{route('update-Product')}}",
           method: "POST",
           data : {
             id: id,

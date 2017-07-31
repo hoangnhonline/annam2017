@@ -7,9 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\SanPham;
+use App\Models\Product;
 use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
+use App\Models\ProductImg;
 use App\Models\ThuocTinh;
 use App\Models\City;
 use App\Models\LoaiThuocTinh;
@@ -53,9 +53,9 @@ class CartController extends Controller
 
         $getlistProduct = Session::get('products');
         $listProductId = array_keys($getlistProduct);
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                            ->select('product_img.image_url', 'product.*')->get();
         $seo['title'] = $seo['description'] = $seo['keywords'] = "Giỏ hàng";
         return view('frontend.cart.index', compact('arrProductInfo', 'getlistProduct', 'seo'));
     }
@@ -137,9 +137,9 @@ class CartController extends Controller
             }
         }
         */
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                            ->select('product_img.image_url', 'product.*')->get();
 
         //$service_fee = Session::get('service_fee') ? Session::get('service_fee') : 0;
         $seo = Helper::seo();
@@ -157,9 +157,9 @@ class CartController extends Controller
         }
 
         $listProductId = $getlistProduct ? array_keys($getlistProduct) : [];
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                            ->select('product_img.image_url', 'product.*')->get();
         $listCity = City::orderBy('display_order')->get();
 
         $userId = Session::get('userId');
@@ -239,9 +239,9 @@ class CartController extends Controller
 
         $listProductId = array_keys($getlistProduct);
 
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                            ->select('product_img.image_url', 'product.*')->get();
         $totalCanNang = 0;
         foreach( $arrProductInfo as $product ){
             $canNangCongKenh = ($product->chieu_dai * $product->chieu_cao * $product->chieu_rong)/6000;
@@ -286,9 +286,9 @@ class CartController extends Controller
         
 
         $vangLaiArr = Session::get('vanglai');
-        $arrProductInfo = SanPham::whereIn('san_pham.id', $listProductId)
-                            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                            ->select('sp_hinh.image_url', 'san_pham.*')->get();
+        $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                            ->select('product_img.image_url', 'product.*')->get();
         $order['tong_tien'] = 0;
         $order['tong_sp'] = array_sum($getlistProduct);
         $order['giam_gia'] = 0;
@@ -335,7 +335,7 @@ class CartController extends Controller
        
         foreach ($arrProductInfo as $product) {            
             # code...
-            $orderDetail['sp_id']        = $product->id;
+            $orderDetail['product_id']        = $product->id;
             $orderDetail['so_luong']     = $getlistProduct[$product->id];
             $orderDetail['don_gia']      = $product->price;
             $orderDetail['tong_tien']    = $getlistProduct[$product->id]*$product->price;
@@ -352,20 +352,20 @@ class CartController extends Controller
                 $event_id = Session::get('event_id') ? Session::get('event_id') : 0;
                 if($event_id == 0){
                     $dt = Carbon::now()->format('Y-m-d H:i:s');
-                    $tmpEvent = Events::where('from_date', '<=', $dt)->where('to_date', '>=', $dt)->where('status', 1)->join('product_event', 'sp_id', '=', 'events.id')->select('event_id')->first();
+                    $tmpEvent = Events::where('from_date', '<=', $dt)->where('to_date', '>=', $dt)->where('status', 1)->join('product_event', 'product_id', '=', 'events.id')->select('event_id')->first();
                     if($tmpEvent){
                         $event_id = $tmpEvent->event_id;
                     }
                 }
 
-                $tmpPE = ProductEvent::where('sp_id', $product->id)->where('event_id', $event_id)->first();
+                $tmpPE = ProductEvent::where('product_id', $product->id)->where('event_id', $event_id)->first();
                 if($tmpPE){                    
                     $tmpSL = $tmpPE->so_luong_tam > 0 ? $tmpPE->so_luong_tam - 1 : 0;
                     $tmpPE->update(['so_luong_tam' => $tmpSL]);
                 }                
 
             }else{
-                $tmpModelProduct = SanPham::find($product->id);
+                $tmpModelProduct = Product::find($product->id);
                 $tmpSL = $tmpModelProduct->so_luong_tam > 0 ? $tmpModelProduct->so_luong_tam - 1 : 0;
                 $tmpModelProduct->update(['so_luong_tam' => $tmpSL]);
             }

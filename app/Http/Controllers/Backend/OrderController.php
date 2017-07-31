@@ -10,7 +10,7 @@ use App\Helpers\Helper;
 use App\Models\Orders;
 use App\Models\OrderDetail;
 use App\Models\Customer;
-use App\Models\SanPham;
+use App\Models\Product;
 use DB;
 use Mail;
 class OrderController extends Controller
@@ -110,9 +110,9 @@ class OrderController extends Controller
             case "3":
                 $orderDetail = OrderDetail::where('order_id', $order_id)->get();
                 foreach($orderDetail as $detail){
-                    $sp_id = $detail->sp_id;                    
+                    $product_id = $detail->product_id;                    
                     $so_luong = $detail->so_luong;
-                    $modelProduct = SanPham::find($sp_id);
+                    $modelProduct = Product::find($product_id);
                     $so_luong_ton =  $modelProduct->so_luong_ton - $so_luong;
                     $so_luong_ton  = $so_luong_ton > 0 ? $so_luong_ton : 0;
                     $modelProduct->update(['so_luong_ton' => $so_luong_ton]);

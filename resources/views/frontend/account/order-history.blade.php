@@ -48,7 +48,7 @@
                                     <td>                                        
                                     @foreach($order->order_detail()->get() as $detail)
                                     
-                                    <p>{{ Helper::getName($detail->sp_id, 'san_pham') }} [ <span style="color:#ec1c24">{{ $detail->so_luong }}</span> ]</p>
+                                    <p>{{ Helper::getName($detail->product_id, 'product') }} [ <span style="color:#ec1c24">{{ $detail->so_luong }}</span> ]</p>
                                     @endforeach
                                     </td>
                                     <td style="text-align:right">{{ number_format($order->tong_tien) }}&nbsp;₫</td>                                    

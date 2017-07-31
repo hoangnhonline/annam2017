@@ -23,7 +23,19 @@ class LoaiSp extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'slug', 'alias', 'bg_color', 'is_hot', 'status', 'icon_url', 'display_order', 'description', 'home_style', 'meta_id', 'menu_ngang', 'menu_doc', 'icon_mau', 'is_hover', 'banner_menu', 'price_sort', 'icon_km', 'phi_dich_vu'];
+    protected $fillable = [
+                            'name', 
+                            'slug', 
+                            'alias',           
+                            'is_hot', 
+                            'status',                     
+                            'display_order', 
+                            'description',                 
+                            'meta_id',                            
+                            'is_hover',
+                            'created_user',
+                            'updated_user'
+                        ];
 
     public function cates()
     {

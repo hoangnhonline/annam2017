@@ -179,80 +179,13 @@ class LoaiSpController extends Controller
         
         $this->validate($request,[
             'name' => 'required',
-            'slug' => 'required',
-            'phi_dich_vu' => 'numeric',
+            'slug' => 'required'            
         ],
         [
             'name.required' => 'Bạn chưa nhập tên danh mục',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'phi_dich_vu.numeric' => 'Vui lòng nhập phí dịch vụ hợp lệ',
+            'slug.required' => 'Bạn chưa nhập slug'            
         ]);
-
-        $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
         
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
-       
-        if($dataArr['icon_url'] && $dataArr['icon_name']){
-            
-            $tmp = explode('/', $dataArr['icon_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_url'] = $destionation;
-        }  
-        if($dataArr['banner_menu'] && $dataArr['banner_name']){
-            
-            $tmp = explode('/', $dataArr['banner_menu']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
-            
-            $dataArr['banner_menu'] = $destionation;
-        }
-        if($dataArr['icon_mau'] && $dataArr['image_name_mau']){
-            
-            $tmp = explode('/', $dataArr['icon_mau']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_mau'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_mau'] = $destionation;
-        }  
-        if($dataArr['icon_km'] && $dataArr['image_name_km']){
-            
-            $tmp = explode('/', $dataArr['icon_km']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_km'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_km'] = $destionation;
-        }  
-
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;    
-        $dataArr['menu_ngang'] = isset($dataArr['menu_ngang']) ? 1 : 0;    
-        $dataArr['menu_doc'] = isset($dataArr['menu_doc']) ? 1 : 0;    
-        $dataArr['is_hover'] = isset($dataArr['is_hover']) ? 1 : 0;    
         $dataArr['created_user'] = Auth::user()->id;
 
         $dataArr['updated_user'] = Auth::user()->id;
@@ -308,83 +241,13 @@ class LoaiSpController extends Controller
         
         $this->validate($request,[
             'name' => 'required',
-            'slug' => 'required',
-            'phi_dich_vu' => 'numeric'
+            'slug' => 'required'            
         ],
         [
             'name.required' => 'Bạn chưa nhập tên danh mục',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'phi_dich_vu.numeric' => 'Vui lòng nhập phí dịch vụ hợp lệ',
+            'slug.required' => 'Bạn chưa nhập slug'          
         ]);
-
-        $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
-
-        $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
-        
-        if($dataArr['icon_url'] && $dataArr['icon_name']){
-            
-            $tmp = explode('/', $dataArr['icon_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_url'] = $destionation;
-        }  
-        if($dataArr['icon_km'] && $dataArr['image_name_km']){
-            
-            $tmp = explode('/', $dataArr['icon_km']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_km'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_km'] = $destionation;
-        } 
-        if($dataArr['banner_menu'] && $dataArr['banner_name']){
-            
-            $tmp = explode('/', $dataArr['banner_menu']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['banner_menu'], config('annam.upload_path').$destionation);
-            
-            $dataArr['banner_menu'] = $destionation;            
-        }
-        if($dataArr['icon_mau'] && $dataArr['image_name_mau']){
-            
-            $tmp = explode('/', $dataArr['icon_mau']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_mau'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_mau'] = $destionation;
-        }  
-        
-
-        $dataArr['updated_user'] = Auth::user()->id;
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;    
-        $dataArr['menu_ngang'] = isset($dataArr['menu_ngang']) ? 1 : 0;    
-        $dataArr['menu_doc'] = isset($dataArr['menu_doc']) ? 1 : 0;    
-        $dataArr['is_hover'] = isset($dataArr['is_hover']) ? 1 : 0;    
-
+       
         $model = LoaiSp::find($dataArr['id']);
         $model->update($dataArr);
 

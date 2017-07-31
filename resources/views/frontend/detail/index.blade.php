@@ -21,7 +21,7 @@
 
       function add_product_to_cart(product_id) {
         $.ajax({
-          url: "{{route('them-sanpham')}}",
+          url: "{{route('them-Product')}}",
           method: "POST",
           data : {
             id: product_id

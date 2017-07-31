@@ -1,4 +1,4 @@
-@extends('layout.backend')
+@extends('backend.layout')
 @section('content')
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
@@ -59,7 +59,9 @@
             @if( $items->count() > 0 )
               <?php $i = 0; ?>
               @foreach( $items as $item )
-                <?php $i ++; ?>
+                <?php $i ++; 
+
+                ?>
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>
                 <td style="vertical-align:middle;text-align:center">

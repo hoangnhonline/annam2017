@@ -23,6 +23,11 @@ class Newsletter extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['email', 'status', 'is_member', 'updated_user'];
+    protected $fillable = [
+                            'email', 
+                            'status', 
+                            'is_member', 
+                            'updated_user'
+                        ];
 
 }

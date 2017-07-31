@@ -56,7 +56,7 @@ Route::group(['namespace' => 'Frontend'], function()
 
     Route::get('{slugLoaiSp}/ban-chay/', ['as' => 'ban-chay', 'uses' => 'CateController@banChay']);
 
-    Route::get('{slugLoaiSp}/san-pham-moi/', ['as' => 'san-pham-moi', 'uses' => 'CateController@sanPhamMoi']);
+    Route::get('{slugLoaiSp}/san-pham-moi/', ['as' => 'san-pham-moi', 'uses' => 'CateController@ProductMoi']);
     Route::get('{slugLoaiSp}/giam-gia/', ['as' => 'giam-gia', 'uses' => 'CateController@giamGia']);
 
     Route::get('/rap-may-tinh-online', ['as' => 'lap-rap', 'uses' => 'LapRapController@lapRap']);
@@ -69,8 +69,8 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::any('shipping-step-1', ['as' => 'shipping-step-1', 'uses' => 'CartController@shippingStep1']);
         Route::get('shipping-step-2', ['as' => 'shipping-step-2', 'uses' => 'CartController@shippingStep2']);
         Route::get('shipping-step-3', ['as' => 'shipping-step-3', 'uses' => 'CartController@shippingStep3']);
-        Route::post('update-sanpham', ['as' => 'update-sanpham', 'uses' => 'CartController@update']);
-        Route::post('them-sanpham', ['as' => 'them-sanpham', 'uses' => 'CartController@addProduct']);
+        Route::post('update-Product', ['as' => 'update-Product', 'uses' => 'CartController@update']);
+        Route::post('them-Product', ['as' => 'them-Product', 'uses' => 'CartController@addProduct']);
         Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
         Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
     });

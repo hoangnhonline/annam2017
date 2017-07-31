@@ -7,9 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\SanPham;
+use App\Models\Product;
 use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
+use App\Models\ProductImg;
 use App\Models\ThuocTinh;
 use App\Models\LoaiThuocTinh;
 use App\Models\Banner;
@@ -42,7 +42,7 @@ class OrderController extends Controller
       $orderDetail = $order->order_detail;      
     }
     foreach($orderDetail as $detail){
-      $detailArr[$detail->sp_id] = SanPham::find($detail->sp_id);
+      $detailArr[$detail->product_id] = Product::find($detail->product_id);
     }
     $str_order_id = str_pad($order->id, 6, "0", STR_PAD_LEFT);
      $seo['title'] = $seo['description'] = $seo['keywords'] = "Chi tiết đơn hàng #".$str_order_id;

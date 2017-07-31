@@ -65,33 +65,14 @@ class CateController extends Controller
             'name.required' => 'Bạn chưa nhập tên danh mục',
             'slug.required' => 'Bạn chưa nhập slug',
         ]);
-
-        $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
-        
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
         
         $dataArr['created_user'] = Auth::user()->id;
 
         $dataArr['updated_user'] = Auth::user()->id;
 
-        if($dataArr['icon_url'] && $dataArr['icon_name']){
-            
-            $tmp = explode('/', $dataArr['icon_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_url'] = $destionation;
-        }
         
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;    
-        $dataArr['menu_ngang'] = isset($dataArr['menu_ngang']) ? 1 : 0;    
-        $dataArr['menu_doc'] = isset($dataArr['menu_doc']) ? 1 : 0;  
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;            
 
         $dataArr['display_order'] = 1;
 
@@ -168,31 +149,13 @@ class CateController extends Controller
             'name.required' => 'Bạn chưa nhập tên danh mục',
             'slug.required' => 'Bạn chưa nhập slug',
         ]);
-
-        $dataArr['bg_color'] = $dataArr['bg_color'] != '' ? $dataArr['bg_color'] : '#EE484F';
-
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
 
         $model = Cate::find($dataArr['id']);
 
         $dataArr['updated_user'] = Auth::user()->id;
-        if($dataArr['icon_url'] && $dataArr['icon_name']){
-            
-            $tmp = explode('/', $dataArr['icon_url']);
-
-            if(!is_dir('uploads/'.date('Y/m/d'))){
-                mkdir('uploads/'.date('Y/m/d'), 0777, true);
-            }
-
-            $destionation = date('Y/m/d'). '/'. end($tmp);
-            
-            File::move(config('annam.upload_path').$dataArr['icon_url'], config('annam.upload_path').$destionation);
-            
-            $dataArr['icon_url'] = $destionation;
-        }
-        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;    
-        $dataArr['menu_ngang'] = isset($dataArr['menu_ngang']) ? 1 : 0;    
-        $dataArr['menu_doc'] = isset($dataArr['menu_doc']) ? 1 : 0;
+       
+        $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;           
 
         $model->update($dataArr);
 

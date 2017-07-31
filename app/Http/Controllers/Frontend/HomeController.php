@@ -7,9 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\SanPham;
+use App\Models\Product;
 use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
+use App\Models\ProductImg;
 use App\Models\ThuocTinh;
 use App\Models\LoaiThuocTinh;
 use App\Models\Banner;
@@ -74,7 +74,7 @@ class HomeController extends Controller
         $bannerArr = [];
         foreach( $loaiSp as $loai){
             //var_dump($loai->id."-".$loai->name);
-            $query = SanPham::where('status', 1);
+            $query = Product::where('status', 1);
             $query->where('so_luong_ton', '>', 0)
                     ->where('price', '>', 0)
                     ->where('chieu_dai', '>', 0)
@@ -84,18 +84,18 @@ class HomeController extends Controller
            
             $query->where('loai_id', $loai->id);
             
-            $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')            
-            ->select('sp_hinh.image_url', 'san_pham.*')
-            ->where('sp_hinh.image_url', '<>', '');
+            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+            ->select('product_img.image_url', 'product.*')
+            ->where('product_img.image_url', '<>', '');
             if($loai->price_sort == 0){
-                $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                $query->where('price', '>', 0)->orderBy('product.price', 'asc');
             }else{
-                $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                $query->where('price', '>', 0)->orderBy('product.price', 'desc');
             }
-            $query->orderBy('san_pham.is_hot', 'desc')
-            ->orderBy('san_pham.is_sale', 'desc')
-            ->orderBy('san_pham.display_order', 'desc')
-            ->orderBy('san_pham.id', 'desc');
+            $query->orderBy('product.is_hot', 'desc')
+            ->orderBy('product.is_sale', 'desc')
+            ->orderBy('product.display_order', 'desc')
+            ->orderBy('product.id', 'desc');
 
             
             $query->limit(32);
@@ -106,7 +106,7 @@ class HomeController extends Controller
                 $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
             }
             // man hinh may tinh
-            $query = SanPham::where('status', 1);
+            $query = Product::where('status', 1);
            /* $query->where('so_luong_ton', '>', 0)
                     ->where('price', '>', 0);
                     ->where('chieu_dai', '>', 0)
@@ -116,18 +116,18 @@ class HomeController extends Controller
            */
             $query->where('cate_id', 83);
             
-            $query->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')            
-            ->select('sp_hinh.image_url', 'san_pham.*')
-            ->where('sp_hinh.image_url', '<>', '');
+            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+            ->select('product_img.image_url', 'product.*')
+            ->where('product_img.image_url', '<>', '');
             if($loai->price_sort == 0){
-                $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                $query->where('price', '>', 0)->orderBy('product.price', 'asc');
             }else{
-                $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                $query->where('price', '>', 0)->orderBy('product.price', 'desc');
             }
-            $query->orderBy('san_pham.is_hot', 'desc')
-            ->orderBy('san_pham.is_sale', 'desc')
-            ->orderBy('san_pham.display_order', 'desc')
-            ->orderBy('san_pham.id', 'desc');
+            $query->orderBy('product.is_hot', 'desc')
+            ->orderBy('product.is_sale', 'desc')
+            ->orderBy('product.display_order', 'desc')
+            ->orderBy('product.id', 'desc');
 
             
             $query->limit(32);
@@ -167,15 +167,15 @@ class HomeController extends Controller
     {
         $tu_khoa = $request->keyword;       
 
-        $productArr = SanPham::where('san_pham.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('loai_sp.status', 1)
+        $productArr = Product::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('loai_sp.status', 1)
                         ->where('chieu_dai', '>', 0)
                         ->where('chieu_rong', '>', 0)
                         ->where('chieu_cao', '>', 0)
                         ->where('can_nang', '>', 0)
-                        ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                        ->join('loai_sp', 'loai_sp.id', '=', 'san_pham.loai_id')
-                        ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
+                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                        ->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id')
+                        ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
                         ->orderBy('id', 'desc')->paginate(20);
         $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";
         $hoverInfo = [];

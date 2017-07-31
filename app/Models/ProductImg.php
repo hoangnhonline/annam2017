@@ -3,14 +3,14 @@
 use Illuminate\Database\Eloquent\Model;
 
 
-class SpThuocTinh extends Model  {
+class ProductImg extends Model  {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'sp_thuoctinh';	
+	protected $table = 'product_img';	
 
 	 /**
      * Indicates if the model should be timestamped.
@@ -23,6 +23,10 @@ class SpThuocTinh extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['product_id', 'thuoc_tinh'];
-
+    protected $fillable = [
+                    'product_id', 
+                    'image_url', 
+                    'display_order'
+                ];
+    
 }

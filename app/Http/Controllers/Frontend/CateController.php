@@ -7,9 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\SanPham;
+use App\Models\Product;
 use App\Models\SpThuocTinh;
-use App\Models\SpHinh;
+use App\Models\ProductImg;
 use App\Models\ThuocTinh;
 use App\Models\LoaiThuocTinh;
 use App\Models\Banner;
@@ -45,23 +45,23 @@ class CateController extends Controller
         if($rs){//danh muc cha
             $loai_id = $rs->id;
             
-            $query = SanPham::where('loai_id', $loai_id)
+            $query = Product::where('loai_id', $loai_id)
                 ->where('so_luong_ton', '>', 0)
                 ->where('price', '>', 0)
                 ->where('chieu_dai', '>', 0)
                 ->where('chieu_rong', '>', 0)
                 ->where('chieu_cao', '>', 0)
                 ->where('can_nang', '>', 0)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh');
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh');
                 if($rs->price_sort == 0){
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'asc');
                 }else{
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'desc');
                 }
-                //->where('sp_hinh.image_url', '<>', '')
-                $query->orderBy('san_pham.id', 'desc');
+                //->where('product_img.image_url', '<>', '')
+                $query->orderBy('product.id', 'desc');
 
                 $productList  = $query->limit(36)->get();
                 $productArr = $productList->toArray();
@@ -106,24 +106,24 @@ class CateController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
 
         
-        $query = SanPham::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')              
+        $query = Product::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh')              
                 ->orderBy('so_lan_mua', 'desc');
                 if($rs->price_sort == 0){
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'asc');
                 }else{
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'desc');
                 }
                 $query->orderBy('is_hot', 'desc')
-                ->orderBy('san_pham.id', 'desc');
+                ->orderBy('product.id', 'desc');
                 $productArr = $query->limit(24)->get();
         $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
         $seo = Helper::seo();      
         return view('frontend.cate.ban-chay', compact('productArr', 'cateArr', 'rs', 'rsCate', 'hoverInfo', 'seo'));
     }  
-    public function sanPhamMoi(Request $request)
+    public function ProductMoi(Request $request)
     {
 
         $productArr = [];
@@ -139,16 +139,16 @@ class CateController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
 
         
-        $query = SanPham::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh');
+        $query = Product::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh');
                if($rs->price_sort == 0){
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'asc');
                 }else{
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'desc');
                 }
-                $query->orderBy('san_pham.id', 'desc')
+                $query->orderBy('product.id', 'desc')
 
                     ->orderBy('is_hot', 'desc');
                 $productArr = $query->limit(48)->paginate(24);
@@ -172,12 +172,12 @@ class CateController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
 
         
-        $productArr = SanPham::where('loai_id', $loai_id)->where('is_sale', 1)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
-                //->where('sp_hinh.image_url', '<>', '')
-                ->orderBy('san_pham.id', 'desc')
+        $productArr = Product::where('loai_id', $loai_id)->where('is_sale', 1)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
+                //->where('product_img.image_url', '<>', '')
+                ->orderBy('product.id', 'desc')
                 ->orderBy('is_hot', 'desc')
                 ->limit(48)->paginate(24);
         $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
@@ -205,18 +205,18 @@ class CateController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
 
         
-        $query = SanPham::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
+        $query = Product::where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
                 ->where('price', '>=', $from)
                 ->where('price', '<=', $to);
                 if($rs->price_sort == 0){
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'asc');
                 }else{
-                    $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                    $query->where('price', '>', 0)->orderBy('product.price', 'desc');
                 }                
-                $query->orderBy('san_pham.id', 'desc')
+                $query->orderBy('product.id', 'desc')
                 ->orderBy('is_hot', 'desc');
                 $productArr = $query->paginate(24);                
         $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();        
@@ -315,16 +315,16 @@ class CateController extends Controller
         $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
 
         
-        $query = SanPham::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
-                ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
-                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
-                ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh');
+        $query = Product::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)->where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh');
                     if($rs->price_sort == 0){
-                        $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+                        $query->where('price', '>', 0)->orderBy('product.price', 'asc');
                     }else{
-                        $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+                        $query->where('price', '>', 0)->orderBy('product.price', 'desc');
                     }
-                $query->orderBy('san_pham.id', 'desc');
+                $query->orderBy('product.id', 'desc');
                 $productArr = $query->paginate(24);
         $hoverInfo = HoverInfo::where('loai_id', $rs->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
         $socialImage = $rsCate->icon_url;

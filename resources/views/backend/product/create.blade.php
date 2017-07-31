@@ -1,4 +1,4 @@
-@extends('layout.backend')
+@extends('backend.layout')
 @section('content')
 <div class="content-wrapper">
   <!-- Content Header (Page header) -->
@@ -42,8 +42,7 @@
 
                   <!-- Nav tabs -->
                   <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin cơ bản</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>
+                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>                    
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
                     <li role="presentation"><a href="#thuoctinh" aria-controls="thuoctinh" role="tab" data-toggle="tab">Thuộc tính</a></li>
                   </ul>
@@ -78,84 +77,61 @@
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
                         </div>                        
-                        <div class="col-md-6 none-padding">
+                        <div class="col-md-4 none-padding">
                           <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" alue="1"> Sản phẩm HOT </label>
+                              <label><input type="checkbox" name="is_new" value="1"> NEW </label>
                           </div>                          
                         </div>
-                        <div class="col-md-6 none-padding pleft-5">
+                        <div class="col-md-4 none-padding">
+                          <div class="checkbox">
+                              <label><input type="checkbox" name="is_hot" value="1"> HOT </label>
+                          </div>                          
+                        </div>
+                        <div class="col-md-4 none-padding pleft-5">
                             <div class="checkbox">
-                              <label><input type="checkbox" name="is_sale" alue="1"> Sản phẩm sale </label>
+                              <label><input type="checkbox" name="is_sale" value="1"> SALE </label>
                           </div>
                         </div>
                         <div class="form-group" >                  
-                            <label>Giá hiển thị ( 1 sản phẩm)<span class="red-star">*</span></label>
+                            <label>Giá<span class="red-star">*</span></label>
                             <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
                         </div>
+                        <div class="form-group" >                  
+                            <label>Giá SALE<span class="red-star">*</span></label>
+                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
+                        </div>
+                         <div class="col-md-6 none-padding">
+                          <label>Số lượng tồn<span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') }}">                        
+                        </div>
+                        <div class="col-md-6 none-padding pleft-5">
+                            <label>Màu sắc</label>
+                            <select name="color_id" id="color_id" class="form-control">
+                                <option value="">--chọn--</option>
+                                @if( $colorArr->count() > 0)
+                                  @foreach( $colorArr as $color )
+                                      <option value="{{ $color->id }}">{{ $color->name }}</option>
+                                  @endforeach
+                                @endif
 
-                      
+                            </select>
+                        </div>
+                        <div class="form-group col-md-6 none-padding">
+                            <label>Mô tả ngắn</label>
+                            <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta') }}</textarea>
+                          </div>
+                        <div class="form-group col-md-6 none-padding pleft-5">
+                          <label>Khuyến mãi</label>
+                          <textarea class="form-control" rows="4" name="khuyen_mai" id="khuyen_mai">{{ old('khuyen_mai') }}</textarea>
+                        </div>
+                         
+                        <div class="form-group">
+                          <label>Chi tiết</label>
+                          <textarea class="form-control" rows="10" name="chi_tiet" id="chi_tiet">{{ old('chi_tiet') }}</textarea>
+                        </div>
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
-                    <div role="tabpanel" class="tab-pane" id="profile">
-                      <div class="col-md-4 none-padding">
-                        <label>Số lượng tồn<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                          <label>Màu sắc</label>
-                          <select name="color_id" id="color_id" class="form-control">
-                              <option value="">--chọn--</option>
-                              @if( $colorArr->count() > 0)
-                                @foreach( $colorArr as $color )
-                                    <option value="{{ $color->id }}">{{ $color->name }}</option>
-                                @endforeach
-                              @endif
-
-                          </select>
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                        <label>Cân nặng<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="can_nang" id="can_nang" value="{{ old('can_nang') }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding">
-                        <label>Chiều dài<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="chieu_dai" id="chieu_dai" value="{{ old('chieu_dai') }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                        <label>Chiều rộng<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="chieu_rong" id="chieu_rong" value="{{ old('chieu_rong') }}">                        
-                      </div>
-                      <div class="col-md-4 none-padding pleft-5">
-                        <label>Chiều cao<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="chieu_cao" id="chieu_cao" value="{{ old('chieu_cao') }}">                        
-                      </div>                     
-                      <div class="clearfix"></div> 
-                      <div class="form-group">
-                        <div class="checkbox">
-                            <label><input type="checkbox" name="is_primary" value="1"> Sản phẩm đại diện </label>
-                        </div>                                                  
-                          <input type="text" class="form-control" placeholder="Tên đại diện hiển thị" name="name_primary" id="name_primary" value="{{ old('name_primary') }}">
-                      </div>
-                      <div class="form-group">
-                          
-                      </div>
-                      
-                      <div class="form-group col-md-6 none-padding">
-                          <label>Mô tả ngắn</label>
-                          <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta') }}</textarea>
-                        </div>
-                      <div class="form-group col-md-6 none-padding pleft-5">
-                        <label>Khuyến mãi</label>
-                        <textarea class="form-control" rows="4" name="khuyen_mai" id="khuyen_mai">{{ old('khuyen_mai') }}</textarea>
-                      </div>
-                       
-                      <div class="form-group">
-                        <label>Chi tiết</label>
-                        <textarea class="form-control" rows="10" name="chi_tiet" id="chi_tiet">{{ old('chi_tiet') }}</textarea>
-                      </div>
-
-
-                    </div><!--end thong tin chi tiet-->  
+                    
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                          

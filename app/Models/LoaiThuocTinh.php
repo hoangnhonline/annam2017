@@ -23,7 +23,15 @@ class LoaiThuocTinh extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'alias', 'status', 'loai_id', 'display_order', 'created_user', 'updated_user'];
+    protected $fillable = [
+                            'name', 
+                            'alias', 
+                            'status', 
+                            'loai_id', 
+                            'display_order', 
+                            'created_user', 
+                            'updated_user'
+                        ];
 
     public function thuocTinh()
     {

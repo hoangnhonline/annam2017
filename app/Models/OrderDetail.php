@@ -25,7 +25,7 @@ class OrderDetail extends Model  {
      */
     protected $fillable = [
 	  	'order_id',
-	  	'sp_id',
+	  	'product_id',
 	  	'so_luong',
 	  	'don_gia',
 	  	'tong_tien',
@@ -36,6 +36,6 @@ class OrderDetail extends Model  {
 
     public function product()
     {
-        return $this->hasOne('App\Models\SanPham', 'id', 'sp_id');
+        return $this->hasOne('App\Models\Product', 'id', 'product_id');
     }
 }
