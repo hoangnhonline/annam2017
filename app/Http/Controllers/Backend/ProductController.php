@@ -16,7 +16,7 @@ use App\Models\SpThuocTinh;
 use App\Models\ProductImg;
 use App\Models\MetaData;
 
-use Helper, File, Session, Auth, Hash, URL;
+use Helper, File, Session, Auth, URL, Image;
 
 class ProductController extends Controller
 {
@@ -289,14 +289,36 @@ class ProductController extends Controller
                         if(!is_dir('uploads/'.date('Y/m/d'))){
                             mkdir('uploads/'.date('Y/m/d'), 0777, true);
                         }
+                        if(!is_dir('uploads/thumbs/'.date('Y/m/d'))){
+                            mkdir('uploads/thumbs/'.date('Y/m/d'), 0777, true);
+                        }
 
                         $destionation = date('Y/m/d'). '/'. end($tmp);
-                        
+                        //var_dump(config('annam.upload_path').$image_url, config('annam.upload_path').$destionation);die;
                         File::move(config('annam.upload_path').$image_url, config('annam.upload_path').$destionation);
 
-                        $imageArr['name'][] = $destionation;
+                        $imageArr['is_thumbnail'][] = $is_thumbnail = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
 
-                        $imageArr['is_thumbnail'][] = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
+                        if($is_thumbnail == 1){
+                            $img = Image::make(config('annam.upload_path').$destionation);
+                            $w_img = $img->width();
+                            $h_img = $img->height();                            
+                         
+                            if($h_img >= $w_img){
+                                die('123');
+                                Image::make(config('annam.upload_path').$destionation)->resize(210, null, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                })->crop(210, 210)->save(config('annam.upload_thumbs_path').$destionation);
+                            }else{
+                                Image::make(config('annam.upload_path').$destionation)->resize(null, 210, function ($constraint) {
+                                        $constraint->aspectRatio();
+                                })->crop(210, 210)->save(config('annam.upload_thumbs_path').$destionation);
+                            }
+
+                        }
+
+                        $imageArr['name'][] = $destionation;
+                        
                     }
                 }
             }

@@ -76,11 +76,7 @@ class HomeController extends Controller
             //var_dump($loai->id."-".$loai->name);
             $query = Product::where('status', 1);
             $query->where('so_luong_ton', '>', 0)
-                    ->where('price', '>', 0)
-                    ->where('chieu_dai', '>', 0)
-                    ->where('chieu_rong', '>', 0)
-                    ->where('chieu_cao', '>', 0)
-                    ->where('can_nang', '>', 0);
+                    ->where('price', '>', 0);                    
            
             $query->where('loai_id', $loai->id);
             
