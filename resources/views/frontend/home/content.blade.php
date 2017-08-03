@@ -38,12 +38,28 @@
               <span class="product_price_new">650.000đ</span>
               <span class="product_price_old">280.000đ</span>
             </div>
-                      <p>Màn hình: 9.7", Retina</p>
-                      <p>HDH: IOS 10, CPU: 2 nhân</p>
-                      <p>RAM: 2 GB, ROM: 128 GB</p>
-                      <p>Camera: 8 MP và 1.2 MP</p>
-                      <p>Kết Nối: Wifi</p>
-                      <p>Pin: 32.4 Wh</p>
+            @if( $loaiSp->is_hover == 1)            
+                @foreach($hoverInfo[$loaiSp->id] as $info)
+                <?php 
+                $tmpInfo = explode(",", $info->str_thuoctinh_id);         
+                ?>
+
+                <p>{{ $info->text_hien_thi}}: <?php
+                $countT = 0; $totalT = count($tmpInfo);
+                foreach( $tmpInfo as $tinfo){
+                    $countT++;
+                    if(isset($thuocTinhArr[$tinfo])){
+                        echo $thuocTinhArr[$tinfo];
+                        echo $countT < $totalT ? ", " : "";
+                    }
+                }
+
+                 ?>                   
+                 </p>
+                @endforeach
+                
+            @endif                    
+
             </div>
           </a>
         </div>

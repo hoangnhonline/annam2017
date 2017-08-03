@@ -7,9 +7,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
 use App\Models\Cate;
-use App\Models\Product;
+use App\Models\SanPham;
 use App\Models\SpThuocTinh;
-use App\Models\ProductImg;
+use App\Models\SpHinh;
 use App\Models\ThuocTinh;
 use App\Models\LoaiThuocTinh;
 use App\Models\Banner;
@@ -24,7 +24,6 @@ use App\Models\PriceRange;
 use App\Models\Settings;
 use App\Models\LinkSite;
 use App\Models\LinkImage;
-use App\Models\CustomerNotification;
 use Helper, File, Session, Auth, Hash;
 
 class HomeController extends Controller
@@ -33,78 +32,86 @@ class HomeController extends Controller
     public static $loaiSp = []; 
     public static $loaiSpArrKey = [];    
 
-    public function __construct(){        
+    public function __construct(){
+        
        
+
     }
     /**
     * Display a listing of the resource.
     *
     * @return Response
-    */    
+    */
+    public function showLink(Request $request){
+        $site_id = $request->site_id;
+        $all = LinkSite::where('site_id', $site_id)->get();
+        $i = 0;
+        foreach($all as $data){
+            $i++;
+            echo $i."-"."<strong>".$data->link."</strong><br>";
+            if($data->images->count()){
+                foreach ($data->images as $value) {
+                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$value->image_url;
+                    echo "<br>";
+                }
+            }
+            echo "<hr>";
+        }
+        die;
+
+
+    }
+    public function loadSlider(){
+        return view('frontend.home.ajax-slider');
+    }
     public function index(Request $request)
-    {             
-        $productArr = $manhinhArr = [];
+    {  
+        $productArr = [];
+        $hoverInfo = [];
         $loaiSp = LoaiSp::where('status', 1)->get();
         $bannerArr = [];
-        foreach( $loaiSp as $loai){            
-            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id ])
-                            ->where('so_luong_ton', '>', 0)
-                            ->where('price', '>', 0)            
-                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
-                            ->select('product_img.image_url', 'product.*')                        
-                            ->orderBy('product.id', 'desc')            
-                            ->limit(15);
-           
-            $productArr[$loai->id] = $query->get();
+        foreach( $loaiSp as $loai){
+            $query = SanPham::where(['loai_id' => $loai->id])                
+            ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
+            ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
+            ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
+            ->where('sp_hinh.image_url', '<>', '');
+            if($loai->price_sort == 0){
+                $query->where('price', '>', 0)->orderBy('san_pham.price', 'asc');
+            }else{
+                $query->where('price', '>', 0)->orderBy('san_pham.price', 'desc');
+            }
+            $query->orderBy('san_pham.is_hot', 'desc')
+            ->orderBy('san_pham.is_sale', 'desc')
+            ->orderBy('san_pham.display_order', 'desc')
+            ->orderBy('san_pham.id', 'desc');
 
+            if($loai->home_style == 0){
+                $query->limit(12);
+            }elseif( $loai->home_style == 1){
+                $query->limit(6);
+            }elseif( $loai->home_style == 2){
+                $query->limit(8);
+            }else{
+                $query->limit(8);
+            }
             if( $loai->home_style > 0 ){
                 $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-            }       
-
-
-            // hien thuoc tinh
-            $tmp = SpThuocTinh::where('sp_id', $detail->id)->select('thuoc_tinh')->first();
-            
-            if( $tmp ){
-                $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
             }
-            if ( $spThuocTinhArr ){
-                $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $detail->loai_id)->orderBy('display_order')->get();            
-               
-                if( $loaiThuocTinhArr->count() > 0){
-                    foreach ($loaiThuocTinhArr as $value) {
 
-                        $thuocTinhArr[$value->id]['id'] = $value->id;
-                        $thuocTinhArr[$value->id]['name'] = $value->name;
-
-                        $thuocTinhArr[$value->id]['child'] = ThuocTinh::where('loai_thuoc_tinh_id', $value->id)->select('id', 'name')->orderBy('display_order')->get()->toArray();
-                    }
-                    
-                }        
-            }        
-        
-        }
-
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-        $seo = $settingArr;
-        $seo['title'] = $settingArr['site_title'];
-        $seo['description'] = $settingArr['site_description'];
-        $seo['keywords'] = $settingArr['site_keywords'];
-        $socialImage = $settingArr['banner'];
-
-
-
+            $hoverInfo[$loai->id] = HoverInfo::where('loai_id', $loai->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->limit(8)->get();
+            $productArr[$loai->id] = $query->get()->toArray();
+            
+            $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+            $seo = $settingArr;
+            $seo['title'] = $settingArr['site_title'];
+            $seo['description'] = $settingArr['site_description'];
+            $seo['keywords'] = $settingArr['site_keywords'];
+            $socialImage = $settingArr['logo'];
+        }    
         $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
-                
-        return view('frontend.home.index', compact('productArr', 'bannerArr', 'articlesArr', 'socialImage', 'seo', 'thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr'));
-    }
 
-    public function getNoti(){
-        $countMess = 0;
-        if(Session::get('userId') > 0){
-            $countMess = CustomerNotification::where(['customer_id' => Session::get('userId'), 'status' => 1])->count();    
-        }
-        return $countMess;
+        return view('frontend.home.index', compact('productArr', 'hoverInfo', 'bannerArr', 'articlesArr', 'socialImage', 'seo'));
     }
     /**
     * Show the form for creating a new resource.
@@ -115,26 +122,13 @@ class HomeController extends Controller
     {
         $tu_khoa = $request->keyword;       
 
-        $productArr = Product::where('product.alias', 'LIKE', '%'.$tu_khoa.'%')->where('so_luong_ton', '>', 0)->where('price', '>', 0)->where('loai_sp.status', 1)
-                        ->where('chieu_dai', '>', 0)
-                        ->where('chieu_rong', '>', 0)
-                        ->where('chieu_cao', '>', 0)
-                        ->where('can_nang', '>', 0)
-                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
-                        ->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id')
-                        ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
+        $productArr = SanPham::where('alias', 'LIKE', '%'.$tu_khoa.'%')
+                        ->leftJoin('sp_hinh', 'sp_hinh.id', '=','san_pham.thumbnail_id')
+                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.sp_id', '=','san_pham.id')
+                        ->select('sp_hinh.image_url', 'san_pham.*', 'thuoc_tinh')
                         ->orderBy('id', 'desc')->paginate(20);
-        $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";
-        $hoverInfo = [];
-        if($productArr->count() > 0){
-            $hoverInfoTmp = HoverInfo::orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-            foreach($hoverInfoTmp as $value){
-                $hoverInfo[$value->loai_id][] = $value;
-            }
-        }
-        //var_dump("<pre>", $hoverInfo);die;
-        return view('frontend.search.index', compact('productArr', 'tu_khoa', 'seo', 'hoverInfo'));
+        $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";                            
+        return view('frontend.search.index', compact('productArr', 'tu_khoa', 'seo'));
     }
     public function ajaxTab(Request $request){
         $table = $request->type ? $request->type : 'category';
@@ -181,7 +175,7 @@ class HomeController extends Controller
                 ->first();
         $is_km = $is_news = $is_kn = 0;
         if( $detail ){           
-
+            //var_dump("<pre>", $detail);die;
             $title = trim($detail->meta_title) ? $detail->meta_title : $detail->title;
 
             $hotArr = Articles::where( ['cate_id' => 1, 'is_hot' => 1] )->where('id', '<>', $id)->orderBy('id', 'desc')->limit(5)->get();
@@ -196,7 +190,9 @@ class HomeController extends Controller
             return view('frontend.news.news-detail', compact('title',  'hotArr', 'detail', 'otherArr', 'seo', 'socialImage', 'is_km', 'is_news', 'is_kn'));
         }else{
             return view('erros.404');
-        }
+        }     
+
+        
     }
 
     public function registerNews(Request $request)
