@@ -46,6 +46,7 @@ class HomeController extends Controller
         $productArr = $manhinhArr = [];
         $loaiSp = LoaiSp::where('status', 1)->get();
         $bannerArr = [];
+        $hoverInfo = [];
         foreach( $loaiSp as $loai){            
             $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id ])
                             ->where('so_luong_ton', '>', 0)
@@ -61,15 +62,25 @@ class HomeController extends Controller
                 $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
             }       
 
-
-            // hien thuoc tinh
-            $tmp = SpThuocTinh::where('sp_id', $detail->id)->select('thuoc_tinh')->first();
+           
+            if(count($productArr) > 0){
+                $hoverInfoTmp = HoverInfo::orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+                
+                foreach($hoverInfoTmp as $value){
+                    if($value->loai_id == $loai->id){
+                        $hoverInfo[$value->loai_id][] = $value;
+                    }
+                }
+            }
+            //dd($hoverInfo);
+            /*
+            $tmp = SpThuocTinh::where('product_id', $detail->id)->select('thuoc_tinh')->first();
             
             if( $tmp ){
                 $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
             }
             if ( $spThuocTinhArr ){
-                $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $detail->loai_id)->orderBy('display_order')->get();            
+                $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $loai->id)->orderBy('display_order')->get();            
                
                 if( $loaiThuocTinhArr->count() > 0){
                     foreach ($loaiThuocTinhArr as $value) {
@@ -81,10 +92,10 @@ class HomeController extends Controller
                     }
                     
                 }        
-            }        
+            } */ 
         
-        }
-
+        }// foreach
+      //  dd($hoverInfo);
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
         $seo = $settingArr;
         $seo['title'] = $settingArr['site_title'];
@@ -96,7 +107,16 @@ class HomeController extends Controller
 
         $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
                 
-        return view('frontend.home.index', compact('productArr', 'bannerArr', 'articlesArr', 'socialImage', 'seo', 'thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr'));
+        return view('frontend.home.index', compact(
+                                'productArr', 
+                                'bannerArr', 
+                                'articlesArr', 
+                                'socialImage', 
+                                'seo', 
+                                'thuocTinhArr', 
+                                'loaiThuocTinhArr', 
+                                'spThuocTinhArr',
+                                'hoverInfo'));
     }
 
     public function getNoti(){

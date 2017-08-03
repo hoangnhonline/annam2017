@@ -69,32 +69,7 @@
 		<main class="main">
 			<div class="container">
 				@include('frontend.partials.header')
-				<!-- <div class="block_service row">
-		    		<div class="col-md-4 col-sm-4 col-xs-12 service_regis">
-						<a href="#"><i class="fa fa-users"></i>
-							<div class="desc">
-								<h4>Đăng ký thành viên MAI NGUYÊN</h4>
-								<p>Nhận ngay voucher 400.000 Đ</p>
-							</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-12 service_pay">
-						<a href="#"><i class="service_icon service_icon_payment"></i>
-							<div class="desc">
-								<h4>Thanh toán dễ dàng</h4>
-								<p>Nhận hàng - thu tiền mặt hay thẻ VISA, Master</p>
-							</div>
-						</a>
-					</div>
-					<div class="col-md-4 col-sm-4 col-xs-12 service_ship">
-						<a href="#"><i class="service_icon service_icon_delivery"></i>
-							<div class="desc">
-								<h4>Giao hàng nhanh và miễn phí</h4>
-								<p>Toàn quốc, có thể đổi trả</p>
-							</div>
-						</a>
-					</div>
-		    	</div> --><!-- /block_service -->
+
 				@yield('content')
 			</div>
 		</main><!-- /main -->
@@ -301,5 +276,6 @@
 			templateResult: formatState
 		});
 	</script>
+	@yield('js')
 </body>
 </html>

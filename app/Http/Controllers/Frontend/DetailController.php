@@ -136,31 +136,7 @@ class DetailController extends Controller
         $moviesArr = Film::where('alias', 'LIKE', '%'.$tu_khoa.'%')->orderBy('id', 'desc')->paginate(20);
 
         return view('frontend.cate', compact('settingArr', 'moviesArr', 'tu_khoa',  'is_search', 'layout_name', 'page_name' ));
-    }
-
-    public function cate(Request $request)
-    {
-
-        $productArr = [];
-        $slugLoaiSp = $request->slugLoaiSp;
-        $slug = $request->slug;
-        $rs = LoaiSp::where('slug', $slugLoaiSp)->first();
-        $loai_id = $rs->id;
-        $rsCate = Cate::where(['loai_id' => $loai_id, 'slug' => $slug])->first();
-        $cate_id = $rsCate->id;
-
-        $cateArr = Cate::where('status', 1)->where('loai_id', $loai_id)->get();
-
-        
-        $productArr = Product::where('cate_id', $rsCate->id)->where('loai_id', $loai_id)
-                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                ->select('product_img.image_url', 'product.*')
-                //->where('product_img.image_url', '<>', '')
-                ->orderBy('product.id', 'desc')
-                ->paginate(24);
-
-        return view('frontend.cate.child', compact('productArr', 'cateArr', 'rs', 'rsCate'));
-    }
+    }    
 
     public function tags(Request $request)
     {

@@ -33,23 +33,31 @@
             @endif
             </div>
             <div class="product_detail">
-              <p class="name">Dây đeo đồng hồ Silicon Samsung Gear S3 Frontier/Classic</p>
+              <p class="name">{!! $product->name !!}</p>
                     <div class="product_price">
-              <span class="product_price_new">650.000đ</span>
-              <span class="product_price_old">280.000đ</span>
+              <span class="product_price_new">{{ $product->is_sale == 1 ? number_format($product->price_sale) : number_format($product->price) }}đ</span>
+              @if($product->is_sale)
+              <span class="product_price_old">{{ number_format($product->price) }}đ</span>
+              @endif
             </div>
             @if( $loaiSp->is_hover == 1)            
                 @foreach($hoverInfo[$loaiSp->id] as $info)
                 <?php 
-                $tmpInfo = explode(",", $info->str_thuoctinh_id);         
+                $tmpInfo = explode(",", $info->str_thuoctinh_id);              
                 ?>
 
-                <p>{{ $info->text_hien_thi}}: <?php
+                <p>
+                {{ $info->text_hien_thi}}: 
+                <?php
+                $tmp = DB::table('sp_thuoctinh')->where('product_id', $product->id)->select('thuoc_tinh')->first();            
+                if( $tmp ){
+                    $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);                 
+                }
                 $countT = 0; $totalT = count($tmpInfo);
                 foreach( $tmpInfo as $tinfo){
                     $countT++;
-                    if(isset($thuocTinhArr[$tinfo])){
-                        echo $thuocTinhArr[$tinfo];
+                    if(isset($spThuocTinhArr[$tinfo])){
+                        echo $spThuocTinhArr[$tinfo];
                         echo $countT < $totalT ? ", " : "";
                     }
                 }
@@ -58,7 +66,7 @@
                  </p>
                 @endforeach
                 
-            @endif                    
+              @endif                    
 
             </div>
           </a>

@@ -2,13 +2,13 @@
 	<header class="header-des">
 		<div class="block block_header_top row">
 			<div class="block_logo col-md-2 col-sm-2">
-				<a href="index.html" title="">
+				<a href="{!! route('home') !!}" title="">
 					<img src="images/logo.png" alt="Logo">
 				</a>
 			</div><!-- /block_logo -->
 			<div class="block_search col-md-6 col-sm-6">
 				<div class="block_search_inner">
-					<p class="block_call_support">HOTLINE<a href="tel:+84977385385">0977.385.385</a></p>
+					<p class="block_call_support">HOTLINE<a href="tel:+0904500057">0904500057</a></p>
 					<form name="frm_search" action="" class="frm-search">
 						<div class="control clearfix">
 							<button type="submit">
@@ -39,7 +39,7 @@
 	            	<a href="#" onclick="return false" data-toggle="modal" data-target="#scart_popup"><span class="order_total_quantity">1</span></a>
 	            </div><!-- /block_cart_mobile -->
 	            <div class="block_logo_mobile">
-					<a href="index.html"><img src="images/logo_white.png" alt=""></a>
+					<a href="{!! route('home') !!}"><img src="images/logo_white.png" alt=""></a>
 				</div><!-- /block_logo_mobile -->
 				<div class="block_call_mobile">
 					<a href="tel:+84981200888" class="mb-phone"><i class="fa fa-phone"></i></a>
@@ -75,7 +75,7 @@
 					</li><!-- level0 -->
 					@foreach($loaiSpList as $loaiSp)
 					<li class="level0 parent">
-						<a href="product.html" title="{!! $loaiSp->name !!}">
+						<a href="{{ route('parent-cate', $loaiSp->slug) }}" title="{!! $loaiSp->name !!}">
 							<i class="fa fa-mobile"> </i>
 							{!! $loaiSp->name !!}
 						</a>
