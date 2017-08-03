@@ -14,7 +14,7 @@
                             @foreach( $menuDoc as $loai)
                             <?php $count ++; ?>
                             <li <?php if($count > 11 ) echo 'class="cat-link-orther"'; ?>>
-                                <a class="parent" href="{{ route('danh-muc-cha', $loai['slug']) }}"><img class="icon-menu" alt="icon {{ $loai['name'] }}" src="{{ Helper::showImage($loai['icon_mau']) }}" />{{ $loai['name'] }}</a>
+                                <a class="parent" href="{{ route('parent-cate', $loai['slug']) }}"><img class="icon-menu" alt="icon {{ $loai['name'] }}" src="{{ Helper::showImage($loai['icon_mau']) }}" />{{ $loai['name'] }}</a>
                                 @if( !empty($loai['child']) )
                                  <?php $countSubMenu = 0;                                                            
                                             ?>
@@ -34,7 +34,7 @@
 
                                                 ?>
                                                 @foreach($priceArr as $price)
-                                                <li><a href="{{ route('theo-gia-danh-muc-cha',['slugLoaiSp' => $loai['slug'], 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
+                                                <li><a href="{{ route('theo-gia-parent-cate',['slugLoaiSp' => $loai['slug'], 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
                                                 @endforeach                                            
                                             </ul>
                                         </div>
@@ -45,7 +45,7 @@
                                                 @foreach( $loai['child'] as $cate)
                                                 <?php $countSubMenu++; ?>
                                                 <li>
-                                                    <a href="{{ route('danh-muc-con',[ $loai['slug'], $cate['slug']]) }}">
+                                                    <a href="{{ route('child-cate',[ $loai['slug'], $cate['slug']]) }}">
                                                         {{ $cate['name']}}
                                                     </a>
                                                 </li>                                            

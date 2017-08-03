@@ -1,64 +1,57 @@
-@include('frontend.partials.meta')
 @section('content')
-@foreach( $loaiSpHot as $loai)
-
-<section class="block block-products products">
-  <div class="block-title">
-    <h2 class="title">{{ $loai['name']}}</h2>
-    <a href="{{ route('danh-muc-cha', $loai['slug']) }}" title="{{ $loai['name']}}" class="viewmore">Xem {{ count($productArr[$loai['id']]) }} sản phẩm <i class="fa fa-angle-right"></i></a>
+<div class="block block_hero">
+  <div class="row">
+    @include('frontend.home.slider')
+    @include('frontend.home.hot-news')
   </div>
-  <div class="block-content">
-    <ul class="owl-carousel owl-theme owl-style2" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":2},"768":{"items":3},"800":{"items":3},"992":{"items":6}}'>
-      @foreach( $productArr[$loai['id']] as $product )
-      <li class="item">
-        <div class="pro-thumb">
-          <a href="{{ route('chi-tiet', $product['slug']) }}" title="{{ $product['name'] }}">
-            <img src="{{ Helper::showImage($product['image_url']) }}" alt="{{ $product['name'] }}">
+</div><!-- /block_hero -->
+@include('frontend.home.ads')  
+@foreach( $loaiSpList as $loaiSp)
+<div class="block block_product">
+  <h3 class="block_title">
+    <span>{!! $loaiSp->name !!}</span>
+  </h3>
+  <div class="block_content row">
+    <ul class="list">
+      @foreach( $productArr[$loaiSp->id] as $product )
+      <li class="col-sm-5ths col-xs-6 product_item">
+        <div class="item">
+          <a href="{{ route('product-detail', [$product->slug, $product->id]) }}" title="{!! $product->name !!}">
+            <div class="product_img">              
+              <img src="{{ $product->image_url ? Helper::showImageThumb($product->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="{!! $product->name !!}" title="{!! $product->name !!}">
+            </div>
+            <div class="product_info">
+              <h3 class="product_name">{!! $product->name !!}</h3>
+              <div class="product_price">
+              <span class="product_price_new">{{ $product->is_sale == 1 ? number_format($product->price_sale) : number_format($product->price) }}đ</span>
+              @if($product->is_sale)
+              <span class="product_price_old">{{ number_format($product->price) }}đ</span>
+              @endif
+            </div>
+            @if($product->is_new)
+            <span class="new">NEW</span>
+            @endif
+            </div>
+            <div class="product_detail">
+              <p class="name">Dây đeo đồng hồ Silicon Samsung Gear S3 Frontier/Classic</p>
+                    <div class="product_price">
+              <span class="product_price_new">650.000đ</span>
+              <span class="product_price_old">280.000đ</span>
+            </div>
+                      <p>Màn hình: 9.7", Retina</p>
+                      <p>HDH: IOS 10, CPU: 2 nhân</p>
+                      <p>RAM: 2 GB, ROM: 128 GB</p>
+                      <p>Camera: 8 MP và 1.2 MP</p>
+                      <p>Kết Nối: Wifi</p>
+                      <p>Pin: 32.4 Wh</p>
+            </div>
           </a>
         </div>
-        <div class="pro-info">
-          <h2 class="pro-title"><a href="{{ route('chi-tiet', $product['slug']) }}">{{ $product['name'] }}</a></h2>
-          <div class="price-products">
-            <p class="pro-price">{{ $product['is_sale'] == 1 ? number_format($product['price_sale']) : number_format($product['price']) }}</p>
-            @if( $product['is_sale'] == 1)
-            <p class="pro-sale"><del>{{ number_format($product['price']) }}</del> <span></span></p>
-            @endif
-          </div>
-        </div>
-      </li><!-- /item -->
+      </li><!-- /product_item -->
       @endforeach
+      
     </ul>
   </div>
-</section><!-- /block-products products -->
-@if($loai['id'] == 3)
-<section class="block block-products products">
-  <div class="block-title">
-    <h2 class="title">Màn hình máy tính</h2>
-    <a href="{{ route('danh-muc-con',['phu-kien-may-tinh', 'man-hinh-may-tinh']) }}" title="Màn hình máy tính" class="viewmore">Xem {{ count($productArr[$loai['id']]) }} sản phẩm <i class="fa fa-angle-right"></i></a>
-  </div>
-  <div class="block-content">
-    <ul class="owl-carousel owl-theme owl-style2" data-nav="true" data-dots="false" data-margin="30" data-responsive='{"0":{"items":1},"480":{"items":2},"600":{"items":2},"768":{"items":3},"800":{"items":3},"992":{"items":6}}'>
-      @foreach( $manhinhArr as $product )
-      <li class="item">
-        <div class="pro-thumb">
-          <a href="{{ route('chi-tiet', $product['slug']) }}" title="{{ $product['name'] }}">
-            <img src="{{ Helper::showImage($product['image_url']) }}" alt="{{ $product['name'] }}">
-          </a>
-        </div>
-        <div class="pro-info">
-          <h2 class="pro-title"><a href="{{ route('chi-tiet', $product['slug']) }}">{{ $product['name'] }}</a></h2>
-          <div class="price-products">
-            <p class="pro-price">{{ $product['is_sale'] == 1 ? number_format($product['price_sale']) : number_format($product['price']) }}</p>
-            @if( $product['is_sale'] == 1)
-            <p class="pro-sale"><del>{{ number_format($product['price']) }}</del> <span></span></p>
-            @endif
-          </div>
-        </div>
-      </li><!-- /item -->
-      @endforeach
-    </ul>
-  </div>
-</section><!-- /block-products products -->
-@endif
+</div><!-- /block_product -->
 @endforeach
-@endsection
+@stop

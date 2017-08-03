@@ -303,13 +303,13 @@ class ProductController extends Controller
                             $img = Image::make(config('annam.upload_path').$destionation);
                             $w_img = $img->width();
                             $h_img = $img->height();                            
-                         
+                           // var_dump($w_img, $h_img);
                             if($h_img >= $w_img){
-                                die('123');
+                                //die('height > hon');
                                 Image::make(config('annam.upload_path').$destionation)->resize(210, null, function ($constraint) {
                                         $constraint->aspectRatio();
                                 })->crop(210, 210)->save(config('annam.upload_thumbs_path').$destionation);
-                            }else{
+                            }else{                             
                                 Image::make(config('annam.upload_path').$destionation)->resize(null, 210, function ($constraint) {
                                         $constraint->aspectRatio();
                                 })->crop(210, 210)->save(config('annam.upload_thumbs_path').$destionation);

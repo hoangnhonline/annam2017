@@ -1,8 +1,8 @@
 @extends('frontend.layout')  
 @include('frontend.partials.meta')
 @section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
+    @include('frontend.partials.header')
+    
   @endsection
 @section('content')
 <div class="columns-container">

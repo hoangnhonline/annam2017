@@ -1,8 +1,8 @@
 @extends('frontend.layout')
 
 @section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
+    @include('frontend.partials.header')
+    
   @endsection
 
 @include('frontend.partials.meta')
@@ -23,7 +23,7 @@
                       <div class="container">
                         <!-- Brand and toggle get grouped for better mobile display -->
                           <div class="navbar-brand" style="background-color:{{ $cate->bg_color }}">
-                            <a href="{{ route('danh-muc-con', [$rs->slug, $cate->slug])}}">{{ $cate->name }}</a>
+                            <a href="{{ route('child-cate', [$rs->slug, $cate->slug])}}">{{ $cate->name }}</a>
                             </div>
                           <span class="toggle-menu"></span>
                         <!-- Collect the nav links, forms, and other content for toggling -->

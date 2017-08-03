@@ -33,102 +33,33 @@ class HomeController extends Controller
     public static $loaiSp = []; 
     public static $loaiSpArrKey = [];    
 
-    public function __construct(){
-        
+    public function __construct(){        
        
-
     }
     /**
     * Display a listing of the resource.
     *
     * @return Response
-    */
-    public function showLink(Request $request){
-        $site_id = $request->site_id;
-        $all = LinkSite::where('site_id', $site_id)->get();
-        $i = 0;
-        foreach($all as $data){
-            $i++;
-            echo $i."-"."<strong>".$data->link."</strong><br>";
-            if($data->images->count()){
-                foreach ($data->images as $value) {
-                    echo "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;".$value->image_url;
-                    echo "<br>";
-                }
-            }
-            echo "<hr>";
-        }
-        die;
-
-
-    }
-    public function loadSlider(){
-        return view('frontend.home.ajax-slider');
-    }
+    */    
     public function index(Request $request)
     {             
-
-        $productArr = $manhinhArr = [];        
-        //$hoverInfo = [];
+        $productArr = $manhinhArr = [];
         $loaiSp = LoaiSp::where('status', 1)->get();
         $bannerArr = [];
-        foreach( $loaiSp as $loai){
-            //var_dump($loai->id."-".$loai->name);
-            $query = Product::where('status', 1);
-            $query->where('so_luong_ton', '>', 0)
-                    ->where('price', '>', 0);                    
+        foreach( $loaiSp as $loai){            
+            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id ])
+                            ->where('so_luong_ton', '>', 0)
+                            ->where('price', '>', 0)            
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+                            ->select('product_img.image_url', 'product.*')                        
+                            ->orderBy('product.id', 'desc')            
+                            ->limit(15);
            
-            $query->where('loai_id', $loai->id);
-            
-            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
-            ->select('product_img.image_url', 'product.*')
-            ->where('product_img.image_url', '<>', '');
-            if($loai->price_sort == 0){
-                $query->where('price', '>', 0)->orderBy('product.price', 'asc');
-            }else{
-                $query->where('price', '>', 0)->orderBy('product.price', 'desc');
-            }
-            $query->orderBy('product.is_hot', 'desc')
-            ->orderBy('product.is_sale', 'desc')
-            ->orderBy('product.display_order', 'desc')
-            ->orderBy('product.id', 'desc');
-
-            
-            $query->limit(32);
-           
-            $productArr[$loai->id] = $query->get()->toArray();
+            $productArr[$loai->id] = $query->get();
 
             if( $loai->home_style > 0 ){
                 $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-            }
-            // man hinh may tinh
-            $query = Product::where('status', 1);
-           /* $query->where('so_luong_ton', '>', 0)
-                    ->where('price', '>', 0);
-                    ->where('chieu_dai', '>', 0)
-                    ->where('chieu_rong', '>', 0)
-                    ->where('chieu_cao', '>', 0)
-                    ->where('can_nang', '>', 0);
-           */
-            $query->where('cate_id', 83);
-            
-            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
-            ->select('product_img.image_url', 'product.*')
-            ->where('product_img.image_url', '<>', '');
-            if($loai->price_sort == 0){
-                $query->where('price', '>', 0)->orderBy('product.price', 'asc');
-            }else{
-                $query->where('price', '>', 0)->orderBy('product.price', 'desc');
-            }
-            $query->orderBy('product.is_hot', 'desc')
-            ->orderBy('product.is_sale', 'desc')
-            ->orderBy('product.display_order', 'desc')
-            ->orderBy('product.id', 'desc');
-
-            
-            $query->limit(32);
-           
-            $manhinhArr = $query->get()->toArray();
+            }       
 
             $settingArr = Settings::whereRaw('1')->lists('value', 'name');
             $seo = $settingArr;
@@ -144,7 +75,7 @@ class HomeController extends Controller
 
         $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
                 
-        return view('frontend.home.index', compact('productArr', 'bannerArr', 'articlesArr', 'socialImage', 'seo', 'countMess', 'manhinhArr'));
+        return view('frontend.home.index', compact('productArr', 'bannerArr', 'articlesArr', 'socialImage', 'seo'));
     }
 
     public function getNoti(){

@@ -10,7 +10,7 @@
         100-round($product['price_sale']*100/$product['price'])
     }}%</span>
     @endif
-    <a href="{{ route('chi-tiet', $product['slug']) }}"><img class="img-responsive lazy-img1 lazy" alt="{{ $product['name'] }}" data-original="{{ Helper::showImage($product['image_url']) }}" /></a>
+    <a href="{{ route('product-detail', $product['slug']) }}"><img class="img-responsive lazy-img1 lazy" alt="{{ $product['name'] }}" data-original="{{ Helper::showImage($product['image_url']) }}" /></a>
     @if($product['pro_style'] == 1 && $product['image_pro'] != '')
     <img class="img-responsive lazy-img2 lazy" alt="product" src="{{ Helper::showImage($product['image_pro']) }}" />
     @endif
@@ -34,14 +34,14 @@
          ?></span>
         @endforeach
         <div class="btn-action">
-          <a class="btnorder" href="{{ route('chi-tiet', $product['slug']) }}">Đặt hàng</a>
-          <a class="viewdetail" href="{{ route('chi-tiet', $product['slug']) }}">Chi tiết</a>
+          <a class="btnorder" href="{{ route('product-detail', $product['slug']) }}">Đặt hàng</a>
+          <a class="viewdetail" href="{{ route('product-detail', $product['slug']) }}">Chi tiết</a>
         </div>
     </figure>
     @endif
 </div><!--left-->
 <div class="right-block">
-    <h2 class="product-name"><a title="{{ $product['name'] }}" href="{{ route('chi-tiet', $product['slug']) }}">{{ $product['name'] }}</a></h2>
+    <h2 class="product-name"><a title="{{ $product['name'] }}" href="{{ route('product-detail', $product['slug']) }}">{{ $product['name'] }}</a></h2>
     <div class="content_price">
         <span class="price product-price">
             @if($product['price'] > 0)
@@ -55,6 +55,6 @@
         @endif
     </div>
     @if($product['price'] > 0)
-    <a class="add_to_cart_button" href="{{ route('chi-tiet', $product['slug']) }}">Mua</a>
+    <a class="add_to_cart_button" href="{{ route('product-detail', $product['slug']) }}">Mua</a>
     @endif
 </div><!--right-->

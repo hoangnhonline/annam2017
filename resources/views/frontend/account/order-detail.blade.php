@@ -1,8 +1,8 @@
 @extends('frontend.layout')  
 @include('frontend.partials.meta')
 @section('header')
-    @include('frontend.partials.main-header')
-    @include('frontend.partials.home-menu')
+    @include('frontend.partials.header')
+    
   @endsection
 @section('content')
 <div class="columns-container">
@@ -90,7 +90,7 @@
                         <tbody>
                           @foreach($orderDetail as $rowOrder)                          
                           <tr>
-                            <td><a href="{{ route('chi-tiet', $detailArr[$rowOrder->product_id]->slug) }}" target="_blank" class="link">{{ $detailArr[$rowOrder->product_id]->name }}</a> </td>
+                            <td><a href="{{ route('product-detail', $detailArr[$rowOrder->product_id]->slug) }}" target="_blank" class="link">{{ $detailArr[$rowOrder->product_id]->name }}</a> </td>
                            
                             <td><strong class="hidden-lg hidden-md">Giá: </strong>{{ number_format($rowOrder->don_gia) }}&nbsp;₫</td>
                             <td><strong class="hidden-lg hidden-md">Số lượng: </strong>{{ $rowOrder['so_luong'] }} </td>

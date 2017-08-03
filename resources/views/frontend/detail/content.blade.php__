@@ -5,9 +5,9 @@
         <div class="breadcrumb clearfix noprint">
             <a class="home" href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a>
             <span class="navigation-pipe">&nbsp;</span>
-            <a href="{{ route('danh-muc-cha', $rsLoai->slug) }}" title="{{ $rsCate->name }}">{{ $rsLoai->name }}</a>
+            <a href="{{ route('parent-cate', $rsLoai->slug) }}" title="{{ $rsCate->name }}">{{ $rsLoai->name }}</a>
             <span class="navigation-pipe">&nbsp;</span>
-            <a href="{{ route('danh-muc-con', [$rsLoai->slug, $rsCate->slug]) }}" title="{{ $rsCate->name }}">{{ $rsCate->name }}</a>            
+            <a href="{{ route('child-cate', [$rsLoai->slug, $rsCate->slug]) }}" title="{{ $rsCate->name }}">{{ $rsCate->name }}</a>            
             <span class="navigation-pipe">&nbsp;</span>
             <span class="navigation_page">{{ $detail->name }}</span>
         </div>
@@ -78,7 +78,7 @@
                                 @endif
                                 <div class="info-orther">
                                     <!--<p>Mã sản phẩm: #453217907</p>-->
-                                    <p>Danh mục: <a href="{{ route('danh-muc-con', [$rsLoai->slug, $rsCate->slug]) }}" class="link">{{ $rsCate->name }}</a></p>
+                                    <p>Danh mục: <a href="{{ route('child-cate', [$rsLoai->slug, $rsCate->slug]) }}" class="link">{{ $rsCate->name }}</a></p>
                                 </div>
                                 <div class="form-action">                                
                                     @if($detail->price > 0 && $detail->so_luong_ton > 0 && $detail->chieu_dai > 0 && $detail->chieu_rong > 0 && $detail->chieu_cao > 0 && $detail->can_nang > 0)
@@ -137,16 +137,16 @@
                         @if( isset($productArr[$product_id]) )
                         <li>
                             <div class="products-block-left">
-                                <a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">
+                                <a href="{{ route('product-detail', $productArr[$product_id]->slug )}}">
                                     <img src="{{ Helper::showImage( $productArr[$product_id]->image_url) }}" alt="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}" title="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}">
                                 </a>
                             </div>
                             <div class="products-block-right">
                                 <h3 class="product-name">
-                                    <a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}" title="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}">{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}</a>
+                                    <a href="{{ route('product-detail', $productArr[$product_id]->slug )}}" title="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}">{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}</a>
                                 </h3>
                                 <p class="product-price">{{ $productArr[$product_id]->is_sale == 1 ? number_format($productArr[$product_id]->price_sale) : number_format($productArr[$product_id]->price)}}đ</p>
-                                <button type="button" class="add_to_cart_button" href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">Mua</button>
+                                <button type="button" class="add_to_cart_button" href="{{ route('product-detail', $productArr[$product_id]->slug )}}">Mua</button>
                             </div>
                         </li>
                         @endif
@@ -255,7 +255,7 @@
                                   -{{ $productArr[$product_id]->sale_percent ? $productArr[$product_id]->sale_percent : 
                                                                 100-round($productArr[$product_id]->price_sale*100/$productArr[$product_id]->price) }}%</span>
                                 @endif
-                                <a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">
+                                <a href="{{ route('product-detail', $productArr[$product_id]->slug )}}">
                                   <img class="img-responsive" alt="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}" src="{{ Helper::showImage( $productArr[$product_id]->image_url) }}" alt="{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}" />
                                 </a>
                                 <!--<figure class="mask-info">
@@ -267,7 +267,7 @@
                                 </figure>-->
                             </div>
                             <div class="right-block">
-                                <h3 class="product-name"><a href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}</a></h3>
+                                <h3 class="product-name"><a href="{{ route('product-detail', $productArr[$product_id]->slug )}}">{{ $productArr[$product_id]->name }} {{ $productArr[$product_id]->name_extend }}</a></h3>
                                 <div class="content_price">
                                     @if( $productArr[$product_id]->is_sale == 1)
                                     <span class="price product-price">{{ number_format($productArr[$product_id]->price_sale) }}</span>
@@ -280,7 +280,7 @@
                                 <?php $str_sosanh = $detail->id.'-'.$product_id; ?>
                                 <a href="{{ route('so-sanh', ['id' => $str_sosanh]) }}" class="compare-txt"> So sánh chi tiết</a>
                                 
-                                <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('chi-tiet', $productArr[$product_id]->slug )}}">Mua</a>
+                                <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('product-detail', $productArr[$product_id]->slug )}}">Mua</a>
                             </div>
                         </div>
                     </li> 
@@ -307,7 +307,7 @@
                                   -{{ $product->sale_percent ? $product->sale_percent : 
                                                                 100-round($product->price_sale*100/$product->price) }}%</span>
                                 @endif
-                                <a href="{{ route('chi-tiet', $product->slug )}}">
+                                <a href="{{ route('product-detail', $product->slug )}}">
                                   <img class="img-responsive" alt="{{ $product->name }} {{ $product->name_extend }}" src="{{ Helper::showImage( $product->image_url) }}" alt="{{ $product->name }} {{ $product->name_extend }}" />
                                 </a>
                                 <!--<figure class="mask-info">
@@ -319,7 +319,7 @@
                                 </figure>-->
                             </div>
                             <div class="right-block">
-                                <h3 class="product-name"><a href="{{ route('chi-tiet', $product->slug )}}">{{ $product->name }} {{ $product->name_extend }}</a></h3>
+                                <h3 class="product-name"><a href="{{ route('product-detail', $product->slug )}}">{{ $product->name }} {{ $product->name_extend }}</a></h3>
                                 <div class="content_price">
                                     @if( $product->is_sale == 1)
                                     <span class="price product-price">{{ number_format($product->price_sale) }}</span>
@@ -332,7 +332,7 @@
                                 <?php $str_sosanh = $detail->id.'-'.$product->product_id; ?>
                                 <a href="{{ route('so-sanh', ['id' => $str_sosanh]) }}" class="compare-txt"> So sánh chi tiết</a>
                                 @endif
-                                <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('chi-tiet', $product->slug )}}">Mua</a>
+                                <a rel="nofollow" href="javascript:void(0)" class="add_to_cart_button" href="{{ route('product-detail', $product->slug )}}">Mua</a>
                             </div>
                         </div>
                     </li> 

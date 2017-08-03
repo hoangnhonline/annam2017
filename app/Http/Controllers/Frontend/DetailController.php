@@ -41,8 +41,8 @@ class DetailController extends Controller
        
 
         $spThuocTinhArr = $productArr = [];
-        $slug = $request->slug;
-        $detail = Product::where('slug', $slug)->where('cate_id', '>', 0)->where('loai_id', '>', 0)->first();
+        $id = $request->id;
+        $detail = Product::find($id);
         if(!$detail){
             return redirect()->route('home');
         }
@@ -78,13 +78,8 @@ class DetailController extends Controller
         }        
         if( $detail->sp_tuongtu ){
             $tuongtuArr = explode(',', $detail->sp_tuongtu);
-        }       
-         //get compare
-        $compare1 = Compare::where('sp_1', $detail->id)->lists('sp_2')->toArray();              
-        $compare2 = Compare::where('sp_2', $detail->id)->lists('sp_1')->toArray();        
-        $sosanhArr = array_merge($compare1, $compare2);
-        //var_dump($sosanhArr);die;
-        $tmpArr = array_merge($phuKienArr, $tuongtuArr, $sosanhArr);
+        }      
+       
         
         if( !empty($tmpArr)){
             $productTmpArr = Product::whereIn('product.id', $tmpArr)
@@ -94,10 +89,7 @@ class DetailController extends Controller
                 $productArr[$product->product_id] = $product;
             }
         }
-        $lienquanArr = Product::where('product.cate_id', $detail->cate_id)
-                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                ->where('product.id', '<>', $detail->id)
-                ->select('product.id as product_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'product_img.image_url', 'is_sale')->orderBy('product.id', 'desc')->limit(10)->get();        
+       
 
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
@@ -110,7 +102,7 @@ class DetailController extends Controller
         
         $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
 
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'phuKienArr', 'tuongtuArr', 'sosanhArr', 'lienquanArr', 'seo', 'socialImage'));
+        return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage'));
     }
 
     public function ajaxTab(Request $request){

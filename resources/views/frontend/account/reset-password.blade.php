@@ -1,8 +1,8 @@
 @extends('frontend.layout') 
 
 @section('header')
-  @include('frontend.partials.main-header')
-  @include('frontend.partials.home-menu')
+  @include('frontend.partials.header')
+  
 @endsection
 @include('frontend.partials.meta')
 @section('content')

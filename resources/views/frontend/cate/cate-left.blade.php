@@ -9,7 +9,7 @@
                     <ul class="tree-menu">
                         @foreach( $cateArr as $cate)
                         <li>
-                            <span></span><a href="{{ route('danh-muc-con', [$rs->slug, $cate->slug]) }}">{{ $cate->name }}</a>                                        
+                            <span></span><a href="{{ route('child-cate', [$rs->slug, $cate->slug]) }}">{{ $cate->name }}</a>                                        
                         </li>
                         @endforeach                        
                     </ul>
@@ -30,7 +30,7 @@
 
                         ?>
                         @foreach($priceArr as $price)                                   
-                        <li><span></span><a href="{{ route('theo-gia-danh-muc-cha',['slugLoaiSp' => $rs->slug, 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
+                        <li><span></span><a href="{{ route('theo-gia-parent-cate',['slugLoaiSp' => $rs->slug, 'slugGia' => $price->alias]) }}">{{ $price->name }}</a></li>
                         @endforeach
                     </ul>
                 </div>

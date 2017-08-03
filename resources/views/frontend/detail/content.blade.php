@@ -3,8 +3,8 @@
 <article class="block block-breadcrumb">
 	<ul class="breadcrumb">	
 		<li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
-		<li><a href="{{ route('danh-muc-cha', $rsLoai->slug) }}" title="{{ $rsCate->name }}">{{ $rsLoai->name }}</a></li>
-		<li> <a href="{{ route('danh-muc-con', [$rsLoai->slug, $rsCate->slug]) }}" title="{{ $rsCate->name }}">{{ $rsCate->name }}</a>    </li>
+		<li><a href="{{ route('parent-cate', $rsLoai->slug) }}" title="{{ $rsCate->name }}">{{ $rsLoai->name }}</a></li>
+		<li> <a href="{{ route('child-cate', [$rsLoai->slug, $rsCate->slug]) }}" title="{{ $rsCate->name }}">{{ $rsCate->name }}</a>    </li>
 		<li class="active"><a href="#">{{ $detail->name }}</a></li>
 	</ul>
 </article><!-- /block-breadcrumb -->
@@ -87,7 +87,7 @@
 								<!-- <div class="panel-heading">Nội dung mô tả trong từng sản phẩm tại annammobile.com</div> -->
 								<div class="panel-body">
 									<div class="block-delivery">
-				                	<?php echo $settingArr['mo_ta_sp']; ?>
+				                	<?php //echo $settingArr['mo_ta_sp']; ?>
 				                </div>
 								</div>
 							</div>
@@ -126,9 +126,9 @@
 			</div>
 			@endif
 		</div><!-- /col-md-9 col-sm-8 col-xs-12 page-pl0 -->
-
+		<?php $lienquanArr = (object) []; ?>
 		<div class="col-md-3 col-sm-4 col-xs-12">
-			@if( $lienquanArr->count() > 0)
+			@if( -1 > 0)
 			<div class="block-right">
 				<div class="block-cate">
 					<p class="block-cate-title text-center">Sản phẩm liên quan</p>
@@ -137,12 +137,12 @@
 							@foreach( $lienquanArr as $product)						
 							<div class="item">
 								<div class="pro-thumb">
-									<a href="{{ route('chi-tiet', $product->slug )}}" title="{{ $product->name }}">
+									<a href="{{ route('product-detail', $product->slug )}}" title="{{ $product->name }}">
 										<img src="{{ Helper::showImage( $product->image_url) }}" alt="{{ $product->name }}">
 									</a>
 								</div>
 								<div class="pro-info">
-									<h2 class="pro-title"><a href="{{ route('chi-tiet', $product->slug )}}">{{ $product->name }}</a></h2>
+									<h2 class="pro-title"><a href="{{ route('product-detail', $product->slug )}}">{{ $product->name }}</a></h2>
 									<div class="price-products">
 										@if($product->is_sale == 1)
 										<p class="pro-price">{{ number_format($product->price_sale) }}</p>

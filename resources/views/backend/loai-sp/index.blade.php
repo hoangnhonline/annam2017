@@ -58,13 +58,9 @@
                   @endif
                   <p>{{ $item->description }}</p>
                 </td>
-                <td style="text-align:center"><a class="btn btn-info" href="{{ route('cate.index', [$item->id])}}">{{ $item->cates->count() }}</a></td>
-                <td style="text-align:center">
-                  <img class="img-thumbnail" src="{{ $item->icon_mau ? config( 'annam.upload_url' ).$item->icon_mau  : 'http://placehold.it/60x60' }}" width="40" />
-                </td>               
-               
+                <td style="text-align:center"><a class="btn btn-info" href="{{ route('cate.index', [$item->id])}}">{{ $item->cates->count() }}</a></td>               
                 <td style="white-space:nowrap; text-align:right">
-                <a class="btn btn-default btn-sm" href="{{ route('danh-muc-cha', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
+                <a class="btn btn-default btn-sm" href="{{ route('parent-cate', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
                   <a href="{{ route( 'loai-sp.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                 
                   @if( $item->cates->count() == 0)
                   <a onclick="return callDelete('{{ $item->name }}','{{ route( 'loai-sp.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>

@@ -1051,7 +1051,7 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 9;
+  z-index: 1;
   -ms-opacity: 0;
   opacity: 0;
   -webkit-transition-duration: 1s;
@@ -1737,12 +1737,44 @@ h1, h2, h3, h4, h5, h6 {
   background: #db0000;
   color: #fff;
 }
+.block_view .filter-prod {
+  float: right;
+  display: none;
+  color: #333;
+  font-size: 12px;
+  background-color: #ddd;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  border-radius: 5px;
+  -moz-background-clip: padding;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  padding: 1px 15px;
+  -webkit-transition: all 0.2s linear;
+  -moz-transition: all 0.2s linear;
+  -ms-transition: all 0.2s linear;
+  -o-transition: all 0.2s linear;
+  transition: all 0.2s linear;
+}
+.block_view .filter-prod.active {
+  background-color: #db0000;
+  color: #ffffff;
+}
+.block_cate_left.sticky-filter {
+  position: fixed;
+  top: 50px !important;
+  height: 100%;
+  overflow: hidden;
+}
 
 /* Block Status */
 .block_view .block_status {
   float: right;
   width: 140px;
   position: relative;
+  height: 20px;
 }
 .block_view .block_status > .pro-sts {
   display: block;
