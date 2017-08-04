@@ -94,14 +94,7 @@
           <span>Banner</span>
           
         </a>       
-      </li>
-      <li {{ in_array(\Request::route()->getName(), ['events.index', 'events.edit', 'events.create', 'events.product-event']) ? "class=active" : "" }}>
-        <a href="{{ route('events.index') }}">
-          <i class="fa fa-file-image-o"></i>
-          <span>Khuyến mãi</span>
-          
-        </a>       
-      </li> 
+      </li>     
       <li {{ in_array(\Request::route()->getName(), ['report.index']) ? "class=active" : "" }}>
         <a href="{{ route('report.index') }}">
           <i class="fa fa-area-chart"></i>

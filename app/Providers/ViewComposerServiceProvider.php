@@ -5,7 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\LoaiSp;
 use App\Models\Cate;
 use App\Models\Settings;
-
+use Request;
 //use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
 
 /**
@@ -55,12 +55,14 @@ class ViewComposerServiceProvider extends ServiceProvider
 	            }
 	        }    
 	        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+	        $routeName = \Request::route()->getName();
 	       // var_dump("<pre>", $menuDoc);die;   
 	        //var_dump("<pre>", $loaiSpKey);die;
 			$view->with( [
 					'loaiSpList' => $loaiSpList, 
 					'settingArr' => $settingArr,
-					'cateArrByLoai' => $cateArrByLoai
+					'cateArrByLoai' => $cateArrByLoai,
+					'routeName' => $routeName
 					] );
 		});
 	}

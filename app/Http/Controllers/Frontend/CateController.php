@@ -50,20 +50,16 @@ class CateController extends Controller
                 ->where('price', '>', 0)               
                 ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                 ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
-                ->select('product_img.image_url', 'product.*', 'thuoc_tinh');
-                if($loaiDetail->price_sort == 0){
-                    $query->where('price', '>', 0)->orderBy('product.price', 'asc');
-                }else{
-                    $query->where('price', '>', 0)->orderBy('product.price', 'desc');
-                }
-                //->where('product_img.image_url', '<>', '')
-                $query->orderBy('product.id', 'desc');
+                ->select('product_img.image_url', 'product.*', 'thuoc_tinh')              
+                ->orderBy('product.id', 'desc');
 
                 $productList  = $query->limit(36)->get();
                          
 
             $hoverInfo = HoverInfo::where('loai_id', $loaiDetail->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+            
             $socialImage = $loaiDetail->banner_menu;
+
             if( $loaiDetail->meta_id > 0){
                $seo = MetaData::find( $loaiDetail->meta_id )->toArray();
             }else{
@@ -71,6 +67,7 @@ class CateController extends Controller
             }                                     
             return view('frontend.cate.parent', compact('productList', 'loaiDetail', 'hoverInfo', 'socialImage', 'seo'));
         }else{
+            // [ page ]
             $detailPage = Pages::where('slug', $slug)->first();
             if(!$detailPage){
                 return redirect()->route('home');

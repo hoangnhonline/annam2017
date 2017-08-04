@@ -62,60 +62,14 @@
                   <label>Mô tả</label>
                   <textarea class="form-control" rows="4" name="description" id="description">{{ old('description') }}</textarea>
                 </div>            
-                <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Banner </label>    
-                  <div class="col-md-9">
-                    <img id="thumbnail_icon" src="{{ old('icon_url') ? Helper::showImage(old('icon_url')) : URL::asset('admin/dist/img/img.png') }}" class="img-thumbnail" width="80">
-                    
-                    <input type="file" id="file-icon" style="display:none" />
-                 
-                    <button class="btn btn-default" id="btnUploadIcon" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
-                  </div>
-                  <div style="clear:both"></div>
-                </div>
                 
-                <div class="clearfix"></div>
-                  <div class="form-group" style="margin-top:15px;padding-bottom:25px !important;">
-                    <div class="checkbox col-md-4" >
-                      <label>
-                        <input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}>
-                        Danh mục nổi bật
-                      </label>
-                    </div>
-                    <div class="checkbox col-md-4" >
-                      <label>
-                        <input type="checkbox" name="menu_ngang" value="1" {{ old('menu_ngang') == 1 ? "checked" : "" }}>
-                        Menu ngang 
-                      </label>
-                    </div>
-                    <div class="checkbox col-md-4" >
-                      <label>
-                        <input type="checkbox" name="menu_doc" value="1" {{ old('menu_doc') == 1 ? "checked" : "" }}>
-                        Menu dọc
-                      </label>
-                    </div>
-                  </div>
-                  <div class="clearfix"></div>
                 <div class="form-group">
                   <label>Ẩn/hiện</label>
                   <select class="form-control" name="status" id="status">                  
                     <option value="0" {{ old('status') == 0 ? "selected" : "" }}>Ẩn</option>
                     <option value="1" {{ old('status') == 1 || old('status') == NULL ? "selected" : "" }}>Hiện</option>                  
                   </select>
-                </div>
-                <div class="form-group">
-                  <label>Style banner</label>
-                  <select class="form-control" name="home_style" id="home_style">                  
-                    <option value="0" {{ old('home_style') == 0 ? "selected" : "" }}>Không banner</option>
-                    <option value="1" {{ old('home_style') == 1 ? "selected" : "" }}>Banner đứng lớn</option>
-                    <option value="2" {{ old('home_style') == 2 ? "selected" : "" }}>Banner đứng nhỏ</option>
-                    <option value="3" {{ old('home_style') == 3 ? "selected" : "" }}>Banner ngang</option>
-                  </select>
-                </div>                    
-                <div class="form-group">
-                  <label>Màu nền</label>
-                  <input type="text" class="form-control" name="bg_color" id="bg_color" value="{{ old('bg_color') }}">
-                </div>
+                </div>                
             </div>          
         
             <div class="box-footer">
@@ -159,9 +113,7 @@
 
       </div>
       <!--/.col (left) -->      
-    </div>
-    <input type="hidden" name="icon_url" id="icon_url" value="{{ old('icon_url') }}"/>          
-    <input type="hidden" name="icon_name" id="icon_name" value="{{ old('icon_name') }}"/>
+    </div>   
     </form>
     <!-- /.row -->
   </section>
@@ -171,93 +123,7 @@
 @stop
 @section('javascript_page')
 <script type="text/javascript">
-    $(document).ready(function(){
-      $('#btnUploadImage').click(function(){        
-        $('#file-image').click();
-      });
-      $('#btnUploadIcon').click(function(){        
-        $('#file-icon').click();
-      });
-      var files = "";
-      $('#file-image').change(function(e){
-         files = e.target.files;
-         
-         if(files != ''){
-           var dataForm = new FormData();        
-          $.each(files, function(key, value) {
-             dataForm.append('file', value);
-          });   
-          
-          dataForm.append('date_dir', 0);
-          dataForm.append('folder', 'tmp');
-
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_image').attr('src',$('#upload_url').val() + response.image_path);
-                $( '#image_url' ).val( response.image_path );
-                $( '#image_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
-      var filesIcon = '';
-      $('#file-icon').change(function(e){
-         filesIcon = e.target.files;
-         
-         if(filesIcon != ''){
-           var dataForm = new FormData();        
-          $.each(filesIcon, function(key, value) {
-             dataForm.append('file', value);
-          });
-          
-          dataForm.append('date_dir', 0);
-          dataForm.append('folder', 'tmp');
-
-          $.ajax({
-            url: $('#route_upload_tmp_image').val(),
-            type: "POST",
-            async: false,      
-            data: dataForm,
-            processData: false,
-            contentType: false,
-            success: function (response) {
-              if(response.image_path){
-                $('#thumbnail_icon').attr('src',$('#upload_url').val() + response.image_path);
-                $('#icon_url').val( response.image_path );
-                $( '#icon_name' ).val( response.image_name );
-              }
-              console.log(response.image_path);
-                //window.location.reload();
-            },
-            error: function(response){                             
-                var errors = response.responseJSON;
-                for (var key in errors) {
-                  
-                }
-                //$('#btnLoading').hide();
-                //$('#btnSave').show();
-            }
-          });
-        }
-      });
+    $(document).ready(function(){    
       
       $('#name').change(function(){
          var name = $.trim( $(this).val() );

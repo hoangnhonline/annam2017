@@ -99,7 +99,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::post('/customer/register', ['as' => 'register-customer', 'uses' => 'CustomerController@register']);
     Route::post('/customer/register-ajax', ['as' => 'register-customer-ajax', 'uses' => 'CustomerController@registerAjax']);
     Route::post('/customer/checkemail', ['as' => 'checkemail-customer', 'uses' => 'CustomerController@isEmailExist']);    
-    Route::get('/tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);
+    Route::get('tim-kiem.html', ['as' => 'search', 'uses' => 'HomeController@search']);
     Route::get('so-sanh.html', ['as' => 'so-sanh', 'uses' => 'CompareController@index']);
     Route::get('lien-he.html', ['as' => 'contact', 'uses' => 'HomeController@contact']);
     Route::get('may-cu-gia-re.html', ['as' => 'old-device', 'uses' => 'HomeController@oldDevice']);

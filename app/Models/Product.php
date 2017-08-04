@@ -59,4 +59,7 @@ class Product extends Model  {
     {
         return $this->hasMany('App\Models\ProductPrice', 'product_id');
     }
+    public function loaiSp(){
+        return $this->belongsTo('App\Models\LoaiSp', 'loai_id');
+    }
 }

@@ -1,106 +1,130 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
-<article class="block block-breadcrumb">
-  <ul class="breadcrumb">
-    <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
-    <li class="active">Tìm kiếm</li>
-  </ul>
-</article><!-- /block-breadcrumb -->
-<section class="block-content">
-        <div class="block-common">
-        <div class="row">        
-            <div class="col-sm-3" id="left_column">
-              <!-- block category -->
-              <div class="block left-module">
-                  <p class="title_block">Danh mục</p>
-                  <div class="block_content">
-                      <!-- layered -->
-                      <div class="layered layered-category">
-                          <div class="layered-content">
-                              <ul class="tree-menu">
-                                  <li><span></span><a href="{{ route('news-list', 'tin-tuc') }}">Tin tức</a></li>
-                                  <li><span></span><a href="{{ route('chuong-trinh-khuyen-mai') }}">Khuyến mãi</a></li>
-                              </ul>
-                          </div>
-                      </div>
-                      <!-- ./layered -->
-                  </div>
-              </div>
-              <!-- ./block category  -->
-              <!-- Banner silebar -->
-              @include('frontend.partials.banner-slidebar')
-              <!-- ./Banner silebar -->
-          </div>
-            <div class="center_column col-xs-12 col-sm-9" id="center_column">
-                    <h1 class="page-heading">
-                        <span class="page-heading-title2" style="text-transform:none">Kết quả tìm kiếm với từ khóa '{{ $tu_khoa }}' ({{ $productArr->total() }})</span>
-                    </h1>
-                    <!-- view-product-list-->
-                <div id="view-product-list" class="products">                                   
-                    <!-- PRODUCT LIST -->
-                    <ul class="row product-list grid">
-                        @foreach( $productArr as $product )
-                        <?php 
-                            if( $loaiSpKey[$product['loai_id']]['is_hover'] == 1){                    
-                                $tmp = isset($product['thuoc_tinh']) ? $product['thuoc_tinh'] : "";
-                                $thuocTinhArr = json_decode($tmp, true);
-                            }
-                        ?>
-                        <li class="col-md-3 col-sm-4 col-xs-4">
-                          <div class="item">
-                           <!-- <p class="trapezoid">-18%</p>-->
-                            <div class="pro-thumb">
-                              <a href="{{ route('product-detail', $product['slug']) }}" title="{{ $product['name'] }}">
-                                <img src="{{ Helper::showImage($product['image_url']) }}" alt="{{ $product['name'] }}">
-                              </a>
-                            </div>
-                            <div class="pro-info">
-                              <h2 class="pro-title"><a href="{{ route('product-detail', $product['slug']) }}">{{ $product['name'] }}</a></h2>
-                              <div class="price-products">
-                                <p class="pro-price">@if($product['price'] > 0)
-                                      {{ $product['is_sale'] == 1 ? number_format($product['price_sale']) : number_format($product['price']) }}
-                                      @else
-                                      Liên hệ
-                                      @endif </p>
-                                <!-- <p class="pro-sale"><del>7,940,000đ</del></p> -->
-                              </div>
-                              <a href="{{ route('product-detail', $product['slug']) }}" title="" class="btn btn-select-buy">Chọn mua</a>
-                            </div>
-                          </div><!-- /item -->
-                        </li><!-- /col-sm-2 col-xs-6 -->  
-                    @endforeach
-                        
+<div class="block block_breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>       
+        <li class="active">{{ $loaiDetail->name }}</li>
+    </ol>
+</div><!-- /block_breadcrumb -->
+@include('frontend.home.ads')
+<div class="block_categories row">
+    @include('frontend.cate.sidebar')
+    <div class="col-md-9 col-sm-9 col-xs-12 block_cate_right">                        
+        <div class="block block_view">
+            <span>Xem theo:</span>
+            <ul class="block_content">
+                <li class="active"><a href="">Mới nhất</a></li>
+                <li><a href="#" title="Cũ nhất">Cũ nhất</a></li>
+                <li><a href="#" title="Giá cao nhất">Giá cao nhất</a></li>
+                <li><a href="#" title="Giá thấp nhất">Giá thấp nhất</a></li>
+            </ul>
+            <div class="block_status">
+                <div class="pro-sts">
+                    <a href="javascript:void(0);" class="dpl-status">
+                        <span>Đang &amp; Sắp có hàng</span>
+                    </a>
+                    <ul>
+                        <li><a href="#">Đang có hàng</a></li>
+                        <li><a href="#">Sắp có hàng</a></li>
+                        <li><a href="#">Đã hết hàng</a></li>
+                        <li><a href="#">Tất cả</a></li>
                     </ul>
-                    <!-- ./PRODUCT LIST -->
-
                 </div>
-                <!-- ./view-product-list-->
-                <div class="sortPagiBar">
-                    <div class="bottom-pagination">
-                        <nav>
-                          {{ $productArr->appends(['keyword' => $tu_khoa])->links() }}
-                        </nav>
-                    </div>                    
-                </div>                   
             </div>
-        </div><!-- /.page-content -->
-    
-</section>
-<style type="text/css">    
-    .dashboard-order.have-margin {
-        margin-bottom: 20px;
-    }   
-    table.table-responsive thead tr th {
-        display: table-cell;
-        padding: 8px;
-        background: #f8f8f8;
-        font-weight: 500;    
-    }
-    table.table-responsive tbody tr td{
-        font-size: 14px !important;
-    }
-</style>
-@endsection
-<div class='clearfix'></div>
-@include('frontend.partials.footer')
+            <!-- <a href="#" onclick="return false;" class="filter-prod">Bộ lọc sản phẩm</a> -->
+        </div><!-- /block_view_by -->
+        <div class="block block_product">
+            <h3 class="block_title block_title_link">
+                {!! $loaiDetail->name !!}
+                <span class="num">29</span>
+            </h3>
+            <div class="block_content row">
+                <ul class="list">
+                  @foreach( $productList as $product )
+                    <li class="col-sm-3 col-xs-6 product_item">
+                        <div class="item">
+                            <a href="{{ route('product-detail', [$product->slug, $product->id]) }}" title="{!! $product->name !!}">
+                                <div class="product_img">
+                                    <img src="{{ $product->image_url ? Helper::showImageThumb($product->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="{!! $product->name !!}" title="{!! $product->name !!}">
+                                </div>
+                                <div class="product_info">
+                                  <h3 class="product_name">{!! $product->name !!}</h3>
+                                  <div class="product_price">
+                                  <span class="product_price_new">{{ $product->is_sale == 1 ? number_format($product->price_sale) : number_format($product->price) }}đ</span>
+                                  @if($product->is_sale)
+                                  <span class="product_price_old">{{ number_format($product->price) }}đ</span>
+                                  @endif
+                                </div>
+                                @if($product->is_new)
+                                <span class="new">NEW</span>
+                                @endif
+                                </div>
+                                <div class="product_detail">
+                                  <p class="name">{!! $product->name !!}</p>
+                                        <div class="product_price">
+                                  <span class="product_price_new">{{ $product->is_sale == 1 ? number_format($product->price_sale) : number_format($product->price) }}đ</span>
+                                  @if($product->is_sale)
+                                  <span class="product_price_old">{{ number_format($product->price) }}đ</span>
+                                  @endif
+                                </div>
+                                @if( $product->loaiSp->is_hover == 1)            
+                                    @foreach($hoverInfo[$product->loai_id] as $info)
+                                    <?php 
+                                    $tmpInfo = explode(",", $info->str_thuoctinh_id);              
+                                    ?>
+
+                                    <p>
+                                    {{ $info->text_hien_thi}}: 
+                                    <?php
+                                    $tmp = DB::table('sp_thuoctinh')->where('product_id', $product->id)->select('thuoc_tinh')->first();            
+                                    if( $tmp ){
+                                        $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);                 
+                                    }
+                                    $countT = 0; $totalT = count($tmpInfo);
+                                    foreach( $tmpInfo as $tinfo){
+                                        $countT++;
+                                        if(isset($spThuocTinhArr[$tinfo])){
+                                            echo $spThuocTinhArr[$tinfo];
+                                            echo $countT < $totalT ? ", " : "";
+                                        }
+                                    }
+
+                                     ?>                   
+                                     </p>
+                                    @endforeach
+                                    
+                                  @endif                    
+
+                                </div>
+                            </a>
+                        </div>
+                    </li><!-- /product_item -->        
+                    @endforeach                              
+                </ul>
+            </div>
+        </div><!-- /block_product -->
+    </div><!-- /block_cate_right -->
+</div><!-- /block_categories -->
+@stop
+@section('js')
+<script>
+    (function($) {
+        "use strict";
+        /*  [ Filter by price ]
+        - - - - - - - - - - - - - - - - - - - - */
+        $('#slider-range').slider({
+            range: true,
+            min: 0,
+            max: 500,
+            values: [0, 0],
+            slide: function (event, ui) {
+                $('#amount-left').text(ui.values[0] + 'k' );
+                $('#amount-right').text(ui.values[1] + 'k' );
+            }
+        });
+        $('#amount-left').text($('#slider-range').slider('values', 0) + 'k');
+        $('#amount-right').text($('#slider-range').slider('values', 1) + 'k');
+    })(jQuery);
+    </script>
+@stop

@@ -9,12 +9,12 @@
 			<div class="block_search col-md-6 col-sm-6">
 				<div class="block_search_inner">
 					<p class="block_call_support">HOTLINE<a href="tel:+0904500057">0904500057</a></p>
-					<form name="frm_search" action="" class="frm-search">
+					<form name="frm_search" action="{{ route('search') }}" method="GET" class="frm-search">
 						<div class="control clearfix">
 							<button type="submit">
 								<i class="fa fa-search"></i>
 							</button>
-							<input type="text" name="" placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
+							<input type="text"  name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}"  placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
 							<div id="block_suggestions"></div>
 						</div>
 					</form>
@@ -48,10 +48,10 @@
 					<div class="block_content">
 						<i class="fa fa-search fa_search_show"></i>
 						<div class="block_search_inner">
-							<form name="frm_search" action="" class="frm-search">
+							<form name="frm_search" action="{{ route('search') }}" method="GET" class="frm-search">
 								<div class="control clearfix">
 									<button type="submit"><i class="fa fa-search"></i></button>
-									<input type="text" name="" placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
+									<input type="text" name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}" placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
 								</div>
 							</form>
 						</div>
