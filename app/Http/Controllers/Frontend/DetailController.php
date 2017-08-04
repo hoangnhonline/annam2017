@@ -46,8 +46,8 @@ class DetailController extends Controller
         if(!$detail){
             return redirect()->route('home');
         }
-        $rsLoai = LoaiSp::find( $detail->loai_id );
-        $rsCate = Cate::find( $detail->cate_id );
+        $loaiDetail = LoaiSp::find( $detail->loai_id );
+        $cateDetail = Cate::find( $detail->cate_id );
 
         $hinhArr = ProductImg::where('product_id', $detail->id)->get()->toArray();
         // hien thuoc tinh
@@ -102,7 +102,7 @@ class DetailController extends Controller
         
         $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
 
-        return view('frontend.detail.index', compact('detail', 'rsLoai', 'rsCate', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage'));
+        return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage'));
     }
 
     public function ajaxTab(Request $request){

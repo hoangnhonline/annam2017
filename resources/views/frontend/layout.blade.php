@@ -249,21 +249,30 @@
 	<!-- ===== JS ===== -->
 	<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
 	<!-- ===== JS Bootstrap ===== -->
-	<script src="{{ URL::asset('assets/lib/bootstrap/bootstrap.min.js') }}"></script>
-	<!-- ===== Plugins ===== -->
-	<script src="{{ URL::asset('assets/js/plugins.min.js') }}"></script>
+	<script src="{{ URL::asset('assets/lib/bootstrap/bootstrap.min.js') }}"></script>	<!-- ===== Plugins ===== -->
+	
 	<!-- carousel -->
 	<script src="{{ URL::asset('assets/lib/carousel/owl.carousel.min.js') }}"></script>
 	<!-- sticky -->
-    <script src="{{ URL::asset('assets/lib/sticky/jquery.sticky.js') }}"></script>
-    <!-- Select2 -->
-    <script src="{{ URL::asset('assets/lib/select2/js/select2.min.js') }}"></script>
-    <!-- Slick -->
+    
+    
+   	@if($routeName == 'home')
+    <script src="{{ URL::asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ URL::asset('assets/lib/slick/slick.min.js') }}"></script>
-	<!-- Js Common -->
-	<script src="{{ URL::asset('assets/js/common.js') }}"></script>
-	<script src="{{ URL::asset('assets/js/home.js') }}"></script>
-
+    @endif
+    <!-- Select2 --> 
+    @if($routeName == 'product-detail')
+	<script src="{{ URL::asset('assets/lib/bxslider/bxslider.min.js') }}"></script>
+	<script src="{{ URL::asset('assets/lib/lightbox/js/lightbox.js') }}"></script>
+	<script src="{{ URL::asset('assets/lib/sticky/jquery.sticky.js') }}"></script>
+	@endif
+    <!-- Slick -->    
+    <script src="{{ URL::asset('assets/js/common.js') }}"></script>
+    @if($routeName == 'home')
+	<script src="{{ URL::asset('assets/js/home.js') }}"></script>	
+	@endif
+	@if($routeName != 'product-detail')
+	<script src="{{ URL::asset('assets/lib/select2/js/select2.min.js') }}"></script>
 	<script type="text/javascript">
 		function formatState (state) {
 			if (!state.id) { return state.text; }
@@ -276,6 +285,7 @@
 			templateResult: formatState
 		});
 	</script>
+	@endif
 	@yield('js')
 </body>
 </html>

@@ -299,7 +299,7 @@ class ProductController extends Controller
 
                         $imageArr['is_thumbnail'][] = $is_thumbnail = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
 
-                        if($is_thumbnail == 1){
+                        //if($is_thumbnail == 1){
                             $img = Image::make(config('annam.upload_path').$destionation);
                             $w_img = $img->width();
                             $h_img = $img->height();                            
@@ -315,7 +315,7 @@ class ProductController extends Controller
                                 })->crop(210, 210)->save(config('annam.upload_thumbs_path').$destionation);
                             }
 
-                        }
+                        //}
 
                         $imageArr['name'][] = $destionation;
                         

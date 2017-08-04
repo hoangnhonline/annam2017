@@ -24,7 +24,7 @@ class Helper
         //object_type = 1 : product, 2 :article  3: project             
         if(strpos($image_url, 'http') === false){
             if($object_type == 1){
-                return config('annam.upload_url') . 'thumbs/' . $folder. '/' . $image_url;
+                return config('annam.upload_url') . 'thumbs' . $folder. '/' . $image_url;
             }elseif($object_type == 2){
                 return config('annam.upload_url') . 'thumbs/articles/'. $folder. '/' . $image_url;
             }else{
