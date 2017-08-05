@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Pages;
+use App\Models\Account;
+
 use Helper, File, Session, Auth;
 
 class PagesController extends Controller
@@ -21,9 +23,17 @@ class PagesController extends Controller
         
 
         $title = isset($request->title) && $request->title != '' ? $request->title : '';
-        
-        $query = Pages::whereRaw('1');
-
+        $created_user = isset($request->created_user) ? $request->created_user : null;
+        $userList = (object) [];
+        $query = Pages::whereRaw('1');        
+        if(Auth::user()->role == 1 ){
+            $query->where('created_user', Auth::user()->id);
+        }else{
+            $userList = Account::where('role', 1)->get();            
+            if( $created_user){
+                $query->where('created_user', $created_user);
+            }
+        }        
         
         if( $title != ''){
             $query->where('alias', 'LIKE', '%'.$title.'%');
@@ -31,7 +41,7 @@ class PagesController extends Controller
         $items = $query->orderBy('id', 'desc')->paginate(20);
         
       
-        return view('backend.pages.index', compact( 'items' , 'title' ));
+        return view('backend.pages.index', compact( 'items' , 'title', 'userList', 'created_user'));
     }
 
     /**
@@ -79,7 +89,7 @@ class PagesController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('annam.upload_path').$dataArr['image_url'], config('annam.upload_path').$destionation);
+            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
             
             $dataArr['image_url'] = $destionation;
         }        
@@ -118,7 +128,11 @@ class PagesController extends Controller
     {        
 
         $detail = Pages::find($id);
-
+        if(Auth::user()->role == 1){
+            if($detail->created_user != Auth::user()->id){        
+                return redirect()->route('dashboard.index');        
+            }
+        }
         return view('backend.pages.edit', compact('detail'));
     }
 
@@ -157,7 +171,7 @@ class PagesController extends Controller
 
             $destionation = date('Y/m/d'). '/'. end($tmp);
             
-            File::move(config('annam.upload_path').$dataArr['image_url'], config('annam.upload_path').$destionation);
+            File::move(config('icho.upload_path').$dataArr['image_url'], config('icho.upload_path').$destionation);
             
             $dataArr['image_url'] = $destionation;
         }

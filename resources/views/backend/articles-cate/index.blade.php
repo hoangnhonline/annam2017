@@ -4,7 +4,7 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
   <h1>
-    Danh mục bài viết 
+    Danh mục bài viết
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('articles-cate.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('articles-cate.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="box">
 
         <div class="box-header with-border">
@@ -44,13 +44,13 @@
               <tr id="row-{{ $item->id }}">
                 <td><span class="order">{{ $i }}</span></td>
                 <td style="vertical-align:middle;text-align:center">
-                  <img src="{{ URL::asset('admin/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
+                  <img src="{{ URL::asset('backend/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
                 </td>
                 <td>                  
                   <a href="{{ route( 'articles-cate.edit', [ 'id' => $item->id ]) }}">{{ $item->name }}</a>
                   
                   @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
 
                   <p>{{ $item->description }}</p>
@@ -58,10 +58,10 @@
                 <td style="white-space:nowrap">
                 
                 <a class="btn btn-default btn-sm" href="{{ route('news-list', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-                  <a class="btn btn-primary" href="{{ route('articles.index', ['id' => $item->id])}}" ><span class="badge">{{ $item->articles->count() }}</span> Bài viết </a>
-                  <a href="{{ route( 'articles-cate.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning">Chỉnh sửa</a>                 
+                  <a class="btn btn-primary btn-sm" href="{{ route('articles.index', ['id' => $item->id])}}" ><span class="badge">{{ $item->articles->count() }}</span> Bài viết </a>
+                  <a href="{{ route( 'articles-cate.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   @if( $item->articles->count() == 0)
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'articles-cate.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'articles-cate.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                   @endif
                 </td>
               </tr> 

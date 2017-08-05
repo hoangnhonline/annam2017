@@ -17,6 +17,7 @@ use App\Models\Location;
 use App\Models\TinhThanh;
 use App\Models\MetaData;
 use App\Models\Compare;
+use App\Models\HoverInfo;
 
 use Helper, File, Session, Auth;
 
@@ -101,8 +102,8 @@ class DetailController extends Controller
         }               
         
         $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
-
-        return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage'));
+        $hoverInfo = HoverInfo::where('loai_id', $detail->loai_id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+        return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage', 'hoverInfo'));
     }
 
     public function ajaxTab(Request $request){

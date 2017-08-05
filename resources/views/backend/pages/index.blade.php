@@ -20,18 +20,32 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('pages.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('pages.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
         </div>
         <div class="panel-body">
           <form class="form-inline" role="form" method="GET" action="{{ route('pages.index') }}">                        
+            @if($userList && Auth::user()->role > 1)
+              <div class="form-group">
+                <label>Người tạo</label>                
+                <?php $i = 0; ?>
+                <select class="form-control" name="created_user" id="created_user">
+                  <option value="">Tất cả</option>
+                  @foreach($userList as $us)
+                  <option value="{{ $us->id }}" {{ $created_user == $us->id ? "selected" : "" }}>{{ $us->full_name }}</option> 
+                  <?php $i++; ?>
+                  @endforeach
+                </select>
+                <div class="clearfix"></div>
+            </div>     
+            @endif
             <div class="form-group">
               <label for="email">Từ khóa :</label>
               <input type="text" class="form-control" name="title" value="{{ $title }}">
             </div>
-            <button type="submit" class="btn btn-default">Lọc</button>
+            <button type="submit" class="btn btn-default btn-sm">Lọc</button>
           </form>         
         </div>
       </div>
@@ -48,6 +62,7 @@
             <tr>
               <th style="width: 1%">#</th>                            
               <th>Tiêu đề</th>
+              <th width="10%">Người tạo</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -62,17 +77,18 @@
                   <a href="{{ route( 'pages.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
                   
                   @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
 
                   <p>{{ $item->description }}</p>
                 </td>
+                <td>{{ $item->account->full_name }}</td>
                 <td style="white-space:nowrap">   
                 
-                  <a class="btn btn-default btn-sm" href="{{ route('parent-cate', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>               
-                  <a href="{{ route( 'pages.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning">Chỉnh sửa</a>                 
+                  <a class="btn btn-default btn-sm" href="{{ route('danh-muc', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>               
+                  <a href="{{ route( 'pages.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
-                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'pages.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'pages.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                   
                   
                 </td>

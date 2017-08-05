@@ -7,7 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\Tag;
-use App\Models\SystemMetadata;
+use App\Models\District;
+use App\Models\MetaData;
 use Helper, File, Session, Auth;
 
 class TagController extends Controller
@@ -23,14 +24,16 @@ class TagController extends Controller
         $type = isset($request->type) ? $request->type : 1;
 
         $name = isset($request->name) && $request->name != '' ? $request->name : '';
+        $district_id = isset($request->district_id) && $request->district_id != '' ? $request->district_id : 0;
 
         $query = Tag::where('type', $type);
         if( $name !='' ){
             $query->where('name', 'LIKE', '%'.$name.'%');
         }
+        
         $items = $query->orderBy('id', 'desc')->paginate(50);
-
-        return view('backend.tag.index', compact( 'items', 'type', 'name'));
+        
+        return view('backend.tag.index', compact( 'items', 'type', 'name', 'district_id'));
     }
     public function ajaxList(Request $request){
 
@@ -45,7 +48,7 @@ class TagController extends Controller
         $query = Tag::where('type', $type);
         
         $tagArr = $query->orderBy('id', 'desc')->get();
-
+       
         return view('backend.tag.ajax-list', compact( 'tagArr', 'type', 'tagSelected'));
     }
     /**
@@ -53,9 +56,10 @@ class TagController extends Controller
     *
     * @return Response
     */
-    public function create()
+    public function create(Request $request)
     {
-        return view('backend.tag.create');
+        $type = $request->type ? $request->type : 1;
+        return view('backend.tag.create', compact('type'));
     }
 
     /**
@@ -88,17 +92,8 @@ class TagController extends Controller
         
         $object_id = $rs->id;
 
-        $metaArr['meta_title'] = $dataArr['meta_title'];
-        $metaArr['meta_description'] = $dataArr['meta_description'];
-        $metaArr['meta_keywords'] = $dataArr['meta_keywords'];
-        $metaArr['custom_text'] = $dataArr['custom_text'];
-        
-        $rsMeta = SystemMetadata::create( $metaArr );
+        $this->storeMeta( $object_id, 0, $dataArr);
 
-        if( $rsMeta->id ){
-            $modelTag = Tag::find($object_id);
-            $modelTag->update(['meta_id' => $rsMeta->id]);
-        }
         Session::flash('message', 'Tạo mới tag thành công');
 
         return redirect()->route('tag.index', [ 'type' => $dataArr['type'] ]);
@@ -110,6 +105,8 @@ class TagController extends Controller
         
         $str_tag = $request->str_tag;
 
+        $type = $request->type;
+
         $tmpArr = explode(';', $str_tag);
 
         if( !empty($tmpArr) ){
@@ -118,11 +115,11 @@ class TagController extends Controller
             $tag = trim($tag);
             if( $tag != ""){
                 // check xem co chua
-                $arr = Tag::where('name', '=', $tag)->where('type', 1)->first();
+                $arr = Tag::where('name', '=', $tag)->where('type', $type)->first();
                 if( !empty( (array) $arr)) {
                     $arrId[] = $arr->id;
                 }else{
-                    $rs = Tag::create(['name'=> $tag, 'type' => 1, 'slug' => str_slug($tag), 'created_user' => Auth::user()->id, 'updated_user' => Auth::user()->id]);
+                    $rs = Tag::create(['name'=> $tag, 'type' => $type, 'slug' => str_slug($tag), 'created_user' => Auth::user()->id, 'updated_user' => Auth::user()->id]);
                     $arrId[] = $rs->id;
                 }
 
@@ -152,14 +149,14 @@ class TagController extends Controller
     * @return Response
     */
     public function edit($id)
-    {
-        $metadata = (object) [];
+    {        
         $detail = Tag::find($id);
-        if( $detail->meta_id > 0){
-            $metadata = SystemMetadata::find( $detail->meta_id );
-        }
+        $meta = (object) [];
+        if ( $detail->meta_id > 0){
+            $meta = MetaData::find( $detail->meta_id );
+        }       
 
-        return view('backend.tag.edit', compact( 'detail', 'metadata'));
+        return view('backend.tag.edit', compact( 'detail', 'meta'));
     }
 
     /**
@@ -190,22 +187,31 @@ class TagController extends Controller
 
         $model->update($dataArr);
 
-        if( $dataArr['meta_id'] ){
+        if( $dataArr['meta_id'] != '' ){
 
-            $metaArr['meta_title'] = $dataArr['meta_title'];
-            $metaArr['meta_description'] = $dataArr['meta_description'];
-            $metaArr['meta_keywords'] = $dataArr['meta_keywords'];
-            $metaArr['custom_text'] = $dataArr['custom_text'];
-            $metaArr['id'] = $dataArr['meta_id'];
-            $modelMetadata = SystemMetadata::find( $dataArr['meta_id'] );
-            $modelMetadata->update( $metaArr );
+            $this->storeMeta( $dataArr['id'], $dataArr['meta_id'], $dataArr);
         }
 
         Session::flash('message', 'Cập nhật tag thành công');
 
         return redirect()->route('tag.index', [ 'type' => $dataArr['type'] ]);
     }
-
+    public function storeMeta( $id, $meta_id, $dataArr ){
+       
+        $arrData = [ 'title' => $dataArr['meta_title'], 'description' => $dataArr['meta_description'], 'keywords'=> $dataArr['meta_keywords'], 'custom_text' => $dataArr['custom_text'], 'updated_user' => Auth::user()->id ];
+        if( $meta_id == 0){
+            $arrData['created_user'] = Auth::user()->id;            
+            $rs = MetaData::create( $arrData );
+            $meta_id = $rs->id;
+            
+            $modelSp = Tag::find( $id );
+            $modelSp->meta_id = $meta_id;
+            $modelSp->save();
+        }else {
+            $model = MetaData::find($meta_id);           
+            $model->update( $arrData );
+        }              
+    }
     /**
     * Remove the specified resource from storage.
     *

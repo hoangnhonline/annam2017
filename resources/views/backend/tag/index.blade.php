@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('tag.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('tag.create', ['type' => $type]) }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
@@ -30,16 +30,16 @@
             <div class="form-group">
               <label for="email">Loại :</label>
               <select class="form-control" name="type" id="type">                                
-                <option value="1" {{ 1 == $type ? "selected" : "" }}>Phim</option>
+                <option value="1" {{ 1 == $type ? "selected" : "" }}>BĐS</option>
                 <option value="2" {{ 2 == $type ? "selected" : "" }}>Bài viết</option>
-                <!--<option value="3" {{ 3 == $type ? "selected" : "" }}>Ảnh</option>-->
+                <option value="3" {{ 3 ==  $type ? "selected" : "" }}>Tiện ích</option>              
               </select>
-            </div>
+            </div>            
             <div class="form-group">
-              <label for="email">Từ khóa :</label>
+              <label for="email">&nbsp;&nbsp;&nbsp;Từ khóa :</label>
               <input type="text" class="form-control" id="name" name="name" value="{{ $name }}">
             </div>       
-            <button type="submit" class="btn btn-primary" style="margin-top:-10px">Lọc</button>
+            <button type="submit" class="btn btn-primary btn-sm">Lọc</button>
           </form>         
         </div>
       </div>
@@ -75,9 +75,12 @@
                 <td>{{ $item->slug }}</td>
                 <td>{{ $item->description }}</td>
                 <td style="white-space:nowrap">                  
-                  <a href="{{ route( 'tag.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning">Chỉnh sửa</a>                  
+                  @if( $item->objects->count() > 0 && $item->type != 3)
+                  <a class="btn btn-default btn-sm" href="{{ route('tag', $item->slug) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                
+                  @endif
+                  <a href="{{ route( 'tag.edit', [ 'id' => $item->id ]) }}" class="btn-sm btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></a>                  
                   @if( $item->objects->count() == 0)
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'tag.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger">Xóa</a>                  
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'tag.destroy', [ 'id' => $item->id ]) }}');" class="btn-sm btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>                  
                   @endif
                 </td>
               </tr> 
@@ -122,12 +125,7 @@ function callDelete(name, url){
 }
 $(document).ready(function(){
   $('#type').change(function(){
-    var name = $.trim($('#name').val());
-    var url = $('#route_tag_index').val() + "?type=" + $('#type').val();
-    if( name != ''){
-      url += '&name=' + name;
-    }
-    location.href = url;
+    $(this).parents('form').submit();
   });
   $('#table-list-data tbody').sortable({
         placeholder: 'placeholder',

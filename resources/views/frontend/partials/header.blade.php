@@ -94,7 +94,7 @@
 					</li><!-- level0 -->			
 					@endforeach		
 					<li class="level0">
-						<a href="news.html" title="">
+						<a href="{{ route('news-list') }}" title="TIN TỨC">
 							<i class="fa fa-rss-square"></i>
 							TIN TỨC
 						</a>

@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('articles.create') }}" class="btn btn-info" style="margin-bottom:5px">Tạo mới</a>
+      <a href="{{ route('articles.create') }}" class="btn btn-info btn-sm" style="margin-bottom:5px">Tạo mới</a>
       <div class="panel panel-default">
         <div class="panel-heading">
           <h3 class="panel-title">Bộ lọc</h3>
@@ -29,7 +29,7 @@
           <form class="form-inline" role="form" method="GET" action="{{ route('articles.index') }}">            
             <div class="form-group">
               <label for="email">Danh mục </label>
-              <select class="form-control select2" name="cate_id" id="cate_id">
+              <select class="form-control" name="cate_id" id="cate_id">
                 <option value="">--Tất cả--</option>
                 @if( $cateArr->count() > 0)
                   @foreach( $cateArr as $value )
@@ -42,7 +42,7 @@
               <label for="email">Từ khóa :</label>
               <input type="text" class="form-control" name="title" value="{{ $title }}">
             </div>
-            <button type="submit" class="btn btn-default">Lọc</button>
+            <button type="submit" class="btn btn-default btn-sm">Lọc</button>
           </form>         
         </div>
       </div>
@@ -75,19 +75,19 @@
                   <img class="img-thumbnail lazy" data-original="{{ Helper::showImage($item->image_url)}}" width="145">
                 </td>        
                 <td>                  
-                  <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
+                  <a style="font-size:18px;color:" href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a><br>
                   
                   @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  <img class="img-thumbnail" src="{{ URL::asset('backend/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
 
                   <p>{{ $item->description }}</p>
                 </td>
                 <td style="white-space:nowrap"> 
                   <a class="btn btn-default btn-sm" href="{{ route('news-detail', [$item->slug, $item->id ]) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>                 
-                  <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning">Chỉnh sửa</a>                 
+                  <a href="{{ route( 'articles.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm"><span class="glyphicon glyphicon-pencil"></span></a>                 
                   
-                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'articles.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->title }}','{{ route( 'articles.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm"><span class="glyphicon glyphicon-trash"></span></a>
                   
                 </td>
               </tr> 

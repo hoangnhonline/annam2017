@@ -3,26 +3,26 @@
 use Illuminate\Database\Eloquent\Model;
 
 
-class MetaData extends Model  {
+class Menu extends Model  {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'meta_data';	
+	protected $table = 'menu';	
 
-	 /**
+	/**
      * Indicates if the model should be timestamped.
      *
      * @var bool
      */
-    public $timestamps = true;
+    public $timestamps = false;
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
-    protected $fillable = ['title', 'description', 'keywords', 'custom_text', 'created_user', 'updated_user'];
- 
+    protected $fillable = ['title', 'type', 'url', 'display_order', 'title_attr', 'status', 'menu_id', 'slug', 'object_id'];
+   
 }

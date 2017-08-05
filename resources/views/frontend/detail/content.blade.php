@@ -45,18 +45,14 @@
                             <div class="block_price">
                                 <strong>5.990.000₫</strong>
                             </div>
+                            @if($detail->khuyen_mai)
                             <div class="block_promotion">
-                                <strong>2 khuyến mãi áp dụng đến 31/07</strong>
-                                <p>Cơ hội trúng xe SH 150i (Hà Nội và miền Bắc) <a href="#" title="" class="link"> Xem chi tiết</a></p>
-                                <p>Giảm thêm 500.000đ khi thanh toán trực tuyến bằng MasterCard</p>
-                                <p>Trả góp 0% lãi suất thẻ HSBC <a href="#" title="" class="link"> Xem chi tiết</a></p>
+                                <strong>KHUYẾN MÃI</strong>
+                                {!! $detail->khuyen_mai !!}
                             </div>
-                            <div class="block_note">
-                                <div><b>Ưu đãi:</b> Mua sạc dự phòng giảm đến <strong><span class="red">30%</span></strong></div>
-                                <a href="#" target="_blank" class="link">Xem chi tiết chương trình</a>
-                            </div>
+                            @endif
                             <div class="block_order">
-                                <a href="#" title="" class="buy_now">
+                                <a href="javascript:;" data-id="{!! $detail->id !!}" title="Mua {!! $detail->name !!}" class="buy_now">
                                     <b>Mua ngay </b>
                                     <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
                                 </a>
@@ -67,12 +63,11 @@
                 <div class="col-md-3 col-sm-4 col-xs-12 block_detail_right">                    
                     <div class="block_support">
                         <h3>Tư vấn &amp; Mua hàng - Gọi</h3>
-                        <div class="support_phone">
-                            <a href="tel:02838000000">38.000.000</a>
+                        <div class="support_phone">                            
                             <a href="tel:02838888999">38.888.999</a>
                         </div>
                         <div class="support_img">
-                            <img src="images/msg_color.jpg" alt="">
+                            <img src="{{ URL::asset('assets/images/msg_color.jpg') }}" alt="Sopport">
                         </div>
                         <div class="support_content">
                             <ul>
@@ -82,9 +77,9 @@
                                 <li>Gọi lại cho Quý khách trong 5 phút</li>
                                 <li>Xem hàng tại nhà, hài lòng thanh toán</li>
                             </ul>
-                            <div class="block_pay">
+                            <!--<div class="block_pay">
                                 <p>MIỄN PHÍ <strong>CHARGE THẺ</strong></p><img src="images/logo-card.jpg" alt="Thanh toán với thẻ visa,...">
-                            </div>
+                            </div>-->
                         </div>
                         <span class="support-top"></span>
                         <span class="support-bot"></span>
@@ -95,232 +90,59 @@
                 <div class="row">
                     <div class="col-md-8 col-sm-8 col-xs-12 block_detail_left">
                         <div class="block_characteristics">
-                            <h2>SAMSUNG GEAR S3 FRONTIER SM-R760</h2>
-                            <ul>
-                                <li>Đồng hồ thông minh chạy hệ điều hành Tizen dành cho các smartphone Android</li>
-                                <li><strong><span>Có thể nghe gọi trên Gear S3 ở cả 2 phiên bản</span></strong></li>
-                                <li>Gear S3 có thiết kế dạng mặt đồng hồ cảm ứng tròn, mỏng nhẹ và nhỏ gọn bám chắc chắn vào cổ tay bạn</li>
-                                <li>Vỏ làm từ thép không gỉ 316L</li>
-                                <li>Điều chỉnh nhẹ nhàng, đơn giản với một vòng xoay bên ngoài mặt kình</li>
-                                <li>
-                                    <span title="Track your daily activity levels, heart rate and water vs. caffeine intake.">Theo dõi mức độ hoạt động hàng ngày của bạn</span></li>
-                                <li>
-                                    Gear S3 có thể đếm bước chân, đo 
-                                    <span title="Track your daily activity levels, heart rate and water vs. caffeine intake.">nhịp tim và lượng calories bạn tiêu hao trong quá trình tập luyện</span>
-                                </li>
-                                <li>
-                                    <span title="Track your daily activity levels, heart rate and water vs. caffeine intake.">Kết nối với những chiếc xe Volkswagen để theo dõi hành trình hay mở cửa với một thao tác đơn giản</span>
-                                </li>
-                                <li>
-                                    <span title="Track your daily activity levels, heart rate and water vs. caffeine intake.">Sử dụng tính năng Samsung Pay trên đồng hồ để mua cafe, sử dụng dịch vụ và nhiều thao tác khác.</span>
-                                </li>
-                                <li>
-                                    <span title="Track your daily activity levels, heart rate and water vs. caffeine intake.">Cho phép lưu trữ tối đa 300 bài hát để bạn thưởng thức âm nhạc mọi lúc mọi nơi</span>
-                                    </li>
-                                <li>
-                                    <span title="Track your daily activity levels, heart rate and water vs. caffeine intake.">Nhận và gửi tin nhắn thoại đồng thời với hình ảnh và văn bản</span>
-                                </li>
-                            </ul>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/1.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/2.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/3.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/4.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
-                            <p>
-                                <img src="images/detail/5.jpg" alt="">
-                                Nút Home quen thuộc không còn là phím vật lý nữa mà được thay thế bằng cảm ứng, nó sẽ rung lên khi bạn ấn. Vì đã dùng iPhone một thời gian rất dài, nên tôi công nhận rằng hơi khó để làm quen với nó, nhưng có lẽ chỉ mất vài ngày thôi.
-                            </p>
+                            <h2>{!! $detail->name !!}</h2>
+                            {!! $detail->chi_tiet !!}
                         </div><!-- /block_characteristics -->
                         <div class="block_show_less">
-                            <a class="btn-overflow" href="javascript:void(0);">Show More</a>
+                            <a class="btn-overflow" href="javascript:void(0);">Xem chi tiết</a>
                         </div><!-- /block_show_less -->
                         <div class="block_bottom_order">
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
                                     <img src="images/detail/thumb/1.jpg" alt="">
                                     <div class="info_sp">
-                                        <h3>SAMSUNG GEAR S3 FRONTIER SM-R760</h3>
+                                        <h3>{!! $detail->name !!}</h3>
                                         <strong>5.990.000₫</strong>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <div class="block_order">
-                                        <a href="#" title="" class="buy_now">
+                                        <a href="javascript:;" data-id="{!! $detail->id !!}" title="Mua {!! $detail->name !!}" class="buy_now"
                                             <b>Mua ngay </b>
-                                            <span>Giao tận nơi hoặc nhận tại siêu thị</span>
+                                            <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
                                         </a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div><!-- /block_detail_left -->
-                    <div class="col-md-4 col-sm-4 col-xs-12 block_detail_right">
+                    <div class="col-md-4 col-sm-4 col-xs-12 block_detail_right">                        
+                        @if( $detail->loaiSp->is_hover == 1)
+                        <?php 
+                            $spThuocTinhArr = json_decode( $detail->thuocTinh->thuoc_tinh, true);
+                        ?>
                         <div class="block_tableparameter">
                             <h2>Thông số kỹ thuật</h2>
                             <div class="table-responsive">
                                 <table class="table">
+                                    @foreach($hoverInfo as $info)
+                                    <?php $tmpInfo = explode(",", $info->str_thuoctinh_id); ?>
                                     <tr>
-                                        <td class="title">Kích thước:</td>
-                                        <td>49 x 46 x 12.9 mm</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="title">Màn hình tròn:</td>
-                                        <td>1.3” sAMOLED 360 x 360 (~278ppi)</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="title">Chipset:</td>
-                                        <td>Dual-Core 1 GHz, 768MB RAM, bộ nhớ trong 4GB</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="title">Dung lượng pin:</td>
-                                        <td>Pin 380 mAh</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="title">Màn hình:</td>
-                                        <td>Always-On</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="title">Công nghệ:</td>
+                                        <td class="title" style="width:105px;text-align:left">{!! $info->text_hien_thi !!}</td>
                                         <td>
-                                            <p>Bluetooth v4.2, Wi-Fi 802.11 b/g/n</p>
-                                            <p>Chống nước chuẩn IP68</p>
+                                            <?php 
+                                            $countT = 0; $totalT = count($tmpInfo);
+                                            foreach( $tmpInfo as $tinfo){
+                                                $countT++;
+                                                if(isset($spThuocTinhArr[$tinfo])){
+                                                    echo $spThuocTinhArr[$tinfo];
+                                                    echo $countT < $totalT ? ", " : "";
+                                                }
+                                            }
+                                            ?>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td class="title">Hệ điều hành:</td>
-                                        <td>Tizen</td>
-                                    </tr>
+                                    @endforeach                                
                                     <tr>
                                         <td colspan="2" class="text-center">
                                             <button type="button" class="btn btn_tableparameter" data-toggle="modal" data-target="#Modalparameter">Xem cấu hình chi tiết</button>
@@ -329,6 +151,7 @@
                                 </table>
                             </div>
                         </div>
+                        @endif
                     </div><!-- /block_detail_right -->
                 </div><!-- /box_detaillightbox -->
             </div>
@@ -340,73 +163,33 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">SAMSUNG GEAR S3 FRONTIER SM-R760</h4>
+                <h4 class="modal-title" id="myModalLabel">{!! $detail->name !!}</h4>
             </div>
             <div class="modal-body">
-                <img src="images/detail/1.jpg" alt="">
+                <div class="text-align:center"><img style="max-width:400px;margin:auto" src="{{ Helper::showImage($hinhArr[0]['image_url']) }}" alt="{!! $detail->name !!}"></div>
+                @if( !empty( $thuocTinhArr ))
                 <table class="table parameterfull">
+                    
+                  @foreach($thuocTinhArr as $loaithuoctinh)
                     <tr>
-                        <td colspan="2" class="title">Màn Hình</td>
+                      <td colspan="2" class="title">{{ $loaithuoctinh['name']}}</td>
                     </tr>
-                    <tr>
-                        <td>Công nghệ màn hình:</td>
-                        <td>LED-backlit IPS LC</td>
-                    </tr>
-                    <tr>
-                        <td>Độ phân giải:</td>
-                        <td>Full HD (1080 x 1920 pixels)</td>
-                    </tr>
-                    <tr>
-                        <td>Màn hình rộng:</td>
-                        <td>5.5"</td>
-                    </tr>
-                    <tr>
-                        <td>Mặt kính cảm ứng:</td>
-                        <td>Kính oleophobic (ion cường lực)</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="title">Hệ điều hành - CPU</td>
-                    </tr>
-                    <tr>
-                        <td>Hệ điều hành:</td>
-                        <td>Tizen</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="title">Kết Nối</td>
-                    </tr>
-                    <tr>
-                        <td>Bluetooth:</td>
-                        <td>Bluetooth v4.2, Wi-Fi 802.11 b/g/n</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="title">Kết Nối</td>
-                    </tr>
-                    <tr>
-                        <td>Bluetooth:</td>
-                        <td>Bluetooth v4.2, Wi-Fi 802.11 b/g/n</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="title">Kết Nối</td>
-                    </tr>
-                    <tr>
-                        <td>Bluetooth:</td>
-                        <td>Bluetooth v4.2, Wi-Fi 802.11 b/g/n</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="title">Kết Nối</td>
-                    </tr>
-                    <tr>
-                        <td>Bluetooth:</td>
-                        <td>Bluetooth v4.2, Wi-Fi 802.11 b/g/n</td>
-                    </tr>
-                    <tr>
-                        <td colspan="2" class="title">Kết Nối</td>
-                    </tr>
-                    <tr>
-                        <td>Bluetooth:</td>
-                        <td>Bluetooth v4.2, Wi-Fi 802.11 b/g/n</td>
-                    </tr>
-                </table>
+                    @if( !empty($loaithuoctinh['child']))
+                      @foreach( $loaithuoctinh['child'] as $thuoctinh)
+                      <tr>
+                        <td width="150">{{ $thuoctinh['name']}}</td>
+                        <td>{{ isset($spThuocTinhArr[$thuoctinh['id']]) ?  $spThuocTinhArr[$thuoctinh['id']] : "" }}</td>
+                      </tr>
+                      @endforeach
+                    @endif
+                  @endforeach
+                  
+              
+              </table>
+              @endif
+            </div>
+                  
+                
             </div>
         </div>
     </div>
@@ -456,12 +239,12 @@ $(document).ready(function () {
                 btn.removeClass('less');
                 btn.addClass('more');
                 btn.parent().addClass("less")
-                btn.text('Show Less');
+                btn.text('Rút gọn');
                 text.animate({'height': h});
             } else {
                 btn.addClass('less');
                 btn.removeClass('more');
-                btn.text('Show More');
+                btn.text('Xem chi tiết');
                 btn.parent().removeClass("less")
                 text.animate({'height': '364px'});
             }  
@@ -474,5 +257,23 @@ $(document).ready(function () {
             }
         });
     });
+$(document).ready(function($){  
+  $('a.buy_now').click(function() {
+        var product_id = $(this).data('id');
+        add_product_to_cart(product_id);
+      });
+});
+function add_product_to_cart(product_id) {
+  $.ajax({
+    url: $('#route-add-to-cart').val(),
+    method: "GET",
+    data : {
+      id: product_id
+    },
+    success : function(data){
+      location.href = $('#route-cart').val();
+    }
+  });
+}
 </script>
 @stop

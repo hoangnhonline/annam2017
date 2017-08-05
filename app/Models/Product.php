@@ -62,4 +62,7 @@ class Product extends Model  {
     public function loaiSp(){
         return $this->belongsTo('App\Models\LoaiSp', 'loai_id');
     }
+    public function thuocTinh(){
+        return $this->hasOne('App\Models\SpThuocTinh', 'product_id');
+    }
 }

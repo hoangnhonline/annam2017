@@ -9,13 +9,13 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('articles-cate.index') }}">Danh mục bài viết</a></li>
-      <li class="active">Chỉnh sửa</li>
+      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default" href="{{ route('articles-cate.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('articles-cate.index') }}" style="margin-bottom:5px">Quay lại</a>
     <a class="btn btn-primary btn-sm" href="{{ route('news-list', $detail->slug ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
     <div class="row">
       <!-- left column -->
@@ -24,7 +24,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Chỉnh sửa</h3>
+            Chỉnh sửa
           </div>
           <!-- /.box-header -->
           <!-- form start -->
@@ -63,11 +63,11 @@
               <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                   <label class="col-md-3 row">Image </label>    
                   <div class="col-md-9">
-                    <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url) : URL::asset('admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
+                    <img id="thumbnail_image" src="{{ $detail->image_url ? Helper::showImage($detail->image_url) : URL::asset('backend/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
                     
                     <input type="file" id="file-image" style="display:none" />
                  
-                    <button class="btn btn-default" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
+                    <button class="btn btn-default btn-sm" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                   </div>
                   <div style="clear:both"></div>
               </div>  <!--image-->
@@ -88,8 +88,8 @@
               </div>           
             </div>                    
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('articles-cate.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('articles-cate.index')}}">Hủy</a>
             </div>
             
         </div>

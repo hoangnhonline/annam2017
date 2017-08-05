@@ -245,7 +245,10 @@
 			</div>
 		</div>
 	</div><!-- /wrapper -->
-
+	<input type="hidden" id="route-register-customer-ajax" value="{{ route('register-customer-ajax') }}">
+	 <input type="hidden" id="route-register-newsletter" value="{{ route('register.newsletter') }}">
+	 <input type="hidden" id="route-add-to-cart" value="{{ route('add-product') }}" />
+	 <input type="hidden" id="route-cart" value="{{ route('gio-hang') }}" />
 	<!-- ===== JS ===== -->
 	<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
 	<!-- ===== JS Bootstrap ===== -->

@@ -7,7 +7,7 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('tag.index') }}">Tags</a></li>
-      <li class="active">Chỉnh sửa</li>
+      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
     </ol>
   </section>
 
@@ -21,7 +21,7 @@
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Chỉnh sửa</h3>
+            Chỉnh sửa
           </div>
           <!-- /.box-header -->
           <!-- form start -->
@@ -40,12 +40,12 @@
               @endif
               <div class="form-group">
                 <label for="email">Loại </label>
-                <select class="form-control" name="type">                                
-                  <option value="1" {{ 1 ==  $detail->type ? "selected" : "" }}>Phim</option>
-                  <option value="2" {{ 2 ==  $detail->type ? "selected" : "" }}>Bài viết</option>
-                  <!--<option value="3" {{ 3 ==  $detail->type ? "selected" : "" }}>Ảnh</option>-->
+                <select class="form-control" name="type" id="type">                                
+                  <option value="1" {{ 1 ==  old('type', $detail->type) ? "selected" : "" }}>BĐS</option>
+                  <option value="2" {{ 2 ==  old('type', $detail->type) ? "selected" : "" }}>Bài viết</option>
+                  <option value="3" {{ 3 ==  old('type', $detail->type) ? "selected" : "" }}>Tiện ích</option>
                 </select>
-              </div>
+              </div>              
                <!-- text input -->
               <div class="form-group">
                 <label>Tag <span class="red-star">*</span></label>
@@ -62,8 +62,8 @@
               </div>            
             </div>                    
             <div class="box-footer">
-              <button type="submit" class="btn btn-primary">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('tag.index')}}">Hủy</a>
+              <button type="submit" class="btn btn-primary btn-sm">Lưu</button>
+              <a class="btn btn-default btn-sm" class="btn btn-primary btn-sm" href="{{ route('tag.index')}}">Hủy</a>
             </div>
             
         </div>
@@ -80,21 +80,21 @@
               <input type="hidden" name="meta_id" value="{{ $detail->meta_id }}">
               <div class="form-group">
                 <label>Meta title </label>
-                <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ !empty((array)$metadata) ? $meta->title : "" }}">
+                <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ !empty((array)$meta) ? $meta->title : "" }}">
               </div>
               <!-- textarea -->
               <div class="form-group">
                 <label>Meta desciption</label>
-                <textarea class="form-control" rows="6" name="meta_description" id="meta_description">{{ !empty((array)$metadata) ? $meta->description : "" }}</textarea>
+                <textarea class="form-control" rows="6" name="meta_description" id="meta_description">{{ !empty((array)$meta) ? $meta->description : "" }}</textarea>
               </div>  
 
               <div class="form-group">
                 <label>Meta keywords</label>
-                <textarea class="form-control" rows="4" name="meta_keywords" id="meta_keywords">{{ !empty((array)$metadata) ? $meta->keywords : "" }}</textarea>
+                <textarea class="form-control" rows="4" name="meta_keywords" id="meta_keywords">{{ !empty((array)$meta) ? $meta->keywords : "" }}</textarea>
               </div>  
               <div class="form-group">
                 <label>Custom text</label>
-                <textarea class="form-control" rows="6" name="custom_text" id="custom_text">{{ !empty((array)$metadata) ? $meta->custom_text : ""  }}</textarea>
+                <textarea class="form-control" rows="6" name="custom_text" id="custom_text">{{ !empty((array)$meta) ? $meta->custom_text : ""  }}</textarea>
               </div>
             
           </div>   
@@ -111,5 +111,32 @@
 
 @stop
 @section('javascript_page')
-
+<script type="text/javascript">
+  $(document).ready(function(){    
+    $('#name').change(function(){
+         var name = $.trim( $(this).val() );
+         if( name != '' && $('#slug').val() == ''){
+            $.ajax({
+              url: $('#route_get_slug').val(),
+              type: "POST",
+              async: false,      
+              data: {
+                str : name
+              },              
+              success: function (response) {
+                if( response.str ){                  
+                  $('#slug').val( response.str );
+                }                
+              },
+              error: function(response){                             
+                  var errors = response.responseJSON;
+                  for (var key in errors) {
+                    
+                  }
+              }
+            });
+         }
+      });
+  });
+</script>>
 @stop

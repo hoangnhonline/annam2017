@@ -52,25 +52,15 @@ Route::group(['namespace' => 'Frontend'], function()
     
     Route::get('san-pham/{slug}-{id}.html', ['as' => 'product-detail', 'uses' => 'DetailController@index']);
     Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
-    Route::get('{slugLoaiSp}/gia-{slugGia}', ['as' => 'theo-gia-parent-cate', 'uses' => 'CateController@theoGia']);
-
-    Route::get('{slugLoaiSp}/ban-chay/', ['as' => 'ban-chay', 'uses' => 'CateController@banChay']);
-
-    Route::get('{slugLoaiSp}/san-pham-moi/', ['as' => 'san-pham-moi', 'uses' => 'CateController@ProductMoi']);
-    Route::get('{slugLoaiSp}/giam-gia/', ['as' => 'giam-gia', 'uses' => 'CateController@giamGia']);
-
-    Route::get('/rap-may-tinh-online', ['as' => 'lap-rap', 'uses' => 'LapRapController@lapRap']);
-    Route::post('tu-chon-cau-hinh/mua/', ['as' => 'mua-lap-rap', 'uses' => 'LapRapController@mua']);
-    Route::post('tu-chon-cau-hinh/lay-san-pham-tuong-thich/', ['as' => 'lay-sp-tuong-thich', 'uses' => 'LapRapController@getTuongThich']);
-    Route::post('tu-chon-cau-hinh/xem-cau-hinh', ['as' => 'xem-cau-hinh', 'uses' => 'LapRapController@xemCauHinh']);
+    
     Route::group(['prefix' => 'thanh-toan'], function () {
         Route::get('gio-hang', ['as' => 'gio-hang', 'uses' => 'CartController@index']);
         Route::get('xoa-gio-hang', ['as' => 'xoa-gio-hang', 'uses' => 'CartController@deleteAll']);
         Route::any('shipping-step-1', ['as' => 'shipping-step-1', 'uses' => 'CartController@shippingStep1']);
         Route::get('shipping-step-2', ['as' => 'shipping-step-2', 'uses' => 'CartController@shippingStep2']);
         Route::get('shipping-step-3', ['as' => 'shipping-step-3', 'uses' => 'CartController@shippingStep3']);
-        Route::post('update-Product', ['as' => 'update-Product', 'uses' => 'CartController@update']);
-        Route::post('them-Product', ['as' => 'them-Product', 'uses' => 'CartController@addProduct']);
+        Route::get('update-product', ['as' => 'update-product', 'uses' => 'CartController@update']);
+        Route::get('add-product', ['as' => 'add-product', 'uses' => 'CartController@addProduct']);
         Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
         Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
     });
@@ -89,10 +79,8 @@ Route::group(['namespace' => 'Frontend'], function()
     });
     Route::get('{slugLoaiSp}/{slug}/', ['as' => 'child-cate', 'uses' => 'CateController@cate']);
     Route::post('/dang-ki-newsletter', ['as' => 'register.newsletter', 'uses' => 'HomeController@registerNews']);
-    Route::get('/cap-nhat-thong-tin', ['as' => 'cap-nhat-thong-tin', 'uses' => 'CartController@updateUserInformation']);
-
-    Route::get('/{slug}', ['as' => 'news-list', 'uses' => 'HomeController@newsList']);
-    Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
+    Route::get('/cap-nhat-thong-tin', ['as' => 'cap-nhat-thong-tin', 'uses' => 'CartController@updateUserInformation']);        
+    Route::get('/tin-tuc/{slug}-p{id}.html', ['as' => 'news-detail', 'uses' => 'NewsController@newsDetail']);
     Route::post('/get-district', ['as' => 'get-district', 'uses' => 'DistrictController@getDistrict']);
     Route::post('/get-ward', ['as' => 'get-ward', 'uses' => 'WardController@getWard']);
     Route::post('/customer/update', ['as' => 'update-customer', 'uses' => 'CustomerController@update']);
@@ -103,6 +91,8 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('so-sanh.html', ['as' => 'so-sanh', 'uses' => 'CompareController@index']);
     Route::get('lien-he.html', ['as' => 'contact', 'uses' => 'HomeController@contact']);
     Route::get('may-cu-gia-re.html', ['as' => 'old-device', 'uses' => 'HomeController@oldDevice']);
+    Route::get('tin-tuc.html', ['as' => 'news-list', 'uses' => 'NewsController@newsList']);
+
     Route::get('{slug}.html', ['as' => 'parent-cate', 'uses' => 'CateController@index']);
 
 });
