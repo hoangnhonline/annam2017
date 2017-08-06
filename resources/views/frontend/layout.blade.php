@@ -167,6 +167,7 @@
     @if($routeName == 'home')
 	<script src="{{ URL::asset('assets/js/home.js') }}"></script>	
 	@endif
+	<script src="{{ URL::asset('assets/js/general.js') }}"></script>	
 	@if($routeName != 'product-detail')
 	<script src="{{ URL::asset('assets/lib/select2/js/select2.min.js') }}"></script>
 	<script type="text/javascript">
