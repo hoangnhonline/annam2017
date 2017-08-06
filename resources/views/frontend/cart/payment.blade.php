@@ -205,7 +205,7 @@
 	</div><!-- /block_checkout-frm -->
 </div>
 <style type="text/css">
-	.pre_checkout .cart-link, .pre_checkout .menu_cart{
+	.pre_checkout .cart-link{
 		display: block !important;
 	}
 </style>
