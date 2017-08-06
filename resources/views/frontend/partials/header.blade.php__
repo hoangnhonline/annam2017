@@ -22,7 +22,7 @@
         </div>
 
         <div id="cart-block" class="col-md-1 col-sm-1 col-xs-4 shopping-cart-box noprint">
-            <a class="cart-link" href="{{route('gio-hang')}}">
+            <a class="cart-link" href="{{route('cart')}}">
                 @if(Session::has('products') && Session::get('products'))
                     <span class="notify notify-left">{{Session::get('products') ? array_sum(Session::get('products')) : 0}}</span>
                 @else

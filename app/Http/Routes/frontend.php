@@ -26,16 +26,11 @@ Route::group(['prefix' => 'social-auth'], function () {
     });
 
 });
-
 Route::group(['prefix' => 'authentication'], function () {
     Route::post('check_login', ['as' => 'auth-login', 'uses' => 'AuthenticationController@checkLogin']);
     Route::post('login_ajax', ['as' =>  'auth-login-ajax', 'uses' => 'AuthenticationController@checkLoginAjax']);
     Route::get('/user-logout', ['as' => 'user-logout', 'uses' => 'AuthenticationController@logout']);
 });
-
-
-
-
 Route::group(['namespace' => 'Frontend'], function()
 {
     Route::get('code/sang-map/seo-link', ['as' => 'seo-link', 'uses' => 'HomeController@showLink']);   
@@ -54,12 +49,13 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
     
     Route::group(['prefix' => 'thanh-toan'], function () {
-        Route::get('gio-hang', ['as' => 'gio-hang', 'uses' => 'CartController@index']);
-        Route::get('xoa-gio-hang', ['as' => 'xoa-gio-hang', 'uses' => 'CartController@deleteAll']);
+        Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
+        Route::get('empty-cart', ['as' => 'empty-cart', 'uses' => 'CartController@deleteAll']);
+        Route::get('short-cart', ['as' => 'short-cart', 'uses' => 'CartController@shortCart']);
         Route::any('shipping-step-1', ['as' => 'shipping-step-1', 'uses' => 'CartController@shippingStep1']);
         Route::get('shipping-step-2', ['as' => 'shipping-step-2', 'uses' => 'CartController@shippingStep2']);
         Route::get('shipping-step-3', ['as' => 'shipping-step-3', 'uses' => 'CartController@shippingStep3']);
-        Route::get('update-product', ['as' => 'update-product', 'uses' => 'CartController@update']);
+        Route::post('update-product', ['as' => 'update-product', 'uses' => 'CartController@update']);
         Route::get('add-product', ['as' => 'add-product', 'uses' => 'CartController@addProduct']);
         Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
         Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        

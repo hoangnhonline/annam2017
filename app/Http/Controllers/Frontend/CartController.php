@@ -59,32 +59,49 @@ class CartController extends Controller
         $seo['title'] = $seo['description'] = $seo['keywords'] = "Giỏ hàng";
         return view('frontend.cart.index', compact('arrProductInfo', 'getlistProduct', 'seo'));
     }
+    public function shortCart(Request $request)
+    {
+        $getlistProduct = Session::get('products');       
+        if(!empty($getlistProduct)){
+            $listProductId = array_keys($getlistProduct);        
+            $arrProductInfo = Product::whereIn('product.id', $listProductId)
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                            ->select('product_img.image_url', 'product.*')->get();        
+        }else{
+            $arrProductInfo = Product::where('id', -1)->get();       
+        }
+        return view('frontend.cart.ajax.short-cart', compact('arrProductInfo', 'getlistProduct'));
+    }
 
     public function update(Request $request)
     {
         $listProduct = Session::get('products');
-        if($request->quantity) {
-            $listProduct[$request->id] = $request->quantity;
-        } else {
-            unset($listProduct[$request->id]);
+        if($request->id > 0){
+            if($request->quantity) {
+                $listProduct[$request->id] = $request->quantity;
+            } else {
+                unset($listProduct[$request->id]);
+            }
+            Session::put('products', $listProduct);
         }
-        Session::put('products', $listProduct);
         return 'sucess';
     }
 
     public function addProduct(Request $request)
     {
-        $listProduct = Session::get('products');
+        $id = $request->id;
+    
+        if($id > 0){
+            $listProduct = Session::get('products');
+            
+            if(!empty($listProduct[$request->id])) {
+                $listProduct[$request->id] += 1;
+            } else {
+                $listProduct[$request->id] = 1;
+            }
 
-
-
-        if(!empty($listProduct[$request->id])) {
-            $listProduct[$request->id] += 1;
-        } else {
-            $listProduct[$request->id] = 1;
+            Session::put('products', $listProduct);
         }
-
-        Session::put('products', $listProduct);
 
         return 'sucess';
     }
@@ -443,7 +460,7 @@ class CartController extends Controller
 
     public function deleteAll(){
         Session::put('products', []);
-        return redirect()->route('gio-hang');
+        return redirect()->route('home');
     }
 }
 

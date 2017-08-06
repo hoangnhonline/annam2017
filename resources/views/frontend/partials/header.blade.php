@@ -1,12 +1,12 @@
 <div class="block block_header_wrap">
 	<header class="header-des">
 		<div class="block block_header_top row">
-			<div class="block_logo col-md-2 col-sm-2">
+			<div class="block_logo col-md-3 col-sm-3">
 				<a href="{!! route('home') !!}" title="">
-					<img src="images/logo.png" alt="Logo">
+					<img src="{!! Helper::showImage($settingArr['logo']) !!}" alt="Logo An Nam mobile">
 				</a>
 			</div><!-- /block_logo -->
-			<div class="block_search col-md-6 col-sm-6">
+			<div class="block_search col-md-5 col-sm-5">
 				<div class="block_search_inner">
 					<p class="block_call_support">HOTLINE<a href="tel:+0904500057">0904500057</a></p>
 					<form name="frm_search" action="{{ route('search') }}" method="GET" class="frm-search">
@@ -18,10 +18,10 @@
 							<div id="block_suggestions"></div>
 						</div>
 					</form>
-					<a href="#" onclick="return false" class="cart-link" data-toggle="modal" data-target="#scart_popup">
-						<i class="fa fa-shopping-cart"></i>Giỏ hàng<span class="order_total_quantity">1</span>
-					</a>
-				</div>
+					<a href="javascript:;" class="cart-link">
+						<i class="fa fa-shopping-cart"></i>Giỏ hàng<span class="order_total_quantity">{!! Session::get('products') ? array_sum(Session::get('products')) : 0 !!}</span>						
+					</a>					
+				</div>				
 			</div><!-- /block_search -->
 			<div class="block_face col-md-4 col-sm-4">
 				<div class="block_face_inner">
@@ -36,7 +36,7 @@
 	              <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
 	            </button><!-- /navbar-toggle -->
 	            <div class="block_cart_mobile">
-	            	<a href="#" onclick="return false" data-toggle="modal" data-target="#scart_popup"><span class="order_total_quantity">1</span></a>
+	            	<a href="javascript:;" class="cart-link"><span class="order_total_quantity">1</span></a>
 	            </div><!-- /block_cart_mobile -->
 	            <div class="block_logo_mobile">
 					<a href="{!! route('home') !!}"><img src="images/logo_white.png" alt=""></a>
@@ -100,8 +100,8 @@
 						</a>
 					</li><!-- level0 -->
 					<li class="level0 menu_cart">
-						<a href="#" onclick="return false" class="cart-link" data-toggle="modal" data-target="#scart_popup">
-							<i class="fa fa-shopping-cart"></i>Giỏ hàng<span class="order_total_quantity">1</span>
+						<a href="javascript:;" class="cart-link">
+							<i class="fa fa-shopping-cart"></i>Giỏ hàng<span class="order_total_quantity">{!! Session::get('products') ? array_sum(Session::get('products')) : 0 !!}</span>
 						</a>
 					</li>
 				</ul>

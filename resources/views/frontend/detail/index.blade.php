@@ -27,7 +27,7 @@
             id: product_id
           },
           success : function(data){
-            location.href = '{{route("gio-hang")}}';
+            location.href = '{{route("cart")}}';
           },
           error : function(e) {
             alert( JSON.stringify(e));

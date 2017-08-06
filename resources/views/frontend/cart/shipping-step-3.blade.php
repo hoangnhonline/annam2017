@@ -155,7 +155,7 @@ $vangLaiArr  = Session::get('vanglai');
                     <div id="panel-cart">
                       <div class="panel panel-default cart">
                         <div class="panel-body">
-                          <div class="order"> <span class="title">Đơn hàng</span> <span class="title"> ({{ array_sum($getlistProduct) }} sản phẩm)</span> <a href="{{route('gio-hang')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
+                          <div class="order"> <span class="title">Đơn hàng</span> <span class="title"> ({{ array_sum($getlistProduct) }} sản phẩm)</span> <a href="{{route('cart')}}" class="btn btn-default btn-custom1">Sửa</a> </div>
                           <div class="product">
                           	<?php $total = 0; ?>
                           	@foreach($arrProductInfo as $product)

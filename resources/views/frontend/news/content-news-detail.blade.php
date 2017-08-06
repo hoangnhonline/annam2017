@@ -20,13 +20,17 @@
             </div><!-- /block -->
             @if( $otherArr )
                        
-            <div class="block_news_related">
+            <div class="block_news_related" style="margin-top:40px">
                 <span class="block_title">CÁC TIN KHÁC</span>
-                <ul>
+                <ul class="row">
                  @foreach( $otherArr as $articles)
-                <li>                
-                   <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}" style="font-size:15px">{!! $articles->title !!}</a>[{!! date('d/m/Y', strtotime($detail->created_at)) !!}]
-                </li>
+                <li class="col-sm-3 col-sm-6">
+                    <div class="des" style="text-align:left">
+                        <img src="{!! Helper::showImage($articles->image_url ) !!}" alt="{!! $articles->title !!}">
+                        <a href="{{ route('news-detail', ['slug' => $articles->slug, 'id' => $articles->id]) }}" title="{!! $articles->title !!}" >{!! $articles->title !!}</a>
+                        <span>[{!! date('d/m/Y', strtotime($detail->created_at)) !!}]</span>
+                    </div>
+                </li>                
                 @endforeach
                 </ul>
             </div>
@@ -36,4 +40,12 @@
 
     @include('frontend.news.sidebar')
 </div><!-- /block_categories -->
+<style type="text/css">
+    .block_news_related ul li a{
+        font-size: 12px;
+        height: 30px;
+        display: block;
+        overflow-y: hidden;
+    }
+</style>
 @endsection

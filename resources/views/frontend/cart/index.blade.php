@@ -112,7 +112,7 @@
                         <div class="all-new">
                             <a class="btn btn-default btn-gradient" href="{{ route('home') }}" style="margin-bottom:2px"><i class="fa fa-angle-left"></i> Tiếp tục mua sắm</a>
                             @if(!empty(Session::get('products')))
-                            <a class="btn btn-default btn-gradient" style="margin-bottom:2px" onclick="return confirm('Xóa tất cả sản phẩm trong giỏ hàng?');" href="{{ route('xoa-gio-hang') }}"><i class="fa fa-trash-o"></i> Xóa toàn bộ</a>
+                            <a class="btn btn-default btn-gradient" style="margin-bottom:2px" onclick="return confirm('Xóa tất cả sản phẩm trong giỏ hàng?');" href="{{ route('empty-cart') }}"><i class="fa fa-trash-o"></i> Xóa toàn bộ</a>
                             @endif
                         </div>
                     </div>

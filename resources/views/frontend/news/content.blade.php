@@ -15,11 +15,11 @@
           @if($articlesList->first())
           <div class="block-news-default-item">
             <div class="block_thumb">
-              <a href="#" title="">
+              <a href="{{ route('news-detail', ['slug' => $articlesList->first()->slug, 'id' => $articlesList->first()->id]) }}" title="{!! $articlesList->first()->title !!}">
                 <img src="{!! Helper::showImage($articlesList->first()->image_url) !!}" alt="{!! $articlesList->first()->title !!}">
               </a>
             </div>
-            <a href="#" title="">
+            <a href="{{ route('news-detail', ['slug' => $articlesList->first()->slug, 'id' => $articlesList->first()->id]) }}" title="{!! $articlesList->first()->title !!}">
                     <h3>{!! $articlesList->first()->title !!}
               <!--<span class="lesscom"><i class="fa fa-comment-o"></i>11</span>-->
                     </h3>

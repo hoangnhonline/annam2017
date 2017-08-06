@@ -43,7 +43,7 @@
                         </div>
                         <div class="col-md-5 col-sm-5 col-xs-12 product_detail_info">
                             <div class="block_price">
-                                <strong>5.990.000₫</strong>
+                                <strong>{!! $detail->is_sale == 1 ? number_format($detail->price_sale ) : number_format($detail->price)  !!}₫</strong>
                             </div>
                             @if($detail->khuyen_mai)
                             <div class="block_promotion">
@@ -51,12 +51,13 @@
                                 {!! $detail->khuyen_mai !!}
                             </div>
                             @endif
-                            <div class="block_order">
-                                <a href="javascript:;" data-id="{!! $detail->id !!}" title="Mua {!! $detail->name !!}" class="buy_now">
-                                    <b>Mua ngay </b>
-                                    <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
-                                </a>
-                            </div>                           
+                            <a href="javascript:;" title="Mua Ngay" class="block_order" data-id="{!! $detail->id !!}">
+                                <i class="pw-icon-gift-2"></i>
+                                <span class="desc">
+                                    <span class="text-1">Mua hàng ngay</span>
+                                    <span class="text-2">Giao hàng toàn quốc</span>
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </div><!-- /block_detail_left -->
@@ -102,16 +103,16 @@
                                     <img src="images/detail/thumb/1.jpg" alt="">
                                     <div class="info_sp">
                                         <h3>{!! $detail->name !!}</h3>
-                                        <strong>5.990.000₫</strong>
+                                        <strong>{!! $detail->is_sale == 1 ? number_format($detail->price_sale ) : number_format($detail->price)  !!}₫</strong>
                                     </div>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
-                                    <div class="block_order">
-                                        <a href="javascript:;" data-id="{!! $detail->id !!}" title="Mua {!! $detail->name !!}" class="buy_now"
-                                            <b>Mua ngay </b>
-                                            <span>Giao tận nơi hoặc nhận tại cửa hàng</span>
-                                        </a>
-                                    </div>
+                                    <a href="javascript:;" title="Mua Ngay" class="block_order" data-id="{!! $detail->id !!}">
+                                        <i class="pw-icon-gift-2"></i>
+                                        <span class="desc">
+                                            <span class="text-1">Mua hàng ngay</span>  
+                                        </span>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -258,7 +259,7 @@ $(document).ready(function () {
         });
     });
 $(document).ready(function($){  
-  $('a.buy_now').click(function() {
+  $('a.block_order').click(function() {
         var product_id = $(this).data('id');
         add_product_to_cart(product_id);
       });
@@ -271,7 +272,7 @@ function add_product_to_cart(product_id) {
       id: product_id
     },
     success : function(data){
-      location.href = $('#route-cart').val();
+       $('.cart-link').click();
     }
   });
 }
