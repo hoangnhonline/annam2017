@@ -36,13 +36,13 @@
 	              <span class="sr-only">Toggle navigation</span><i class="fa fa-bars"></i>
 	            </button><!-- /navbar-toggle -->
 	            <div class="block_cart_mobile">
-	            	<a href="javascript:;" class="cart-link"><span class="order_total_quantity">1</span></a>
+	            	<a href="javascript:;" class="cart-link"><span class="order_total_quantity">{!! Session::get('products') ? array_sum(Session::get('products')) : 0 !!}</span></a>
 	            </div><!-- /block_cart_mobile -->
 	            <div class="block_logo_mobile">
-					<a href="{!! route('home') !!}"><img src="images/logo_white.png" alt=""></a>
+					<a href="{!! route('home') !!}"><img src="{!! URL::asset('assets/images/logo_white.png') !!}" alt="Logo An Nam Mobile"></a>
 				</div><!-- /block_logo_mobile -->
 				<div class="block_call_mobile">
-					<a href="tel:+84981200888" class="mb-phone"><i class="fa fa-phone"></i></a>
+					<a href="tel:+84904500057" class="mb-phone"><i class="fa fa-phone"></i></a>
 				</div><!-- /block_call_mibile -->
 				<div class="block_search_mobile">
 					<div class="block_content">
