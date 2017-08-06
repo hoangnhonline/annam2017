@@ -49,7 +49,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('/tin-tuc/{slug}-{id}.html', ['as' => 'news-detail', 'uses' => 'HomeController@newsDetail']);
     
     Route::group(['prefix' => 'thanh-toan'], function () {
-        Route::get('cart', ['as' => 'cart', 'uses' => 'CartController@index']);
+        Route::get('thong-tin-thanh-toan', ['as' => 'payment', 'uses' => 'CartController@payment']);
         Route::get('empty-cart', ['as' => 'empty-cart', 'uses' => 'CartController@deleteAll']);
         Route::get('short-cart', ['as' => 'short-cart', 'uses' => 'CartController@shortCart']);
         Route::any('shipping-step-1', ['as' => 'shipping-step-1', 'uses' => 'CartController@shippingStep1']);

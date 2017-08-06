@@ -4,7 +4,7 @@
 	<i class="fa fa-shopping-cart"></i> GIỎ HÀNG CỦA TÔI
 	<span>(Đang có <strong class="order_total_quantity">{!! Session::get('products') ? array_sum(Session::get('products')) : 0 !!}</strong> sản phẩm)</span>
 	@if(!empty(Session::get('products')))
-	<span><a href="{{ route('empty-cart') }}" class="empty_cart" onclick="return confirm('Quý khách có chắc chắn bỏ hết hàng ra khỏi giỏ?'); "><i class="fa fa-remove"></i>Làm trống giỏ hàng</a></span>
+	<span><a href="{{ route('empty-cart') }}" class="empty_cart" onclick="return confirm('Quý khách có chắc chắn bỏ hết hàng ra khỏi giỏ?'); " ><i class="fa fa-remove"></i>Làm trống giỏ hàng</a></span>
 	@endif
 </h2>
 </div>
@@ -95,7 +95,7 @@ $total = 0;
 						</table>
 						<div class="f-r chck-out-btn">
 							@if( $arrProductInfo->count() > 0)
-				            <a href="pre_checkout.html" class="checkout-btn">THANH TOÁN</a>
+				            <a href="{!! route('payment') !!}" class="checkout-btn">THANH TOÁN</a>
 				            <a href="javascript:;" class="keep-buying">Hoặc tiếp tục mua hàng</a>
 				            @endif
 				        </div>

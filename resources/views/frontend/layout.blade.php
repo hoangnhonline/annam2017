@@ -47,7 +47,7 @@
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
 </head>
-<body>
+<body {!! $routeName == 'payment' ? "class=pre_checkout" : '' !!}>
 
 	<div id="fb-root"></div>
 	<script>(function(d, s, id) {
@@ -137,7 +137,7 @@
 	<input type="hidden" id="route-register-customer-ajax" value="{{ route('register-customer-ajax') }}">
 	 <input type="hidden" id="route-register-newsletter" value="{{ route('register.newsletter') }}">
 	 <input type="hidden" id="route-add-to-cart" value="{{ route('add-product') }}" />
-	 <input type="hidden" id="route-cart" value="{{ route('cart') }}" />
+	 <input type="hidden" id="route-payment" value="{{ route('payment') }}" />
 	 <input type="hidden" id="route-short-cart" value="{{ route('short-cart') }}" />
 	 <input type="hidden" id="route-update-product" value="{{ route('update-product') }}" />
 
