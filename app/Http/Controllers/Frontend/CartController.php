@@ -69,7 +69,7 @@ class CartController extends Controller
         $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
                             ->select('product_img.image_url', 'product.*')->get();
-        $seo['title'] = $seo['description'] = $seo['keywords'] = "Giỏ hàng";
+        $seo['title'] = $seo['description'] = $seo['keywords'] = "Thanh toán";
         return view('frontend.cart.payment', compact('arrProductInfo', 'getlistProduct', 'seo'));
     }
     public function shortCart(Request $request)

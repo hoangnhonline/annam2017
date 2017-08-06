@@ -1,4 +1,5 @@
 @extends('frontend.layout')
+@include('frontend.partials.meta')  
 @section('content')
 <?php $total = 0; ?>
 <div class="block_pre_checkout">
