@@ -75,7 +75,7 @@
                                     ?>
 
                                     <p>
-                                    {{ $info->text_hien_thi}}: 
+                                    {!! $info->text_hien_thi !!}: 
                                     <?php
                                     $tmp = DB::table('sp_thuoctinh')->where('product_id', $product->id)->select('thuoc_tinh')->first();            
                                     if( $tmp ){

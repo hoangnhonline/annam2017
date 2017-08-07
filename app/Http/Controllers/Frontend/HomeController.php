@@ -48,7 +48,7 @@ class HomeController extends Controller
         $bannerArr = [];
         $hoverInfo = [];
         foreach( $loaiSp as $loai){            
-            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id ])
+            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id, 'is_old' => 0])
                             ->where('so_luong_ton', '>', 0)
                             ->where('price', '>', 0)            
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
@@ -71,28 +71,7 @@ class HomeController extends Controller
                         $hoverInfo[$value->loai_id][] = $value;
                     }
                 }
-            }
-            //dd($hoverInfo);
-            /*
-            $tmp = SpThuocTinh::where('product_id', $detail->id)->select('thuoc_tinh')->first();
-            
-            if( $tmp ){
-                $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
-            }
-            if ( $spThuocTinhArr ){
-                $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $loai->id)->orderBy('display_order')->get();            
-               
-                if( $loaiThuocTinhArr->count() > 0){
-                    foreach ($loaiThuocTinhArr as $value) {
-
-                        $thuocTinhArr[$value->id]['id'] = $value->id;
-                        $thuocTinhArr[$value->id]['name'] = $value->name;
-
-                        $thuocTinhArr[$value->id]['child'] = ThuocTinh::where('loai_thuoc_tinh_id', $value->id)->select('id', 'name')->orderBy('display_order')->get()->toArray();
-                    }
-                    
-                }        
-            } */ 
+            }            
         
         }// foreach
       //  dd($hoverInfo);
@@ -108,6 +87,63 @@ class HomeController extends Controller
         $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
                 
         return view('frontend.home.index', compact(
+                                'productArr', 
+                                'bannerArr', 
+                                'articlesArr', 
+                                'socialImage', 
+                                'seo', 
+                                'thuocTinhArr', 
+                                'loaiThuocTinhArr', 
+                                'spThuocTinhArr',
+                                'hoverInfo'));
+    }
+
+    public function oldDevice(Request $request)
+    {   
+        $productArr = $manhinhArr = [];
+        $loaiSp = LoaiSp::where('status', 1)->get();
+        $bannerArr = [];
+        $hoverInfo = [];
+        foreach( $loaiSp as $loai){            
+            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id, 'is_old' => 1, 'is_hot' => 1])
+                            ->where('so_luong_ton', '>', 0)
+                            ->where('price', '>', 0)            
+                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
+                            ->select('product_img.image_url', 'product.*')                        
+                            ->orderBy('product.display_order')            
+                            ->limit(5);
+           
+            $productArr[$loai->id] = $query->get();
+
+            if( $loai->home_style > 0 ){
+                $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+            }       
+
+           
+            if(count($productArr) > 0){
+                $hoverInfoTmp = HoverInfo::orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+                
+                foreach($hoverInfoTmp as $value){
+                    if($value->loai_id == $loai->id){
+                        $hoverInfo[$value->loai_id][] = $value;
+                    }
+                }
+            }            
+        
+        }// foreach
+      //  dd($hoverInfo);
+        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
+        $seo = $settingArr;
+        $seo['title'] = $settingArr['site_title'];
+        $seo['description'] = $settingArr['site_description'];
+        $seo['keywords'] = $settingArr['site_keywords'];
+        $socialImage = $settingArr['banner'];
+
+
+
+        $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
+                
+        return view('frontend.old.index', compact(
                                 'productArr', 
                                 'bannerArr', 
                                 'articlesArr', 

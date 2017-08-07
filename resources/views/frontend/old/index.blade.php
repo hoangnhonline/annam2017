@@ -2,4 +2,4 @@
 
 @include('frontend.partials.meta')  
   
-@include('frontend.home.content')
+@include('frontend.old.content')
