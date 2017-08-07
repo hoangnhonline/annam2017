@@ -104,6 +104,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="{{ URL::asset('admin/dist/js/demo.js') }}"></script>
 <script src="{{ URL::asset('admin/dist/js/lazy.js') }}"></script>
+<script src="{{ URL::asset('admin/dist/js/jquery.number.min.js') }}"></script>
 <script src="{{ URL::asset('admin/dist/js/ckeditor/ckeditor.js') }}"></script>
 
 <script type="text/javascript" type="text/javascript">
@@ -126,6 +127,7 @@ $(document).on('click', '#btnSaveNoti', function(){
 });
 $(document).ready(function(){
   $('img.lazy').lazyload();
+  $('input.number').number( true, 0 );
   $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

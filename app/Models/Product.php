@@ -32,7 +32,7 @@ class Product extends Model  {
                     'is_hot', 
                     'is_sale', 
                     'is_new',
-                    'type',
+                    'is_old',
                     'price',
                     'price_new',
                     'price_sale',
@@ -53,7 +53,7 @@ class Product extends Model  {
                     'status', 
                     'created_user', 
                     'updated_user', 
-                    'meta_id', 
+                    'meta_id'
                     
                     ];
     

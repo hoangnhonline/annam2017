@@ -56,7 +56,7 @@
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="form-group col-md-6 none-padding">
                           <label for="email">Danh mục cha<span class="red-star">*</span></label>
-                          <select class="form-control" name="loai_id" id="loai_id">
+                          <select class="form-control req" name="loai_id" id="loai_id">
                             <option value="">--Chọn--</option>
                             @foreach( $loaiSpArr as $value )
                             <option value="{{ $value->id }}"
@@ -77,7 +77,7 @@
                           <div class="form-group col-md-6 none-padding pleft-5">
                           <label for="email">Danh mục con<span class="red-star">*</span></label>
 
-                          <select class="form-control" name="cate_id" id="cate_id">
+                          <select class="form-control req" name="cate_id" id="cate_id">
                             <option value="">--Chọn--</option>
                             @foreach( $cateArr as $value )
                             <option value="{{ $value->id }}" 
@@ -96,39 +96,48 @@
                         </div>  
                         <div class="form-group" >                  
                           <label>Tên <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="name" id="name" value="{{ old('name', $detail->name) }}">
+                          <input type="text" class="form-control req" name="name" id="name" value="{{ old('name', $detail->name) }}">
                         </div>
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug', $detail->slug) }}">
+                          <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug', $detail->slug) }}">
                         </div>
-                        <div class="col-md-4 none-padding">
+                        <div class="col-md-3 none-padding">
+                          <div class="checkbox">
+                              <label><input type="checkbox" name="is_old" id="is_old" value="1" {{ old('is_old', $detail->is_old) == 1 ? "checked" : "" }}> MÁY CŨ </label>
+                          </div>                          
+                        </div>
+                        <div class="col-md-3 none-padding">
+                          <div class="checkbox">
+                              <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot', $detail->is_hot) == 1 ? "checked" : "" }}> NỔI BẬT </label>
+                          </div>                          
+                        </div>
+                        <div class="col-md-3 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_new" value="1" {{ old('is_new', $detail->is_new) == 1 ? "checked" : "" }}> NEW </label>
                           </div>                          
-                        </div>
-                        <div class="col-md-4 none-padding">
-                          <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot', $detail->is_hot) == 1 ? "checked" : "" }}>  HOT </label>
-                          </div>                          
-                        </div>
-                        <div class="col-md-4 none-padding pleft-5">
+                        </div>                        
+                        <div class="col-md-3 none-padding pleft-5">
                             <div class="checkbox">
-                              <label><input type="checkbox" name="is_sale" value="1" {{ old('is_sale', $detail->is_sale) == 1 ? "checked" : "" }}> SALE </label>
+                              <label><input type="checkbox" name="is_sale" id="is_sale" value="1" {{ old('is_sale', $detail->is_sale) == 1 ? "checked" : "" }}> SALE </label>
                           </div>
                         </div>
                         <div class="form-group" >                  
                             <label>Giá<span class="red-star">*</span></label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price', $detail->price) }}">
+                            <input type="text" class="form-control req number" name="price" id="price" value="{{ old('price', $detail->price) }}">
                         </div>
-                         <div class="form-group" >                  
+                        <div class="form-group col-md-6 none-padding" >                  
                             <label>Giá SALE</label>
-                            <input type="text" class="form-control" name="price_sale" id="price_sale" value="{{ old('price_sale', $detail->price_sale) }}">
-                        </div>  
-                        <div class="col-md-6 none-padding">
-                        <label>Số lượng tồn<span class="red-star">*</span></label>                  
-                        <input type="text" class="form-control" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton', $detail->so_luong_ton) }}">                        
-                      </div>
+                            <input type="text" class="form-control number {{ old('is_sale', $detail->is_sale) == 1  ? "req" : "" }}" name="price_sale" id="price_sale" value="{{ old('price_sale', $detail->price_sale) }}">
+                        </div>
+                        <div class="form-group col-md-6" >                  
+                            <label>Giá máy mới</label>
+                            <input type="text" class="form-control number {{ old('is_old', $detail->is_old) == 1  ? "req" : "" }}" name="price_new" id="price_new" value="{{ old('price_new', $detail->price_new) }}">
+                        </div>
+                         <div class="col-md-6 none-padding">
+                          <label>Số lượng tồn<span class="red-star">*</span></label>                  
+                          <input type="text" class="form-control req number" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton', $detail->so_luong_ton) }}">                        
+                        </div>
                       <div class="col-md-6 none-padding pleft-5">
                           <label>Màu sắc</label>
                           <select name="color_id" id="color_id" class="form-control">
@@ -140,8 +149,9 @@
                               @endif
                           </select>
                       </div>
+                      <div style="margin-bottom:10px;clear:both"></div>
                       <div class="form-group col-md-6 none-padding">
-                          <label>Mô tả ngắn</label>
+                          <label>Mô tả</label>
                           <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta', $detail->mo_ta) }}</textarea>
                         </div>
                       <div class="form-group col-md-6 none-padding pleft-5">
@@ -268,17 +278,15 @@
     color:#FFF !important;
     background-color: #444345 !important;
   }
-
+  .error{
+    border : 1px solid red;
+  }
 </style>
 @stop
 @section('javascript_page')
 <script type="text/javascript">
 
 $(document).on('click', '.remove-image', function(){
-/*  var obj = $(this);
-  var is_thumbnail = obj.parents('col-md-3').find("input[name=thumbnail_id]").is(":checked");
-  console.log(is_thumbnail);
-  */
   if( confirm ("Bạn có chắc chắn không ?")){
     $(this).parents('.col-md-3').remove();
   }
@@ -292,14 +300,61 @@ $(document).on('keypress', '#name_search', function(e){
 });
 
     $(document).ready(function(){
-           
+           $('#btnSave').click(function(){
+        var errReq = 0;
+        $('#dataForm .req').each(function(){
+          var obj = $(this);
+          if(obj.val() == '' || obj.val() == '0'){
+            errReq++;
+            obj.addClass('error');
+          }else{
+            obj.removeClass('error');
+          }
+        });
+        if(errReq > 0){          
+         $('html, body').animate({
+              scrollTop: $("#dataForm .req.error").eq(0).parents('div').offset().top
+          }, 500);
+          return false;
+        }
+        if( $('#div-image img.img-thumbnail').length == 0){
+          if(confirm('Bạn chưa upload hình sản phẩm. Vẫn tiếp tục lưu ?')){
+            return true;
+          }else{
+            $('html, body').animate({
+                scrollTop: $("#dataForm").offset().top
+            }, 500);
+            $('a[href="#settings"]').click();            
+             return false;
+          }
+        }
+      });
+      $('#is_old').change(function(){
+        if($(this).prop('checked') == true){
+          $('#price_new').addClass('req');
+        }else{
+          $('#price_new').val('').removeClass('req');
+        }
+      });
+      $('#is_sale').change(function(){
+        if($(this).prop('checked') == true){
+          $('#price_sale').addClass('req');
+        }else{
+          $('#price_sale').val('').removeClass('req');
+        }
+      });
+      $('#dataForm .req').blur(function(){    
+        if($(this).val() != ''){
+          $(this).removeClass('error');
+        }else{
+          $(this).addClass('error');
+        }
+      });
       $('#loai_id').change(function(){
         location.href="{{ route('product.create') }}?loai_id=" + $(this).val();
       })
       $(".select2").select2();
-      $('#btnSave').click(function(){
-        $(this).html('<i class="fa fa-spin fa-spinner"></i>');
-      });      
+     
       var editor = CKEDITOR.replace( 'chi_tiet',{
           language : 'vi',
           height: 300,

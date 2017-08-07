@@ -167,9 +167,8 @@ class ProductController extends Controller
                 
             }
         }
-        $colorArr = Color::all();
-        $mucDichArr = [];
-        return view('backend.product.create', compact('loaiSpArr', 'cateArr', 'colorArr', 'loai_id', 'thuocTinhArr', 'cate_id', 'mucDichArr'));
+        $colorArr = Color::orderBy('display_order')->get();        
+        return view('backend.product.create', compact('loaiSpArr', 'cateArr', 'colorArr', 'loai_id', 'thuocTinhArr', 'cate_id'));
     }
 
     /**
@@ -180,31 +179,36 @@ class ProductController extends Controller
     */
     public function store(Request $request)
     {
-        $dataArr = $request->all();        
-        
+        $dataArr = $request->all();
+
         $this->validate($request,[
             'name' => 'required',
             'slug' => 'required' ,
-            'price' => 'required|numeric',
-            'so_luong_ton' => 'required|numeric'           
+            'price' => 'required',
+            'so_luong_ton' => 'required'           
         ],
         [
             'name.required' => 'Bạn chưa nhập tên sản phẩm',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',
+            'slug.required' => 'Bạn chưa nhập slug',            
             'price.required' => 'Bạn chưa nhập giá',
-            'so_luong_ton.required' => 'Bạn chưa nhập số lượng tồn',
-            'so_luong_ton.numeric' => 'Vui lòng nhập số lượng tồn hợp lệ'            
+            'so_luong_ton.required' => 'Bạn chưa nhập số lượng tồn'                      
         ]);
        
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;        
+        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0; 
+        $dataArr['is_old'] = isset($dataArr['is_old']) ? 1 : 0;
+        $dataArr['is_new'] = isset($dataArr['is_new']) ? 1 : 0;
         
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         
+        $dataArr['price'] = str_replace(',', '', $request->price);
+        $dataArr['price_sale'] = str_replace(',', '', $request->price_sale);
+        $dataArr['price_new'] = str_replace(',', '', $request->price_new);
+        $dataArr['so_luong_ton'] = str_replace(',', '', $request->so_luong_ton);
+
         $dataArr['status'] = 1;
 
         $dataArr['created_user'] = Auth::user()->id;
@@ -228,11 +232,10 @@ class ProductController extends Controller
        
         $arrData = ['title' => $dataArr['meta_title'], 'description' => $dataArr['meta_description'], 'keywords'=> $dataArr['meta_keywords'], 'custom_text' => $dataArr['custom_text'], 'updated_user' => Auth::user()->id];
         if( $meta_id == 0){
-            $arrData['created_user'] = Auth::user()->id;
-            //var_dump(MetaData::create( $arrData ));die;
+            $arrData['created_user'] = Auth::user()->id;            
             $rs = MetaData::create( $arrData );
             $meta_id = $rs->id;
-            //var_dump($meta_id);die;
+
             $modelSp = Product::find( $id );
             $modelSp->meta_id = $meta_id;
             $modelSp->save();
@@ -294,7 +297,7 @@ class ProductController extends Controller
                         }
 
                         $destionation = date('Y/m/d'). '/'. end($tmp);
-                        //var_dump(config('annam.upload_path').$image_url, config('annam.upload_path').$destionation);die;
+                        
                         File::move(config('annam.upload_path').$image_url, config('annam.upload_path').$destionation);
 
                         $imageArr['is_thumbnail'][] = $is_thumbnail = $dataArr['thumbnail_id'] == $image_url  ? 1 : 0;
@@ -361,7 +364,7 @@ class ProductController extends Controller
         $detail = Product::find($id);
 
         $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');
-        //var_dump("<pre>", $hinhArr);die;
+        
         $tmp = SpThuocTinh::where('product_id', $id)->select('thuoc_tinh')->first();
 
         if( $tmp ){
@@ -413,25 +416,31 @@ class ProductController extends Controller
         $this->validate($request,[
             'name' => 'required',
             'slug' => 'required',
-            'price' => 'required|numeric',
-            'so_luong_ton' => 'required|numeric'            
+            'price' => 'required',
+            'so_luong_ton' => 'required'            
         ],
         [
             'name.required' => 'Bạn chưa nhập tên sản phẩm',
-            'slug.required' => 'Bạn chưa nhập slug',
-            'price.numeric' => 'Vui lòng nhập giá hợp lệ',
+            'slug.required' => 'Bạn chưa nhập slug',            
             'price.required' => 'Bạn chưa nhập giá',
-            'so_luong_ton.required' => 'Bạn chưa nhập số lượng tồn',
-            'so_luong_ton.numeric' => 'Vui lòng nhập số lượng tồn hợp lệ'            
+            'so_luong_ton.required' => 'Bạn chưa nhập số lượng tồn'                    
         ]);
 
-        $dataArr['is_primary'] = isset($dataArr['is_primary']) ? 1 : 0;
+        
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;                
+        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;  
+        $dataArr['is_old'] = isset($dataArr['is_old']) ? 1 : 0;
+        $dataArr['is_new'] = isset($dataArr['is_new']) ? 1 : 0;
+
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
+
+        $dataArr['price'] = str_replace(',', '', $request->price);
+        $dataArr['price_sale'] = str_replace(',', '', $request->price_sale);
+        $dataArr['price_new'] = str_replace(',', '', $request->price_new);
+        $dataArr['so_luong_ton'] = str_replace(',', '', $request->so_luong_ton);
 
         $dataArr['updated_user'] = Auth::user()->id;        
         $model = Product::find($dataArr['id']);

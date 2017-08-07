@@ -49,10 +49,11 @@
 
                   <!-- Tab panes -->
                   <div class="tab-content">
+                   
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="form-group col-md-6 none-padding">
                           <label for="email">Danh mục cha<span class="red-star">*</span></label>
-                          <select class="form-control" name="loai_id" id="loai_id">
+                          <select class="form-control req" name="loai_id" id="loai_id">
                             <option value="">--Chọn--</option>
                             @foreach( $loaiSpArr as $value )
                             <option value="{{ $value->id }}" {{ $value->id == old('loai_id') || $value->id == $loai_id ? "selected" : "" }}>{{ $value->name }}</option>
@@ -61,8 +62,13 @@
                         </div>
                           <div class="form-group col-md-6 none-padding pleft-5">
                           <label for="email">Danh mục con<span class="red-star">*</span></label>
-
-                          <select class="form-control" name="cate_id" id="cate_id">
+                          <?php 
+                          $loai_id = old('loai_id');
+                          if($loai_id > 0){
+                            $cateArr = DB::table('cate')->where('loai_id', $loai_id)->orderBy('display_order')->get();
+                          }
+                          ?>
+                          <select class="form-control req" name="cate_id" id="cate_id">
                             <option value="">--Chọn--</option>
                             @foreach( $cateArr as $value )
                             <option value="{{ $value->id }}" {{ $value->id == old('cate_id') || $value->id == $cate_id ? "selected" : "" }}>{{ $value->name }}</option>
@@ -71,38 +77,47 @@
                         </div>  
                         <div class="form-group" >                  
                           <label>Tên <span class="red-star">*</span></label>
-                          <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                          <input type="text" class="form-control req" name="name" id="name" value="{{ old('name') }}">
                         </div>
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="slug" id="slug" value="{{ old('slug') }}">
+                          <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug') }}">
                         </div>                        
-                        <div class="col-md-4 none-padding">
+                        <div class="col-md-3 none-padding">
                           <div class="checkbox">
-                              <label><input type="checkbox" name="is_new" value="1"> NEW </label>
+                              <label><input type="checkbox" name="is_old" id="is_old" value="1" {{ old('is_old') == 1 ? "checked" : "" }}> MÁY CŨ </label>
                           </div>                          
                         </div>
-                        <div class="col-md-4 none-padding">
+                        <div class="col-md-3 none-padding">
                           <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" value="1"> HOT </label>
+                              <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}> NỔI BẬT </label>
                           </div>                          
                         </div>
-                        <div class="col-md-4 none-padding pleft-5">
+                        <div class="col-md-3 none-padding">
+                          <div class="checkbox">
+                              <label><input type="checkbox" name="is_new" value="1" {{ old('is_new') == 1 ? "checked" : "" }}> NEW </label>
+                          </div>                          
+                        </div>                        
+                        <div class="col-md-3 none-padding pleft-5">
                             <div class="checkbox">
-                              <label><input type="checkbox" name="is_sale" value="1"> SALE </label>
+                              <label><input type="checkbox" name="is_sale" id="is_sale" value="1" {{ old('is_sale') == 1 ? "checked" : "" }}> SALE </label>
                           </div>
                         </div>
                         <div class="form-group" >                  
                             <label>Giá<span class="red-star">*</span></label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
+                            <input type="text" class="form-control req number" name="price" id="price" value="{{ old('price') }}">
                         </div>
-                        <div class="form-group" >                  
-                            <label>Giá SALE<span class="red-star">*</span></label>
-                            <input type="text" class="form-control" name="price" id="price" value="{{ old('price') }}">
+                        <div class="form-group col-md-6 none-padding" >                  
+                            <label>Giá SALE</label>
+                            <input type="text" class="form-control number" name="price_sale" id="price_sale" value="{{ old('price_sale') }}">
+                        </div>
+                        <div class="form-group col-md-6" >                  
+                            <label>Giá máy mới</label>
+                            <input type="text" class="form-control number" name="price_new" id="price_new" value="{{ old('price_new') }}">
                         </div>
                          <div class="col-md-6 none-padding">
                           <label>Số lượng tồn<span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') }}">                        
+                          <input type="text" class="form-control req number" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') }}">                        
                         </div>
                         <div class="col-md-6 none-padding pleft-5">
                             <label>Màu sắc</label>
@@ -113,11 +128,11 @@
                                       <option value="{{ $color->id }}">{{ $color->name }}</option>
                                   @endforeach
                                 @endif
-
                             </select>
                         </div>
+                        <div style="margin-bottom:10px;clear:both"></div>
                         <div class="form-group col-md-6 none-padding">
-                            <label>Mô tả ngắn</label>
+                            <label>Mô tả</label>
                             <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta') }}</textarea>
                           </div>
                         <div class="form-group col-md-6 none-padding pleft-5">
@@ -159,7 +174,7 @@
                           @foreach( $loaithuoctinh['child'] as $thuoctinh)
                           <tr>
                             <td width="150">{{ $thuoctinh['name']}}</td>
-                            <td><input type="text" class="form-control" name="thuoc_tinh[{{ $thuoctinh['id'] }}]" ></td>
+                            <td><input type="text" class="form-control" name="thuoc_tinh[{{ $thuoctinh['id'] }}]" value="{{ old('thuoc_tinh')[$thuoctinh['id']] }}"></td>
                           </tr>
                           @endforeach
                         @endif
@@ -230,7 +245,9 @@
     color:#FFF !important;
     background-color: #444345 !important;
   }
-
+  .error{
+    border : 1px solid red;
+  }
 </style>
 @stop
 @section('javascript_page')
@@ -244,7 +261,57 @@ $(document).on('click', '.remove-image', function(){
 
 
     $(document).ready(function(){
-    
+      $('#btnSave').click(function(){
+        var errReq = 0;
+        $('#dataForm .req').each(function(){
+          var obj = $(this);
+          if(obj.val() == '' || obj.val() == '0'){
+            errReq++;
+            obj.addClass('error');
+          }else{
+            obj.removeClass('error');
+          }
+        });
+        if(errReq > 0){          
+         $('html, body').animate({
+              scrollTop: $("#dataForm .req.error").eq(0).parents('div').offset().top
+          }, 500);
+          return false;
+        }
+        if( $('#div-image img.img-thumbnail').length == 0){
+          if(confirm('Bạn chưa upload hình sản phẩm. Vẫn tiếp tục lưu ?')){
+            return true;
+          }else{
+            $('html, body').animate({
+                scrollTop: $("#dataForm").offset().top
+            }, 500);
+            $('a[href="#settings"]').click();            
+             return false;
+          }
+        }
+
+      });
+      $('#is_old').change(function(){
+        if($(this).prop('checked') == true){
+          $('#price_new').addClass('req');
+        }else{
+          $('#price_new').val('').removeClass('req');
+        }
+      });
+      $('#is_sale').change(function(){
+        if($(this).prop('checked') == true){
+          $('#price_sale').addClass('req');
+        }else{
+          $('#price_sale').val('').removeClass('req');
+        }
+      });
+      $('#dataForm .req').blur(function(){    
+        if($(this).val() != ''){
+          $(this).removeClass('error');
+        }else{
+          $(this).addClass('error');
+        }
+      });
       $('#loai_id').change(function(){
         location.href="{{ route('product.create') }}?loai_id=" + $(this).val();
       })
@@ -343,7 +410,7 @@ $(document).on('click', '.remove-image', function(){
 
       $('#name').change(function(){
          var name = $.trim( $(this).val() );
-         if( name != '' && $('#slug').val() == ''){
+         if( name != ''){
             $.ajax({
               url: $('#route_get_slug').val(),
               type: "POST",
