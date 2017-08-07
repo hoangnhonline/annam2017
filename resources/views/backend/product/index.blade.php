@@ -29,35 +29,39 @@
           <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.index') }}">
            
           
-            
             <div class="form-group">
-              <label for="email">Danh mục cha</label>
+              <select class="form-control" name="is_old" id="is_old">                
+                <option value="0" {{ $arrSearch['is_old'] == 0  ? "selected" : "" }}>Máy mới</option>
+                <option value="1" {{ $arrSearch['is_old'] == 1  ? "selected" : "" }}>Máy cũ</option>
+              </select>
+            </div>
+            <div class="form-group">
+             
               <select class="form-control" name="loai_id" id="loai_id">
-                <option value="">--Tất cả--</option>
+                <option value="">--Danh mục cha--</option>
                 @foreach( $loaiSpArr as $value )
                 <option value="{{ $value->id }}" {{ $value->id == $arrSearch['loai_id'] ? "selected" : "" }}>{{ $value->name }}</option>
                 @endforeach
               </select>
             </div>
               <div class="form-group">
-              <label for="email">Danh mục con</label>
+              
 
               <select class="form-control" name="cate_id" id="cate_id">
-                <option value="">--Tất cả--</option>
+                <option value="">--Danh mục con--</option>
                 @foreach( $cateArr as $value )
                 <option value="{{ $value->id }}" {{ $value->id == $arrSearch['cate_id'] ? "selected" : "" }}>{{ $value->name }}</option>
                 @endforeach
               </select>
             </div>
-            <div class="form-group">
-              <label for="email">Tên</label>
-              <input type="text" class="form-control" name="name" value="{{ $arrSearch['name'] }}">
+            <div class="form-group">              
+              <input type="text" class="form-control" name="name" value="{{ $arrSearch['name'] }}" placeholder="Tên sản phẩm...">
             </div>           
             <div class="form-group">
-              <label><input type="checkbox" name="is_hot" value="1" {{ $arrSearch['is_hot'] == 1 ? "checked" : "" }}> Hiện trang chủ</label>              
+              <label><input type="checkbox" name="is_hot" value="1" {{ $arrSearch['is_hot'] == 1 ? "checked" : "" }}> Nổi bật</label>              
             </div>
             <div class="form-group">
-              <label><input type="checkbox" name="is_sale" value="1" {{ $arrSearch['is_sale'] == 1 ? "checked" : "" }}> Giảm giá</label>              
+              <label><input type="checkbox" name="is_sale" value="1" {{ $arrSearch['is_sale'] == 1 ? "checked" : "" }}> SALE</label>              
             </div>
                
             <button type="submit" style="margin-top:-5px" class="btn btn-primary btn-sm">Lọc</button>
@@ -75,6 +79,12 @@
           <div style="text-align:center">
            {{ $items->appends( $arrSearch )->links() }}
           </div>  
+          <form action="{{ route('cap-nhat-thu-tu') }}" method="POST">
+           @if( $items->count() > 0 ) 
+          <button type="submit" class="btn btn-warning btn-sm">Cập nhật thứ tự</button>
+          @endif
+            {{ csrf_field() }}
+            <input type="hidden" name="table" value="product">
           <table class="table table-bordered" id="table-list-data">
             <tr>
               <th style="width: 1%">#</th>
@@ -82,7 +92,9 @@
               <th style="width: 1%;white-space:nowrap">Thứ tự</th>
               @endif
               <th width="100px">Hình ảnh</th>
-              <th style="text-align:center">Thông tin sản phẩm</th>                              
+              <th style="text-align:left">Thông tin sản phẩm</th>                              
+              <th width="100px" style="text-align:center">Nổi bật</th>
+              <th width="100px" style="text-align:right">Số lượng</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -96,7 +108,8 @@
                 <td><span class="order">{{ $i }}</span></td>
                 @if($arrSearch['is_hot'] == 1 && $arrSearch['loai_id'] > 0 )
                 <td style="vertical-align:middle;text-align:center">
-                  <img src="{{ URL::asset('admin/dist/img/move.png')}}" class="move img-thumbnail" alt="Cập nhật thứ tự"/>
+                 <input type="text" name="display_order[]" value="{{ $item->display_order}}" class="form-control" style="width:60px">
+                    <input type="hidden" name="id[]" value="{{ $item->id }}">
                 </td>
                 @endif
                 <td>
@@ -120,9 +133,12 @@
                     {{ number_format($item->price) }}
                    </b>
                     @endif 
-                  </p>
-                  
+                  </p>                  
                 </td>
+                <td style="text-align:center">
+                  <input type="checkbox" data-id="{{ $item->id }}" data-col="is_hot" data-table="product" class="change-value" value="1" {{ $item->is_hot == 1  ? "checked" : "" }}>
+                </td>
+                <td style="text-align:right">{{ number_format($item->so_luong_ton) }}</td>
                 <td style="white-space:nowrap; text-align:right">
                   <a class="btn btn-default btn-sm" href="{{ route('product-detail', [$item->slug , $item->id] ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
                   <a href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}" class="btn btn-warning btn-sm">Chỉnh sửa</a>                 
@@ -140,6 +156,7 @@
 
           </tbody>
           </table>
+          </form>
           <div style="text-align:center">
            {{ $items->appends( $arrSearch )->links() }}
           </div>  
@@ -175,6 +192,26 @@ function callDelete(name, url){
   return flag;
 }
 $(document).ready(function(){
+  $('.change-value').change(function(){
+    var obj = $(this);
+    var val = 0;
+    if(obj.prop('checked') == true){
+      var val = 1;
+    }
+    $.ajax({
+      url : "{{ route('change-value') }}",
+      type :'POST',
+      data : {
+        id : obj.data('id'),
+        value : val,
+        column : obj.data('col'),
+        table : obj.data('table')
+      },
+      success : function(data){
+        console.log(data);
+      }
+    });
+  });
   $('input.submitForm').click(function(){
     var obj = $(this);
     if(obj.prop('checked') == true){
@@ -189,7 +226,7 @@ $(document).ready(function(){
     $('#cate_id').val('');
     $('#searchForm').submit();
   });
-  $('#cate_id').change(function(){
+  $('#cate_id, #is_old').change(function(){
     $('#searchForm').submit();
   });
   $('#table-list-data tbody').sortable({

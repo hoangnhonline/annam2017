@@ -31,6 +31,7 @@ class ProductController extends Controller
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;
         $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;
         $arrSearch['is_sale'] = $is_sale = isset($request->is_sale) ? $request->is_sale : null;
+        $arrSearch['is_old'] = $is_old = isset($request->is_old) ? $request->is_old : 0;
         $arrSearch['loai_id'] = $loai_id = isset($request->loai_id) ? $request->loai_id : null;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
        
@@ -39,6 +40,9 @@ class ProductController extends Controller
         $query = Product::where('product.status', $status);
         if( $is_hot ){
             $query->where('product.is_hot', $is_hot);
+        }
+        if( $is_old >= 0){
+            $query->where('product.is_old', $is_old);
         }
         if( $is_sale ){
             $query->where('product.is_sale', $is_sale);
@@ -57,7 +61,12 @@ class ProductController extends Controller
         $query->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id');
         $query->join('cate', 'cate.id', '=', 'product.cate_id');
         $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id');        
-        $query->orderBy('product.id', 'desc');
+        if($is_hot){
+            $query->orderBy('product.display_order', 'asc');
+        }else{
+            $query->orderBy('product.id', 'desc');    
+        }
+        
         $items = $query->select(['product_img.image_url','product.*','product.id as product_id', 'full_name' , 'product.created_at as time_created', 'users.full_name', 'loai_sp.name as ten_loai', 'cate.name as ten_cate'])
         ->paginate(50);   
 
@@ -214,7 +223,15 @@ class ProductController extends Controller
         $dataArr['created_user'] = Auth::user()->id;
 
         $dataArr['updated_user'] = Auth::user()->id;
-      
+        //luu display order
+        if($dataArr['is_hot'] == 1){
+            $dataArr['display_order'] = Helper::getNextOrder('product', 
+                                            [
+                                            'is_old' => $dataArr['is_old'],
+                                            'loai_id' => $dataArr['loai_id'],
+                                            'cate_id' => $dataArr['cate_id']
+                                        ]);
+        }
         $rs = Product::create($dataArr);
 
         $product_id = $rs->id;
@@ -225,7 +242,12 @@ class ProductController extends Controller
         $this->storeMeta($product_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới sản phẩm thành công');
 
-        return redirect()->route('product.index', ['loai_id' => $dataArr['loai_id'], 'cate_id' => $dataArr['cate_id']]);
+        return redirect()->route('product.index', [
+                        'loai_id' => $dataArr['loai_id'], 
+                        'cate_id' => $dataArr['cate_id'], 
+                        'is_old' => $dataArr['is_old']
+                        ]
+                        );
     }
 
     public function storeMeta( $id, $meta_id, $dataArr ){

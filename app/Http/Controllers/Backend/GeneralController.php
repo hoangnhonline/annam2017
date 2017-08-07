@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Helpers\Helper;
+use App\Models\Product;
 use DB, Session, URL;
 class GeneralController extends Controller
 {
@@ -29,6 +30,31 @@ class GeneralController extends Controller
             	}
             }
         }        
+    }
+    public function changeValue(Request $request){
+        $value = $request->value;
+        $column = $request->column;
+        $table = $request->table;     
+        $id = $request->id;
+        if($table == 'product'){
+            $detail = Product::find($id);
+            if($value == 1){
+                $display_order = Helper::getNextOrder($table,
+                [
+                    'is_old' => $detail->is_old,
+                    'loai_id' =>  $detail->loai_id,
+                    'cate_id' => $detail->cate_id
+                ]
+            );    
+            }else{
+                $display_order = 0;
+            }
+            DB::table($table)->where('id', $id)->update([$column => $value, 'display_order' => $display_order]);
+        }else{
+            DB::table($table)->where('id', $id)->update([$column => $value]);       
+        }
+        
+        
     }
     public function updateOrderList(Request $request){
     
