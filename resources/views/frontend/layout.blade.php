@@ -94,7 +94,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-sm-12 col-xs-12 block_copy">
-							<a href="#" class="logo"><img src="{{ URL::asset('assets/images/logo_white.png') }}" alt=""></a>
+							<a href="{!! route('home') !!}" class="logo"><img src="{{ URL::asset('assets/images/logo_white.png') }}" alt="Logo An Nam Mobile"></a>
 							<div class="copyright">
                                 <p>Công ty TNHH Công nghệ Di động An Nam - Q.1, TP.HCM</p>
                                 <p>Email: contact@annam.vn</p>

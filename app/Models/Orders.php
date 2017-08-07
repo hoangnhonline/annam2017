@@ -26,6 +26,7 @@ class Orders extends Model  {
     protected $fillable = [
       'id',
       'customer_id',
+      'gender',
       'tong_tien',
       'tong_sp',
       'status',
@@ -56,5 +57,13 @@ class Orders extends Model  {
     public function customer()
     {
         return $this->hasOne('App\Models\Customer', 'id', 'customer_id');
+    }
+    public function city()
+    {
+        return $this->hasOne('App\Models\City', 'id', 'city_id');
+    }
+    public function district()
+    {
+        return $this->hasOne('App\Models\District', 'id', 'district_id');
     }
 }

@@ -9,9 +9,6 @@
 <table align="center" border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#dcf0f8" style="margin:0;padding:0;background-color:#f2f2f2;width:100%!important;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
   <tbody>
     <tr>
-<?php 
-$vangLaiArr = Session::get('vanglai');
-?>
       <td align="center" valign="top" style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><table border="0" cellpadding="0" cellspacing="0" width="600" style="margin-top:15px">
           <tbody>
             <tr style="background:#fff">
@@ -19,19 +16,14 @@ $vangLaiArr = Session::get('vanglai');
                   <tbody>
                     <tr>
                       <td>
-                      @if($is_vanglai == 0)
+                      
                       <h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0"> Cảm ơn
-                          quý khách {{$customer->full_name}}
-                          đã đặt hàng tại annammobile.com,</h1>
-                      @else
-                      <h1 style="font-size:17px;font-weight:bold;color:#444;padding:0 0 5px 0;margin:0"> Cảm ơn
-                          quý khách {{ $vangLaiArr['full_name'] }}
-                          đã đặt hàng tại annammobile.com,</h1>
-                      @endif
+                          quý khách {{ $orderDetail->full_name }}
+                          đã đặt hàng tại annammobile.com,</h1>                    
                         <p style="margin:4px 0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"> annammobile.com rất vui thông báo đơn hàng #{{ $order_id }} của quý khách đã
                           được tiếp nhận và đang trong quá trình xử lý. annammobile.com sẽ thông báo đến quý khách
                           ngay khi hàng chuẩn bị được giao. </p>
-                        <h3 style="font-size:13px;font-weight:bold;color:#ec1c24;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd"> Thông tin đơn hàng #{{ $order_id }} <span style="font-size:12px;color:#777;text-transform:none;font-weight:normal">(Ngày {{date('d')}} Tháng {{date('m')}} Năm {{date('Y')}} {{date('H:i:s')}})</span> </h3></td>
+                        <h3 style="font-size:13px;font-weight:bold;color:#ec1c24;text-transform:uppercase;margin:20px 0 0 0;border-bottom:1px solid #ddd"> Thông tin đơn hàng #{{ $order_id }} <span style="font-size:12px;color:#777;text-transform:none;font-weight:normal">(Ngày {{ date('d') }} Tháng {{ date('m') }} Năm {{ date('Y') }} {{ date('H:i:s') }})</span> </h3></td>
                     </tr>
                     <tr>
                       <td style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px"><table cellspacing="0" cellpadding="0" border="0" width="100%">
@@ -42,63 +34,29 @@ $vangLaiArr = Session::get('vanglai');
                             </tr>
                           </thead>
                           <tbody>
-                            @if($is_vanglai == 0)
-                            <tr>
-                              <td valign="top" style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><span style="text-transform:capitalize">{{$customer->full_name}}</span><br>
-                                <a href="mailto:{{$customer->email}}" target="_blank">{{$customer->email}}</a><br>
-                                {{$customer->phone}} </td>
-                              <td valign="top" style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><span style="text-transform:capitalize">{{$customer->full_name}}</span><br>
-                                <a href="mailto:{{ $customer->email }}" target="_blank">{{ $customer->email }}</a><br>
-                                @if(isset($customer->tinh->name))
-                                  {{ $customer->tinh->name }},
-                                @endif
-                                @if(isset($customer->huyen->name))
-                                  {{ $customer->huyen->name }},
-                                @endif
-
-                                {{ $customer->address }} <br>
-                                {{ $customer->phone }}<br>
+                            
+                           <tr>
+                              <td valign="top" style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><span style="text-transform:capitalize">{!! $orderDetail->full_name !!}</span><br>
+                                <a href="mailto:{!! $orderDetail->email !!}" target="_blank">{!! $orderDetail->email !!}</a><br>
+                                {!! $orderDetail->phone !!} </td>
+                              <td valign="top" style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><span style="text-transform:capitalize">{!! $orderDetail->full_name !!}</span><br>
+                                <a href="mailto:{!! $orderDetail->email !!}" target="_blank">{!! $orderDetail->email !!}</a><br>                                
+                                  {!! $orderDetail->city->name !!},                                
+                                  {!! $orderDetail->district->name !!},                                
+                                {!! $orderDetail->address !!} <br>
+                                {!! $orderDetail->phone !!}<br>
                             </tr>
-                            @else
-                            <tr>
-                              <td valign="top" style="padding:3px 9px 9px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><span style="text-transform:capitalize">{{ isset($vangLaiArr['full_name']) ? $vangLaiArr['full_name'] : "" }}</span><br>
-                                <a href="mailto:{{ isset($vangLaiArr['email']) ? $vangLaiArr['email'] : "" }}" target="_blank">{{ isset($vangLaiArr['email']) ? $vangLaiArr['email'] : "" }}</a><br>
-                                {{ isset($vangLaiArr['phone']) ? $vangLaiArr['phone'] : "" }} </td>
-                              <td valign="top" style="padding:3px 9px 9px 9px;border-top:0;border-left:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"><span style="text-transform:capitalize">{{ isset($vangLaiArr['full_name']) ? $vangLaiArr['full_name'] : "" }}</span><br>
-                                <a href="mailto:{{ isset($vangLaiArr['email']) ? $vangLaiArr['email'] : "" }}" target="_blank">{{ isset($vangLaiArr['email']) ? $vangLaiArr['email'] : "" }}</a><br>
-                                @if( isset( $vangLaiArr['city_id'] ))
-                                  {{ Helper::getName($vangLaiArr['city_id'], 'city') }},
-                                @endif
-                                @if( isset( $vangLaiArr['district_id'] ))
-                                  {{ Helper::getName($vangLaiArr['district_id'], 'district') }},
-                                @endif
-                                 @if( isset( $vangLaiArr['ward_id'] ))
-                                  {{ Helper::getName($vangLaiArr['ward_id'], 'ward') }},
-                                @endif
-                                {{  $vangLaiArr['address'] }}
-                                <br>
-                                ĐT: {{ $vangLaiArr['phone'] }}<br>
-                            </tr>
-                            @endif
+                            
                             <tr>
                              <td valign="top" style="padding:7px 9px 0px 9px;border-top:0;font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444" colspan="2"><p style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px;font-weight:normal"> <strong>Phương thức thanh toán: </strong> 
-                            <?php if($method_id == 1) {
-                              echo "Giao hàng và thu tiền tại nhà";
+                            <?php 
+                            if($method_id == 1) {
+                              echo "COD - Nhận hàng trả tiền";
                             }elseif( $method_id == 2){
                               echo "Chuyển khoản ngân hàng";
-                            }else{
-                              echo "Thanh toán tại cửa hàng";
                             }
                               ?>
-
-                               <br>
-                                  <strong>Thời
-                                  gian giao
-                                  hàng dự
-                                  kiến:</strong> dự kiến giao hàng vào {{ $arrDate['fromdate'] }} - {{ $arrDate['todate'] }} <br>
-                                  <strong>Phí vận chuyển: </strong> {{ number_format($phi_giao_hang) }}&nbsp;₫ <br>
-                                  
-                                </p></td>
+                              </td>
                             </tr>
                           </tbody>
                         </table></td>
@@ -125,13 +83,11 @@ $vangLaiArr = Session::get('vanglai');
                                   $price = $product->is_sale ? $product->price_sale : $product->price;
                                 ?>
                               <tr>
-                              <td align="left" valign="top" style="padding:3px 9px"><span>{{
-                                $product->name
-                                }}</span><br>
-                              <td align="left" valign="top" style="padding:3px 9px"><span>{{ number_format($price) }}&nbsp;₫</span></td>
-                              <td align="left" valign="top" style="padding:3px 9px">{{ $getlistProduct[$product->id] }}</td>
+                              <td align="left" valign="top" style="padding:3px 9px"><span>{!! $product->name !!}</span><br>
+                              <td align="left" valign="top" style="padding:3px 9px"><span>{!! number_format($price) !!}&nbsp;₫</span></td>
+                              <td align="left" valign="top" style="padding:3px 9px">{!! $getlistProduct[$product->id] !!}</td>
                               <td align="left" valign="top" style="padding:3px 9px"><span>0&nbsp;₫</span></td>
-                              <td align="right" valign="top" style="padding:3px 9px"><span>{{ number_format($price * $getlistProduct[$product->id]) }}&nbsp;₫</span></td>
+                              <td align="right" valign="top" style="padding:3px 9px"><span>{!! number_format($price * $getlistProduct[$product->id]) !!}&nbsp;₫</span></td>
                               <?php $total += $price * $getlistProduct[$product->id] ?>
                                </tr>
                               @endforeach
@@ -139,7 +95,7 @@ $vangLaiArr = Session::get('vanglai');
                           <tfoot style="font-family:Arial,Helvetica,sans-serif;font-size:12px;color:#444;line-height:18px">
                             <tr>
                               <td colspan="4" align="right" style="padding:5px 9px">Tổng giá trị sản phẩm chưa giảm</td>
-                              <td align="right" style="padding:5px 9px"><span>{{ number_format($total) }}&nbsp;₫</span></td>
+                              <td align="right" style="padding:5px 9px"><span>{!! number_format($total) !!}&nbsp;₫</span></td>
                             </tr>
                             <tr>
                               <td colspan="4" align="right" style="padding:5px 9px">Giảm giá </td>
@@ -147,11 +103,11 @@ $vangLaiArr = Session::get('vanglai');
                             </tr>
                             <tr>
                               <td colspan="4" align="right" style="padding:5px 9px">Chi phí vận chuyển</td>
-                              <td align="right" style="padding:5px 9px"><span>{{ number_format($order->phi_giao_hang) }}&nbsp;₫</span></td>
+                              <td align="right" style="padding:5px 9px"><span>0&nbsp;₫</span></td>
                             </tr>
                             <tr bgcolor="#eee">
                               <td colspan="4" align="right" style="padding:7px 9px"><strong><big>Tổng giá trị đơn hàng</big></strong></td>
-                              <td align="right" style="padding:7px 9px"><strong><big><span>{{ number_format($order->tong_tien) }}&nbsp;₫</span></big></strong></td>
+                              <td align="right" style="padding:7px 9px"><strong><big><span>{!! number_format($orderDetail->tong_tien) !!}&nbsp;₫</span></big></strong></td>
                             </tr>
                           </tfoot>
                         </table>                        

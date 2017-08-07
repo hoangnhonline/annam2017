@@ -94,7 +94,16 @@
 		</div>
 	</div><!-- /shopcart-ct -->
 	<div class="block_checkout-frm">
-		<form action="#" method="post" id="frm_order">
+		@if (count($errors) > 0)
+          <div class="alert alert-danger">
+              <ul>
+                  @foreach ($errors->all() as $error)
+                      <li>{{ $error }}</li>
+                  @endforeach
+              </ul>
+          </div>
+      	@endif
+		<form action="{{ route('save-order') }}" method="POST"  id="frm_order">
 			<div class="msg-mn">Vui lòng điền thông tin đơn hàng này !</div>
 			<div class="block row">
 				<div class="block_customer-frm col-md-8">
@@ -103,63 +112,51 @@
 						<div class="filter-group">
 							<div class="row-group clearfix">
 								<div class="group-radio">
+								<?php 
+								$gender = old('gender', 1);
+								$method_id = old('method_id', 1);
+								?>
 									<div class="radio-1">
-                                        <input type="radio" name="gender" id="gender-male" class="gender" checked="checked" value="M">
+                                        <input type="radio" name="gender" id="gender-1" class="gender" value="1" {!! $gender == 1 ? "checked=checked" : "" !!}>
                                         <label for="gender-male">Anh</label>
                                     </div>
                                     <div class="radio-1">
-                                        <input type="radio" name="gender" id="gender-female" class="gender" value="F">
+                                        <input type="radio" name="gender" id="gender-2" class="gender" value="2" {!! $gender == 2 ? "checked=checked" : "" !!}>
                                         <label for="gender-female">Chị</label>
                                     </div>
 								</div>
-								<input type="text" name="fullname" id="fullname" value="" placeholder="Họ và tên" class="fullname ip_precheck">
+								<input type="text" name="full_name" id="full_name" value="{!! old('full_name') !!}" placeholder="Họ và tên" class="fullname ip_precheck">
 							</div><!-- /row-group -->
 							<div class="row-group">
-								<input type="text" name="phone" id="phone" value="" placeholder="Điện thoại liên hệ" class="phone ip_precheck">
+								<input type="text" name="phone" id="phone" value="{!! old('phone') !!}" placeholder="Điện thoại liên hệ" class="phone ip_precheck">
 							</div><!-- /row-group -->
 							<div class="row-group">
-                                <input type="text" name="email" id="email" value="" placeholder="Email (cần nhập email để nhận được thông tin đơn hàng từ An Nam)" class="email ip_precheck">
+                                <input type="email" name="email" id="email" value="{!! old('email') !!}" placeholder="Email (cần nhập email để nhận được thông tin đơn hàng từ An Nam)" class="email ip_precheck">
                             </div><!-- /row-group -->
                             <div class="row-group clearfix">
                             	<label class="titaddress"><i class="fa fa-location-arrow"></i>Địa chỉ, thời gian GIAO HÀNG NHANH</label>
                             	<div class="add_info row">
                             		<p class="col-sm-6 col-xs-6 city">
-                                		<select class="ip_precheck sl-2" data-width="100%">
-										 	<option value="" selected>Tỉnh, thành</option>
-											<option value="1">TP. Hồ Chí Minh</option>
-											<option value="2">Hà Nội</option>
-											<option value="3">Đà Nẵng</option>
-											<option value="4">An Giang</option>
-											<option value="5">Bà Rịa-Vũng Tàu</option>
-											<option value="6">Bạc Liêu</option>
-											<option value="7">Bắc Cạn</option>
-											<option value="8">Bắc Giang</option>
-											<option value="9">Bắc Ninh</option>
-											<option value="10">Bến Tre</option>
+                                		<select class="ip_precheck sl-2" data-width="100%" name="city_id" id="city_id">
+										 	<option value="">Chọn Tỉnh/Thành phố</option>
+			                                @foreach($cityList as $city)
+			                                  <option value="{{ $city->id }}" {{ old('district_id') == $city->id  ? "selected=selected" : "" }}                                  
+			                                  >{!! $city->name !!}</option>
+			                                @endforeach
 										</select>
                                 	</p>
                                 	<p class="col-sm-6 col-xs-6 district">
-                                		<select class="ip_precheck sl-2" data-width="100%">
-										 	<option value="" selected>Tỉnh, thành</option>
-											<option value="1">TP. Hồ Chí Minh</option>
-											<option value="2">Hà Nội</option>
-											<option value="3">Đà Nẵng</option>
-											<option value="4">An Giang</option>
-											<option value="5">Bà Rịa-Vũng Tàu</option>
-											<option value="6">Bạc Liêu</option>
-											<option value="7">Bắc Cạn</option>
-											<option value="8">Bắc Giang</option>
-											<option value="9">Bắc Ninh</option>
-											<option value="10">Bến Tre</option>
+                                		<select class="ip_precheck sl-2" data-width="100%" name="district_id" id="district_id">
+										 	<option value="" selected>Chọn Quận/Huyện</option>											
 										</select>
                                 	</p>
                             	</div>
                             </div><!-- /row-group -->
                             <div class="row-group">
-                            	<input type="text" name="address" id="address" value="" placeholder="Số nhà - Tên đường" class="ip_precheck address">
+                            	<input type="text" name="address" id="address" value="{!! old('address') !!}" placeholder="Số nhà - Tên đường" class="ip_precheck address">
                             </div><!-- /row-group -->
                             <div class="row-group">
-                            	<textarea name="comment" id="comment" placeholder="Ghi chú khi giao hàng (vd: ngày, giờ giao hàng)" class="ip_precheck comment"></textarea>
+                            	<textarea name="notes" id="notes" placeholder="Ghi chú khi giao hàng (vd: ngày, giờ giao hàng)" class="ip_precheck comment">{!! old('notes') !!}</textarea>
                             </div><!-- /row-group -->
 						</div>
 					</div><!-- /block_buy-frm -->
@@ -167,29 +164,15 @@
 				<div class="block_popup-buyfrm col-md-4">
 					<div class="info-payment">
 						<label class="titaddress"><i class="fa fa-money"></i>Hình thức thanh toán</label>
+						<div class="item-group cod-row">
+                            <input id="method_id2" type="radio" name="method_id" value="1" {!! $method_id == 1 ? "checked=checked" : "" !!}>
+                            <label for="method_id2" class="lbl-rado">COD - Nhận hàng trả tiền</label>
+                        </div> 
 						<div class="item-group">
-							<input id="bank_transfer" type="checkbox" name="bank_transfer" value="1">
-							<label for="bank_transfer" class="lbl-rado">Chuyển khoản ngân hàng</label>
-						</div>						
-                        <div class="item-group cod-row">
-                            <input id="cod_payment" type="checkbox" name="cod" value="1">
-                            <label for="cod_payment" class="lbl-rado">COD - Nhận hàng trả tiền</label>
-                        </div>
-                        <div class="item-group">
-                            <input id="combill" type="checkbox" name="combill" value="1">
-                            <label for="combill" class="lbl-rado">Xuất hóa đơn Công ty</label>
-                            <div class="sub-hide-box">
-                                <p>
-                                    <input class="ip_precheck" type="text" name="companyname" id="companyname" value="" placeholder="Tên Công ty">
-                                </p>
-                                <p>
-                                    <input class="ip_precheck" type="text" name="companyadd" id="companyadd" value="" placeholder="Địa chỉ Công ty">
-                                </p>
-                                <p>
-                                    <input class="ip_precheck" type="text" name="companytaxcode" id="companytaxcode" value="" placeholder="Mã số thuế">
-                                </p>
-                            </div>
-                        </div>
+							<input id="method_id1" type="radio" name="method_id" value="2" {!! $gender == 2 ? "checked=checked" : "" !!}>
+							<label for="method_id1" class="lbl-rado">Chuyển khoản ngân hàng</label>
+						</div>					
+                                               
 					</div>					
 				</div><!-- /block_popup-buyform -->
 			</div>
@@ -197,8 +180,9 @@
                 <div class="col-md-6 col-sm-6 checkout-wrap">
                     <input type="submit" name="" value="XÁC NHẬN ĐẶT HÀNG" class="btn-red sbm-checkout">
                 </div>
+                {{ csrf_field() }}
                 <div class="col-md-6 col-sm-6 callme-wrap">
-                    <a href="javascript:;" class="btn btn-wht callme-now">PHỨC TẠP QUÁ!<span>GỌI LẠI CHO TÔI</span></a>
+                    <a href="javascript:;" id="callMe" class="btn btn-wht callme-now">PHỨC TẠP QUÁ!<span>GỌI LẠI CHO TÔI</span></a>
                 </div>
             </div>
 		</form>
@@ -209,4 +193,45 @@
 		display: block !important;
 	}
 </style>
+@stop
+@section('js')
+<script type="text/javascript">
+	$(document).ready(function(){
+		if( $('#city_id').val() > 0){
+	        getDistrict($('#city_id').val());
+	      }
+	      $('#city_id').change(function(){
+	      	getDistrict($(this).val());
+	      });	      
+	});
+	function validateEmail(email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+  }
+  function getDistrict(city_id) {
+
+    if(!city_id) {
+      $('#district_id').empty();
+      $('#district_id').append('<option value="0">Chọn Quận/Huyện</option>');
+      return;
+    }
+
+    $.ajax({
+      url: "{{ route('get-district') }}",
+      method: "POST",
+      data : {
+        id: city_id
+      },
+      success : function(list_district){
+        $('#district_id').empty();
+        $('#district_id').append('<option value="0">Chọn Quận/Huyện</option>');
+
+        for(i in list_district) {
+          $('#district_id').append('<option value="' + list_district[i].id + '">' + list_district[i].name + '</option>');
+        }
+        
+      }
+    });
+  }
+</script>
 @stop

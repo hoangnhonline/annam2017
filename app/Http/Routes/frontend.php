@@ -57,8 +57,8 @@ Route::group(['namespace' => 'Frontend'], function()
         Route::get('shipping-step-3', ['as' => 'shipping-step-3', 'uses' => 'CartController@shippingStep3']);
         Route::post('update-product', ['as' => 'update-product', 'uses' => 'CartController@update']);
         Route::get('add-product', ['as' => 'add-product', 'uses' => 'CartController@addProduct']);
-        Route::get('thanh-cong', ['as' => 'thanh-cong', 'uses' => 'CartController@success']);
-        Route::post('dat-hang', ['as' => 'dat-hang', 'uses' => 'CartController@order']);        
+        Route::get('success', ['as' => 'success', 'uses' => 'CartController@success']);
+        Route::post('save-order', ['as' => 'save-order', 'uses' => 'CartController@saveOrder']);        
     });
 
     Route::group(['prefix' => 'tai-khoan'], function () {

@@ -1,69 +1,26 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
-<?php 
-$vangLaiArr = Session::get('vanglai');
-?>
-<article class="block block-breadcrumb">
-  <ul class="breadcrumb">
-    <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
+<div class="block block_breadcrumb">
+  <ol class="breadcrumb">
+    <li><a href="{!! route('home') !!}" title="Trang chủ">Trang chủ</a></li>
     <li class="active">Đặt hàng thành công</li>
-  </ul>
-</article><!-- /block-breadcrumb -->
-<section class="block-content">
-        <div class="block-common">
-          <p class="block-page-name">Đặt hàng thành công</p>
-          <!-- row -->
-          <div class="shipping-address-page">
-              
-                <div class="row row-style-5">
-                  <div class="col-lg-8">
-                    <div class="panel panel-default success">
-                      <div class="panel-body">
-                        <div class="row row-style-6">
-                          <div class="col-lg-4 col-md-3 visible-lg-block visible-md-block"> <img src="{{ URL::asset('assets/images/thanh-cong.png') }}" class="img-responsive" alt="Image" height="178" width="195"> </div>
-                          <div class="col-lg-8 col-md-9">
-                            <h3>Cảm ơn bạn đã mua hàng tại annammobile.com!</h3>
-                            
-                            <!-- BEGIN ORDER INFO -->
-                            <p>Mã số đơn hàng của bạn: </p>
-                            <div class="well well-sm"> {{ $order_id }} </div>
-                            @if($is_vanglai == 0)
-                            <p>Bạn có thể xem lại <a href="{{ route('order-history') }}">đơn hàng của tôi</a></p>
-                            @endif
-                            <p> <img src="{{ URL::asset('assets/images/thanh-cong.png') }}" alt="" height="25" width="30"> Thời gian dự kiến giao hàng vào {{ $arrDate['fromdate']}} - {{ $arrDate['todate'] }}, không giao ngày Thứ Bảy &amp; Chủ Nhật. </p><br>
-                            @if(($is_vanglai == 1 && $vangLaiArr['email'] != '') || (isset($customer) && $customer->email != ''))
-                            <p> Thông tin chi tiết về đơn hàng đã được gửi đến địa chỉ mail <span>{{ $is_vanglai == 1 ? $vangLaiArr['email'] : $customer->email }}</span>. Nếu
-                              không tìm thấy vui lòng kiểm tra trong hộp thư <strong>Spam</strong> hoặc <strong>Junk Folder</strong>. </p>
-                              @endif
-                              <br>
-                            <div class="alert alert-success" role="alert">
-                              <p>Nhằm giúp việc xử lý đơn hàng nhanh hơn nữa, annammobile.com sẽ không gọi điện cho bạn để xác nhận đơn hàng.</p>
-                            </div>                            
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-4 visible-lg-block">
-                    <h3 class="news"><img src="{{ URL::asset('assets/images/ban-tin.png') }}" height="57" width="172"> </h3>
-                    <div class="popover bottom newsletter">
-                      <div class="arrow"></div>
-                      <div class="popover-content">
-                        <h6>Nhập địa chỉ email của bạn</h6>
-                        
-                          <input type="email" id="reg_success" class="form-control" value="" required="required" type="text">
-                          <button type="button" class="btn btn-primary btn-block" id="btnRegTin">Đăng ký nhận tin khuyến mãi</button>
-                        
-                      </div>
-                    </div>
-                    <div class="facebook-page"> </div>
-                  </div>
-                </div>
-                
-           </div><!-- /.shipping-address-page -->   
-                           
-        </div><!-- /.page-content -->
-
-</section>
+  </ol>
+</div><!-- /block_breadcrumb -->
+<div class="block block_after-payment">
+  <img src="{{ URL::asset('assets/images/ops-blk.jpg') }}" alt="Mua hang thanh cong">
+  <div class="a-payment-ct">
+    <div class="a-payment-w">
+      <h1 class="main-msg">CẢM ƠN QUÝ KHÁCH ĐÃ ĐẶT HÀNG!</h1>
+      <p><b><i>Annammobile sẽ gọi cho {!! $orderDetail->gender == 1  ? "Anh" : "Chị" !!} <strong>{!! $orderDetail->full_name !!}</strong>, số điện thoại <strong>{!! $orderDetail->phone !!}</strong> ngay khi có thể để xác nhận đơn hàng.</i></b></p>
+      <p>
+      <b>Địa chỉ giao hàng:</b> <br>
+       {!! $orderDetail->address !!}, {!! $orderDetail->district->name !!}, {!! $orderDetail->city->name !!}                                                                  
+                                            </p>
+      <p>
+      <b>Cần hỗ trợ tư vấn vui lòng gọi: 0904500057</b>
+      </p>
+    </div>  
+  </div>
+</div><!-- /block_after -->
 @endsection
