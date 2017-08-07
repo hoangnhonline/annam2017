@@ -43,6 +43,11 @@
                   
                   <label>Tên màu<span class="red-star">*</span></label>
                   <input type="text" class="form-control" name="name" id="name" value="{{ old('name') }}">
+                </div> 
+                <div class="form-group" >
+                  
+                  <label>Mã màu<span class="red-star">*</span></label>
+                  <input type="text" class="form-control" name="color_code" id="name" value="{{ old('color_code') }}">
                 </div>               
                   
             </div>              

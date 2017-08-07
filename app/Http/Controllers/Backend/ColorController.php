@@ -21,7 +21,7 @@ class ColorController extends Controller
 
         $query = Color::whereRaw('1');
 
-        $items = $query->orderBy('id', 'desc')->paginate(20);
+        $items = $query->orderBy('display_order')->paginate(20);
         
       
         return view('backend.color.index', compact( 'items' ));
@@ -55,9 +55,9 @@ class ColorController extends Controller
             'title.required' => 'Bạn chưa nhập tên màu'
         ]);       
         
-        $dataArr['color_code'] = Helper::stripUnicode($dataArr['name']);
-
-        $rs = Color::create($dataArr);
+        unset($dataArr['_token']);
+        
+        DB::table('color')->insert($dataArr);        
         
         Session::flash('message', 'Tạo mới màu thành công');
 
@@ -108,11 +108,8 @@ class ColorController extends Controller
         ]);       
         
         
-        $dataArr['color_code'] = Helper::stripUnicode($dataArr['name']);
-
-        $model = Color::find($dataArr['id']);
-
-        $model->update($dataArr);
+        unset($dataArr['_token']);
+        DB::table('color')->where('id', $dataArr['id'])->update($dataArr);
        
         Session::flash('message', 'Cập nhật màu thành công');        
 

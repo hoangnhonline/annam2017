@@ -23,6 +23,6 @@ class Color extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'color_code'];
+    protected $fillable = ['name', 'color_code', 'icon_url', 'display_order'];
 
 }

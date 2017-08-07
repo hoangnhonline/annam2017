@@ -42,7 +42,7 @@ class HomeController extends Controller
     * @return Response
     */    
     public function index(Request $request)
-    {             
+    {   
         $productArr = $manhinhArr = [];
         $loaiSp = LoaiSp::where('status', 1)->get();
         $bannerArr = [];
