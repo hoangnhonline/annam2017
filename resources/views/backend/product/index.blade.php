@@ -80,7 +80,7 @@
            {{ $items->appends( $arrSearch )->links() }}
           </div>  
           <form action="{{ route('cap-nhat-thu-tu') }}" method="POST">
-           @if( $items->count() > 0 ) 
+           @if( $items->count() > 0 && $arrSearch['is_hot'] == 1 && $arrSearch['loai_id'] > 0 && $arrSearch['is_old'] == 1) 
           <button type="submit" class="btn btn-warning btn-sm">Cập nhật thứ tự</button>
           @endif
             {{ csrf_field() }}
@@ -88,7 +88,7 @@
           <table class="table table-bordered" id="table-list-data">
             <tr>
               <th style="width: 1%">#</th>
-              @if($arrSearch['is_hot'] == 1 && $arrSearch['loai_id'] > 0 )
+              @if($arrSearch['is_hot'] == 1 && $arrSearch['loai_id'] > 0 && $arrSearch['is_old'] == 1)
               <th style="width: 1%;white-space:nowrap">Thứ tự</th>
               @endif
               <th width="100px">Hình ảnh</th>
