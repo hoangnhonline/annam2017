@@ -4963,3 +4963,6 @@ img.move{
 .pleft-5{
   padding-left: 5px !important;
 }
+.pagination{
+  margin: 0px !important;
+}
