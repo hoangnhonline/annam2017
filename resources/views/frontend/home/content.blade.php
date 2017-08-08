@@ -38,7 +38,7 @@
               <span class="product_price_new">{{ $product->is_sale == 1 ? number_format($product->price_sale) : number_format($product->price) }}đ</span>
               @if($product->is_sale)
               <span class="product_price_old">{{ number_format($product->price) }}đ</span>
-              @endif
+              @endif              
             </div>
             @if( $loaiSp->is_hover == 1)            
                 @foreach($hoverInfo[$loaiSp->id] as $info)
@@ -48,11 +48,9 @@
 
                 <p>
                 {!! $info->text_hien_thi !!}: 
-                <?php
-                $tmp = DB::table('sp_thuoctinh')->where('product_id', $product->id)->select('thuoc_tinh')->first();            
-                if( $tmp ){
-                    $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);                 
-                }
+                <?php                
+                $spThuocTinhArr = json_decode( $product->thuoc_tinh, true);                 
+                
                 $countT = 0; $totalT = count($tmpInfo);
                 foreach( $tmpInfo as $tinfo){
                     $countT++;
@@ -61,7 +59,6 @@
                         echo $countT < $totalT ? ", " : "";
                     }
                 }
-
                  ?>                   
                  </p>
                 @endforeach

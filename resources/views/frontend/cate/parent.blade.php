@@ -76,11 +76,9 @@
 
                                     <p>
                                     {!! $info->text_hien_thi !!}: 
-                                    <?php
-                                    $tmp = DB::table('sp_thuoctinh')->where('product_id', $product->id)->select('thuoc_tinh')->first();            
-                                    if( $tmp ){
-                                        $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);                 
-                                    }
+                                    <?php                                    
+                                    $spThuocTinhArr = json_decode( $product->thuoc_tinh, true);                 
+                                   
                                     $countT = 0; $totalT = count($tmpInfo);
                                     foreach( $tmpInfo as $tinfo){
                                         $countT++;

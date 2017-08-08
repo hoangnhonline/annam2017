@@ -5,7 +5,7 @@
 <div class="block block_product block_product_old">
     <h3 class="block_title">
       <span>{!! $loaiSp->name !!} CŨ GIÁ RẺ</span>
-      <a class="view-all" href="/may-doi-tra/dien-thoai">Xem tất cả</a>
+      <a class="view-all" href="{{ route('old-cate', $loaiSp->slug ) }}">Xem tất cả</a>
     </h3>
     <div class="block_content">
       <div class="list_de_old">
@@ -25,11 +25,9 @@
 
                   <p>
                   {!! $info->text_hien_thi !!}: 
-                  <?php
-                  $tmp = DB::table('sp_thuoctinh')->where('product_id', $product->id)->select('thuoc_tinh')->first();            
-                  if( $tmp ){
-                      $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);                 
-                  }
+                  <?php                  
+                  $spThuocTinhArr = json_decode( $product->thuoc_tinh, true);                 
+                  
                   $countT = 0; $totalT = count($tmpInfo);
                   foreach( $tmpInfo as $tinfo){
                       $countT++;
@@ -38,7 +36,6 @@
                           echo $countT < $totalT ? ", " : "";
                       }
                   }
-
                    ?>                   
                    </p>
                   @endforeach

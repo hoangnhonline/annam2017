@@ -16,13 +16,14 @@ use App\Models\Banner;
 use App\Models\HoverInfo;
 use App\Models\Articles;
 use App\Models\ArticlesCate;
-use App\Models\Customer;
 use App\Models\Newsletter;
 use App\Models\Settings;
+use App\Models\MetaData;
 
+use App\Models\CustomerNotification;
 use Helper, File, Session, Auth, Hash;
 
-class HomeController extends Controller
+class OldController extends Controller
 {
     
     public static $loaiSp = []; 
@@ -36,62 +37,40 @@ class HomeController extends Controller
     *
     * @return Response
     */    
-    public function index(Request $request)
+    public function cate(Request $request)
     {   
-        $productArr = $manhinhArr = [];
-        $loaiSp = LoaiSp::where('status', 1)->get();
-        $bannerArr = [];
-        $hoverInfo = [];
-        foreach( $loaiSp as $loai){            
-            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id, 'is_old' => 0])
-                            ->where('so_luong_ton', '>', 0)
-                            ->where('price', '>', 0)            
-                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                            ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=', 'product.id')            
-                            ->select('product_img.image_url', 'product.*', 'sp_thuoctinh.thuoc_tinh')
-                            ->orderBy('product.id', 'desc')                            
-                            ->limit(15);
-           
-            $productArr[$loai->id] = $query->get();
-
-            if( $loai->home_style > 0 ){
-                $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-            }       
-
-           
-            if(count($productArr) > 0){
-                $hoverInfoTmp = HoverInfo::orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-                
-                foreach($hoverInfoTmp as $value){
-                    if($value->loai_id == $loai->id){
-                        $hoverInfo[$value->loai_id][] = $value;
-                    }
-                }
-            }            
+        $productArr = [];
+        $slug = $request->slug;
+        $loaiDetail = LoaiSp::where('slug', $slug)->first();
+        if(!$loaiDetail){
+            return redirect()->route('home');
+        }
         
-        }// foreach
-      //  dd($hoverInfo);
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-        $seo = $settingArr;
-        $seo['title'] = $settingArr['site_title'];
-        $seo['description'] = $settingArr['site_description'];
-        $seo['keywords'] = $settingArr['site_keywords'];
-        $socialImage = $settingArr['banner'];
+        $loai_id = $loaiDetail->id;
+        
+        $query = Product::where('loai_id', $loai_id)
+            ->where('so_luong_ton', '>', 0)
+            ->where('price', '>', 0)       
+            ->where('is_old', 1)               
+            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+            ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+            ->select('product_img.image_url', 'product.*', 'thuoc_tinh')              
+            ->orderBy('product.id', 'desc');
 
+            $productList  = $query->limit(36)->get();
+                     
 
+        $hoverInfo = HoverInfo::where('loai_id', $loaiDetail->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
+        
+        $socialImage = $loaiDetail->banner_menu;
 
-        $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
-                
-        return view('frontend.home.index', compact(
-                                'productArr', 
-                                'bannerArr', 
-                                'articlesArr', 
-                                'socialImage', 
-                                'seo', 
-                                'thuocTinhArr', 
-                                'loaiThuocTinhArr', 
-                                'spThuocTinhArr',
-                                'hoverInfo'));
+        if( $loaiDetail->meta_id > 0){
+           $seo = MetaData::find( $loaiDetail->meta_id )->toArray();
+        }else{
+            $seo['title'] = $seo['description'] = $seo['keywords'] = $loaiDetail->name . " cũ giá rẻ";
+        }                                     
+        return view('frontend.old.cate', compact('productList', 'loaiDetail', 'hoverInfo', 'socialImage', 'seo'));
+        
     }
 
     public function oldDevice(Request $request)
