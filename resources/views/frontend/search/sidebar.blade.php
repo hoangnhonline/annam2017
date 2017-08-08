@@ -14,6 +14,7 @@
             </div>
             <input type="hidden" name="price_fm" value="0" id="price_fm" />
             <input type="hidden" name="price_to" value="500000000" id="price_to" />
+            <input type="hidden" name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}" >
         </div>
     </div><!-- /block_modul -->
     @if($routeName != 'search')
@@ -29,9 +30,9 @@
                         <ul class="clearfix">
                             @foreach( $cateArrByLoai[$loaiDetail->id] as $cate)
                             <li>
-                                <input {{ isset($cateDetail) && $cateDetail->id == $cate->id ? "checked" : "" }} type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
+                                <input {{ in_array($cate->id, $cateArr) ? "checked" : "" }} type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
                                 <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}
-                                    <span class="number-prod">{{ $cate->product->count() }}</span>
+                                    <span class="number-prod">4</span>
                                 </label>                            
                             </li>
                             @endforeach
@@ -56,7 +57,7 @@
                         <ul class="clearfix">
                             @foreach( $cateArrByLoai[$loaiSp->id] as $cate)
                             <li>
-                                <input type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
+                                <input {{ in_array($cate->id, $cateArr) ? "checked" : "" }} type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
                                 <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}
                                     <span class="number-prod">4</span>
                                 </label>                            
@@ -81,8 +82,8 @@
                     <div class="block_content">
                         <ul class="search-color">
                             @foreach($colorList as $color)
-                            <li ><a href="javascript:;" class="color-filter" data-id="{{ $color->id }}" style="background:{!! $color->color_code !!};"></a>
-                            <input type="hidden" name="color[]" type="checkbox" value="" />
+                            <li @if(in_array($color->id, $colorArr)) class="active" @endif><a href="javascript:;" class="color-filter" data-id="{{ $color->id }}" style="background:{!! $color->color_code !!};"></a>
+                            <input type="hidden" name="color[]" value="{{ in_array($color->id, $colorArr) ? $color->id : "" }}" />
                             </li>
                             @endforeach                            
                         </ul>

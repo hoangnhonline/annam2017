@@ -9,7 +9,7 @@
 </div><!-- /block_breadcrumb -->
 @include('frontend.home.ads')
 <div class="block_categories row">
-    @include('frontend.cate.sidebar')
+    @include('frontend.search.sidebar')
     <div class="col-md-9 col-sm-9 col-xs-12 block_cate_right">                        
         <div class="block block_view">
             <span>Xem theo:</span>
@@ -23,7 +23,7 @@
         </div><!-- /block_view_by -->
         <div class="block block_product">
             <h3 class="block_title block_title_link">
-                {!! $loaiDetail->name !!}
+                KẾT QUẢ LỌC
                 <span class="num">29</span>
             </h3>
             <div class="block_content row">
@@ -102,15 +102,19 @@
         $('#slider-range').slider({
             range: true,
             min: 0,
-            max: 500,
-            values: [0, 0],
+            max: 50000000,
+            values: [{{ $price_fm }}, {{ $price_to }}],
+            step : 2000000,
             slide: function (event, ui) {
-                $('#amount-left').text(ui.values[0] + 'k' );
-                $('#amount-right').text(ui.values[1] + 'k' );
+                $('#amount-left').text(ui.values[0]);
+                $('#price_fm').val(ui.values[0]);
+                $('#amount-right').text(ui.values[1] );
+                $('#price_to').val(ui.values[1]);
+                $('#searchForm').submit();
             }
         });
-        $('#amount-left').text($('#slider-range').slider('values', 0) + 'k');
-        $('#amount-right').text($('#slider-range').slider('values', 1) + 'k');
+        $('#amount-left').text($('#slider-range').slider('values', 0));        
+        $('#amount-right').text($('#slider-range').slider('values', 1));        
     })(jQuery);
     </script>
 @stop

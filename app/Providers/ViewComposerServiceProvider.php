@@ -5,13 +5,10 @@ use Illuminate\Support\ServiceProvider;
 use App\Models\LoaiSp;
 use App\Models\Cate;
 use App\Models\Settings;
+use App\Models\Color;
 use Request;
 //use App\Models\Entity\SuperStar\Account\Traits\Behavior\SS_Shortcut_Icon;
 
-/**
- * This is provider for using view share
- * @author AnPCD
- */
 class ViewComposerServiceProvider extends ServiceProvider
 {
 	/**
@@ -58,11 +55,13 @@ class ViewComposerServiceProvider extends ServiceProvider
 	        $routeName = \Request::route()->getName();
 	       // var_dump("<pre>", $menuDoc);die;   
 	        //var_dump("<pre>", $loaiSpKey);die;
+	        $colorList = Color::orderBy('display_order')->get();
 			$view->with( [
 					'loaiSpList' => $loaiSpList, 
 					'settingArr' => $settingArr,
 					'cateArrByLoai' => $cateArrByLoai,
-					'routeName' => $routeName
+					'routeName' => $routeName,
+					'colorList' => $colorList
 					] );
 		});
 	}

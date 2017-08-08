@@ -78,15 +78,12 @@
 			<div class="footer_top">
 				<div class="container">
 					<ul class="row block_bottom_menu">
-	                    <li><a href="/">Trang chủ</a></li>
-	                    <li><a href="/sitemap.html">Sơ đồ web</a></li>
-	                    <li><a href="/quy-dinh-su-dung.html">Quy định sử dụng</a></li>          
-	                    <li><a href="/kiem-tra-thong-tin-bao-hanh.html">Chính sách bảo hành</a></li>
-	                    <li><a href="/gioi-thieu.html">Giới thiệu</a></li>
-	                    <li><a href="/lien-he.html">Liên hệ</a></li>
-	                    <li><a href="/huong-dan-dat-hang.html">Hướng dẫn đặt hàng</a></li>
-	                    <li><a href="/tuyen-dung.html">Tuyển dụng</a></li>
-	                    <li><a href="/quy-dinh-su-dung.html">Chính sách bảo mật</a></li>
+	                    <li><a href="/">Trang chủ</a></li>	                  	                
+	                    <li><a href="{{ route('parent-cate', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>
+	                    <li><a href="{{ route('parent-cate', 'gioi-thieu') }}">Giới thiệu</a></li>
+	                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
+	                    <li><a href="{{ route('parent-cate', 'huong-dan-dat-hang') }}">Hướng dẫn đặt hàng</a></li>	            
+	                    <li><a href="{{ route('parent-cate', 'chinh-sach-bao-mat') }}">Chính sách bảo mật</a></li>
 					</ul><!-- /block_bottom_menu -->
 				</div>
 			</div><!-- /footer_top -->
@@ -173,7 +170,7 @@
 	<!-- carousel -->
 	<script src="{{ URL::asset('assets/lib/carousel/owl.carousel.min.js') }}"></script>
 	<!-- sticky -->
-    
+    <script src="{{ URL::asset('assets/lib/jquery-ui/jquery-ui.js') }}"></script>
     
    	@if($routeName == 'home')
     <script src="{{ URL::asset('assets/js/plugins.min.js') }}"></script>
@@ -214,6 +211,13 @@
 			          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
 			      }
 			  });
+			$('.cate-filter').change(function(){
+				$('#searchForm').submit();
+			});
+			$('.color-filter').click(function(){
+				$(this).next().val($(this).data('id'));
+				$('#searchForm').submit();
+			});
 		});
 	</script>
 	@yield('js')
