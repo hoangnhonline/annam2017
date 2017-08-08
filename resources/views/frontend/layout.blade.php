@@ -140,7 +140,31 @@
 	 <input type="hidden" id="route-payment" value="{{ route('payment') }}" />
 	 <input type="hidden" id="route-short-cart" value="{{ route('short-cart') }}" />
 	 <input type="hidden" id="route-update-product" value="{{ route('update-product') }}" />
-
+<style type="text/css">
+	.block_cate_top .list li a{
+		font-size: 14px;
+	}
+	.block_cate_top .list li.actused a{
+		color : #d0021b;
+	}
+	.block_cate_top .list li a:hover{
+		color: #d0021b;
+	}
+	.block_cate_top{
+		margin: 25px;
+		margin-left: 0px;
+	}
+	.block_news_related ul li a{
+		font-size: 14px;
+		height: 36px;
+	}
+	.block_news_related ul li .des{
+		margin-bottom: 40px;
+	}
+	.block_news_related .block_title{
+		font-size: 20px;
+	}
+</style>
 	<!-- ===== JS ===== -->
 	<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
 	<!-- ===== JS Bootstrap ===== -->

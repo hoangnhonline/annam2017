@@ -59,12 +59,12 @@ class CartController extends Controller
         $seo['title'] = $seo['description'] = $seo['keywords'] = "Giỏ hàng";
         return view('frontend.cart.index', compact('arrProductInfo', 'getlistProduct', 'seo'));
     }
-    public function payment(Request $request){
-        if(!Session::has('products')) {
-            return redirect()->route('home');
-        }
+    public function payment(Request $request){        
 
         $getlistProduct = Session::get('products');
+        if(empty($getlistProduct)){
+            return redirect()->route('home');   
+        }
         $listProductId = array_keys($getlistProduct);
         $arrProductInfo = Product::whereIn('product.id', $listProductId)
                             ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')

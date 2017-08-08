@@ -39,8 +39,6 @@ class DetailController extends Controller
     */
     public function index(Request $request)
     {   
-       
-
         $spThuocTinhArr = $productArr = [];
         $id = $request->id;
         $detail = Product::find($id);
@@ -72,26 +70,7 @@ class DetailController extends Controller
             }        
         }
         
-        // sp phu kien
-        $phuKienArr = $tuongtuArr = [];
-        if( $detail->sp_phukien ){
-            $phuKienArr = explode(',', $detail->sp_phukien);
-        }        
-        if( $detail->sp_tuongtu ){
-            $tuongtuArr = explode(',', $detail->sp_tuongtu);
-        }      
-       
         
-        if( !empty($tmpArr)){
-            $productTmpArr = Product::whereIn('product.id', $tmpArr)
-                ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
-                ->select('product.id as product_id', 'name', 'name_extend', 'slug', 'price', 'price_sale', 'product_img.image_url', 'is_sale')->get();
-            foreach($productTmpArr as $product){
-                $productArr[$product->product_id] = $product;
-            }
-        }
-       
-
         if( $detail->meta_id > 0){
            $meta = MetaData::find( $detail->meta_id )->toArray();
            $seo['title'] = $meta['title'] != '' ? $meta['title'] : $detail->name;
@@ -103,7 +82,24 @@ class DetailController extends Controller
         
         $socialImage = ProductImg::find($detail->thumbnail_id)->image_url;
         $hoverInfo = HoverInfo::where('loai_id', $detail->loai_id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-        return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage', 'hoverInfo'));
+        $price = $detail->is_sale == 1 ? $detail->price_sale : $detail->price;
+        $price_fm = $price - 1000000;
+        $price_to = $price + 1000000;
+        $query = Product::where('product.slug', '<>', '')
+                    ->where('product.loai_id', $detail->loai_id)
+                    ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                    ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=', 'product.id')            
+                    ->select('product_img.image_url', 'product.*', 'sp_thuoctinh.thuoc_tinh')
+                    ->where('product.id', '<>', $detail->id);    
+                    $query->where(function($query) use ($price_fm, $price_to){
+                        $query->where('price', '<=', $price_to)->where('price', '>=', $price_fm)->where('is_sale', 0);
+                        $query->orWhere(function($query) use ($price_fm, $price_to){
+                            $query->where('price_sale', '<=', $price_to)->where('price_sale', '>=', $price_fm)->where('is_sale', 1);
+                        });
+                    });
+                    $otherList = $query->orderBy('product.id', 'desc')->limit(6)->get();
+
+        return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage', 'hoverInfo', 'otherList'));
     }
 
     public function ajaxTab(Request $request){

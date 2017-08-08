@@ -1,13 +1,16 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
-<div class="block block_breadcrumb">
-    <ol class="breadcrumb">
-        <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>       
-        <li class="active">{{ $loaiDetail->name }} cũ giá rẻ</li>
-    </ol>
-</div><!-- /block_breadcrumb -->
 @include('frontend.home.ads')
+<div class="block_cate_top">
+  <ul class="list">
+    <li style="margin-left:0px"><a href="{{ route('old-device') }}" title="Máy cũ nổi bật">Máy cũ nổi bật</a></li>
+    @foreach( $loaiSpList as $loaiSp)
+    <li @if($loaiDetail->id == $loaiSp->id) class="actused" @endif><a href="{{ route('old-cate', $loaiSp->slug ) }}" title="{!! $loaiSp->name !!} cũ">{!! $loaiSp->name !!} cũ</a></li>
+    @endforeach   
+  </ul>
+</div><!-- /block_cate_top -->
+
 <div class="block_categories row">
     @include('frontend.cate.sidebar')
     <div class="col-md-9 col-sm-9 col-xs-12 block_cate_right">                        

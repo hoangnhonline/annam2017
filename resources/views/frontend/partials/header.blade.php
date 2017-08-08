@@ -85,7 +85,7 @@
 							<li class="level1">
 								<a href="{!! route('child-cate', [ $loaiSp->slug, $cate->slug ])!!}" title="{!! $cate->name !!}">
 								{!! $cate->name !!}
-								<span class="number-prod">29</span>
+								<span class="number-prod">{{ $cate->productNew->count() }}</span>
 								</a>
 							</li>							
 							@endforeach

@@ -19,20 +19,7 @@
                 <li><a href="#" title="Cũ nhất">Cũ nhất</a></li>
                 <li><a href="#" title="Giá cao nhất">Giá cao nhất</a></li>
                 <li><a href="#" title="Giá thấp nhất">Giá thấp nhất</a></li>
-            </ul>
-            <div class="block_status">
-                <div class="pro-sts">
-                    <a href="javascript:void(0);" class="dpl-status">
-                        <span>Đang &amp; Sắp có hàng</span>
-                    </a>
-                    <ul>
-                        <li><a href="#">Đang có hàng</a></li>
-                        <li><a href="#">Sắp có hàng</a></li>
-                        <li><a href="#">Đã hết hàng</a></li>
-                        <li><a href="#">Tất cả</a></li>
-                    </ul>
-                </div>
-            </div>
+            </ul>           
             <!-- <a href="#" onclick="return false;" class="filter-prod">Bộ lọc sản phẩm</a> -->
         </div><!-- /block_view_by -->
         <div class="block block_product">

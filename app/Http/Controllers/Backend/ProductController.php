@@ -31,6 +31,7 @@ class ProductController extends Controller
         $arrSearch['status'] = $status = isset($request->status) ? $request->status : 1;
         $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;
         $arrSearch['is_sale'] = $is_sale = isset($request->is_sale) ? $request->is_sale : null;
+        $arrSearch['is_new'] = $is_new = isset($request->is_new) ? $request->is_new : null;
         $arrSearch['is_old'] = $is_old = isset($request->is_old) ? $request->is_old : 0;
         $arrSearch['loai_id'] = $loai_id = isset($request->loai_id) ? $request->loai_id : null;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
@@ -40,6 +41,9 @@ class ProductController extends Controller
         $query = Product::where('product.status', $status);
         if( $is_hot ){
             $query->where('product.is_hot', $is_hot);
+        }
+        if( $is_new ){
+            $query->where('product.is_new', $is_new);
         }
         if( $is_old >= 0){
             $query->where('product.is_old', $is_old);

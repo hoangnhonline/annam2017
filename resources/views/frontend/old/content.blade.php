@@ -1,5 +1,13 @@
 @section('content')
 @include('frontend.home.ads')  
+<div class="block_cate_top">
+  <ul class="list">
+    <li class="actused" style="margin-left:0px"><a href="{{ route('old-device') }}" title="Máy cũ nổi bật">Máy cũ nổi bật</a></li>
+    @foreach( $loaiSpList as $loaiSp)
+    <li><a href="{{ route('old-cate', $loaiSp->slug ) }}" title="{!! $loaiSp->name !!} cũ">{!! $loaiSp->name !!} cũ</a></li>
+    @endforeach   
+  </ul>
+</div><!-- /block_cate_top -->
 @foreach( $loaiSpList as $loaiSp)
 @if($productArr[$loaiSp->id]->count() > 0)
 <div class="block block_product block_product_old">
