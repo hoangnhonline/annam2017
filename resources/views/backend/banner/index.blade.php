@@ -20,7 +20,7 @@
       @if(Session::has('message'))
       <p class="alert alert-info" >{{ Session::get('message') }}</p>
       @endif
-      <a href="{{ route('banner.create', ['object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type']]) }}" class="btn btn-info" style="margin-bottom:5px;{{ $arrSearch['object_type'] == 3 && in_array($arrSearch['object_id'], [3,4]) ? 'display:none' : '' }}" 
+      <a href="{{ route('banner.create', ['object_id' => $arrSearch['object_id'], 'object_type' => $arrSearch['object_type']]) }}" class="btn btn-info" style="margin-bottom:5px;{{ $arrSearch['object_type'] == 3 && in_array($arrSearch['object_id'], [2,3]) && $items->count() == 1 ? 'display:none' : '' }}" 
 
       >Tạo mới</a>
       @if($arrSearch['object_type'] == 3)

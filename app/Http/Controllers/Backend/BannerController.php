@@ -39,14 +39,14 @@ class BannerController extends Controller
             if( $object_id == 1){
                 $detail->name = "Slide trang chủ";
             }elseif( $object_id == 2){
-                $detail->name = "Banner trượt bên trái";
+                $detail->name = "Banner trang chủ - bên trái ";
             }elseif( $object_id == 3){
-                $detail->name = "Banner trượt bên phải";
+                $detail->name = "Banner trang chủ - bên phải";
             }elseif( $object_id == 4){
-                $detail->name = "Banner top ( cạnh logo )";
+                $detail->name = "Banner sidebar trang tin tức";
             }elseif($object_id == 5){
                 $detail->name = "Banner giữa trang";
-            }
+            }         
         }
         if($object_type == 4){
             $detail = LandingProjects::find($object_id);
@@ -83,11 +83,11 @@ class BannerController extends Controller
             if( $object_id == 1){
                 $detail->name = "Slide trang chủ";
             }elseif( $object_id == 2){
-                $detail->name = "Banner trượt bên trái";
+                $detail->name = "Banner trang chủ - bên trái ";
             }elseif( $object_id == 3){
-                $detail->name = "Banner trượt bên phải";
+                $detail->name = "Banner trang chủ - bên phải";
             }elseif( $object_id == 4){
-                $detail->name = "Banner top ( cạnh logo )";
+                $detail->name = "Banner sidebar trang tin tức";
             }elseif($object_id == 5){
                 $detail->name = "Banner giữa trang";
             }         
@@ -176,6 +176,17 @@ class BannerController extends Controller
         if($object_type == 4){
             $detail = LandingProjects::find($object_id);
         }
+        if( $object_id == 1){
+            $detail->name = "Slide trang chủ";
+        }elseif( $object_id == 2){
+            $detail->name = "Banner trang chủ - bên trái ";
+        }elseif( $object_id == 3){
+            $detail->name = "Banner trang chủ - bên phải";
+        }elseif( $object_id == 4){
+            $detail->name = "Banner sidebar trang tin tức";
+        }elseif($object_id == 5){
+            $detail->name = "Banner giữa trang";
+        }         
         return view('backend.banner.edit', compact( 'detail', 'detailBanner', 'object_id', 'object_type'));
     }
 

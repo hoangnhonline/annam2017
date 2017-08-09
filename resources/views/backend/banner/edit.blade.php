@@ -40,7 +40,17 @@
                   </div>
               @endif              
                  <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
-                  <label class="col-md-3 row">Banner </label>  
+                  <label class="col-md-3 row">Banner <?php 
+                  if($object_id == 1){
+                    echo "( 870 x 448 px)";
+                  }elseif($object_id == 2){
+                    echo "( 570 x 102 px)";
+                  }elseif($object_id == 3){
+                    echo "( 570 x 102 px)";
+                  }elseif($object_id == 4){
+                    echo "( 270 x 0 px)";
+                  }
+                  ?></label>  
                   <input type="hidden" name="id" value="{{ $detailBanner->id }}">  
                   <div class="col-md-9">
                     <img id="thumbnail_image" src="{{ $detailBanner->image_url ? Helper::showImage($detailBanner->image_url) : URL::asset('admin/dist/img/img.png') }}" class="img-thumbnail" width="145" height="85">
