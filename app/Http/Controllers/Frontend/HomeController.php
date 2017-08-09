@@ -80,12 +80,12 @@ class HomeController extends Controller
 
 
 
-        $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
+        $articlesList = Articles::where(['cate_id' => 1])->orderBy('id', 'desc')->limit(4)->get();
                 
         return view('frontend.home.index', compact(
                                 'productArr', 
                                 'bannerArr', 
-                                'articlesArr', 
+                                'articlesList', 
                                 'socialImage', 
                                 'seo', 
                                 'thuocTinhArr', 
