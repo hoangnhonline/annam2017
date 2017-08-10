@@ -4,7 +4,7 @@
 <div class="block block_breadcrumb">
     <ol class="breadcrumb">
         <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>       
-        <li class="active">{{ $loaiDetail->name }}</li>
+        <li class="active">Kết quả lọc</li>
     </ol>
 </div><!-- /block_breadcrumb -->
 @include('frontend.home.ads')
@@ -23,8 +23,7 @@
         </div><!-- /block_view_by -->
         <div class="block block_product">
             <h3 class="block_title block_title_link">
-                KẾT QUẢ LỌC
-                <span class="num">29</span>
+                KẾT QUẢ LỌC                
             </h3>
             <div class="block_content row">
                 <ul class="list">

@@ -44,32 +44,66 @@
         </div><!-- /block_brands -->
     </div><!-- /block_modul -->
     @else
-    @foreach($loaiSpList as $loaiSp)
-    <div class="block block_modul">
-        <div class="block_brands">
-            <div class="box-accordion in">
-                <div class="box-header accordion-header">
-                    <h3 class="block_title">{!! $loaiSp->name !!}</h3>
-                    <a href="javascript:void(0);" class="btn-opened" title="Down Up"></a>
-                </div>
-                <div class="box-collapse">
-                    <div class="block_content">
-                        <ul class="clearfix">
-                            @foreach( $cateArrByLoai[$loaiSp->id] as $cate)
-                            <li>
-                                <input {{ in_array($cate->id, $cateArr) ? "checked" : "" }} type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
-                                <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}
-                                    <span class="number-prod">4</span>
-                                </label>                            
-                            </li>
-                            @endforeach                           
-                        </ul>
+    @if(isset($loai_id))
+        @foreach($loaiSpList as $loaiSp)  
+        @if($loaiSp->id == $loai_id)  
+        <div class="block block_modul">
+            <div class="block_brands">
+                <div class="box-accordion in">
+                    <div class="box-header accordion-header">
+                        <h3 class="block_title">{!! $loaiSp->name !!}</h3>
+                        <a href="javascript:void(0);" class="btn-opened" title="Down Up"></a>
+                    </div>
+                    <div class="box-collapse">
+                        <div class="block_content">
+                            <ul class="clearfix">
+                                @foreach( $cateArrByLoai[$loaiSp->id] as $cate)
+                                <li>
+                                    <input {{ in_array($cate->id, $cateArr) ? "checked" : "" }} type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
+                                    <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}
+                                        <span class="number-prod">4</span>
+                                    </label>                            
+                                </li>
+                                @endforeach                           
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div><!-- /block_brands -->
-    </div><!-- /block_modul -->
-    @endforeach
+            </div><!-- /block_brands -->
+        </div><!-- /block_modul -->
+        @endif
+        @endforeach
+    @else
+        @foreach($loaiSpList as $loaiSp)  
+      
+        <div class="block block_modul">
+            <div class="block_brands">
+                <div class="box-accordion in">
+                    <div class="box-header accordion-header">
+                        <h3 class="block_title">{!! $loaiSp->name !!}</h3>
+                        <a href="javascript:void(0);" class="btn-opened" title="Down Up"></a>
+                    </div>
+                    <div class="box-collapse">
+                        <div class="block_content">
+                            <ul class="clearfix">
+                                @foreach( $cateArrByLoai[$loaiSp->id] as $cate)
+                                <li>
+                                    <input {{ in_array($cate->id, $cateArr) ? "checked" : "" }} type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
+                                    <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}
+                                        <span class="number-prod">4</span>
+                                    </label>                            
+                                </li>
+                                @endforeach                           
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /block_brands -->
+        </div><!-- /block_modul -->
+       
+        @endforeach
+    @endif
+    
     @endif
     <div class="block block_modul" >
         <div class="block_colors">
@@ -93,4 +127,10 @@
         </div><!-- /block_colors -->
     </div><!-- /block_modul -->
 </div><!-- /block_cate_left -->
+@if($loai_id)
+<input type="hidden" name="loai_id" value="{{ $loai_id }}">
+@endif
+@if($cate_id)
+<input type="hidden" name="cate_id" value="{{ $cate_id }}">
+@endif
 </form>

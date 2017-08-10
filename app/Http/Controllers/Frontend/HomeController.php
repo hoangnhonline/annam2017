@@ -168,6 +168,8 @@ class HomeController extends Controller
         $price_to = $request->price_to ? $request->price_to : 500000000;      
         $cateArr = $request->cate ? $request->cate : [];     
         $colorArr = $request->color ? $request->color : [];   
+        $loai_id = $request->loai_id ? $request->loai_id : null;
+        $cate_id = $request->cate_id ? $request->cate_id : null;
         $colorArr = array_filter($colorArr);   
         $loaiDetail = (object) [];
         $query = Product::where('product.status', 1);
@@ -181,6 +183,12 @@ class HomeController extends Controller
         }
         if(!empty($cateArr)){
             $query->whereIn('product.cate_id', $cateArr);
+        }
+        if($loai_id){
+            $query->where('product.loai_id', $loai_id);
+        }
+        if($cate_id){
+            $query->where('product.cate_id', $cate_id);
         }
         if(!empty($colorArr)){
             $query->whereIn('product.color_id', $colorArr);
@@ -201,7 +209,7 @@ class HomeController extends Controller
             }
         }        
         //var_dump("<pre>", $hoverInfo);die;
-        return view('frontend.search.index', compact('productList', 'tu_khoa', 'seo', 'hoverInfo', 'loaiDetail', 'cateArr', 'price_fm', 'price_to', 'colorArr'));
+        return view('frontend.search.index', compact('productList', 'tu_khoa', 'seo', 'hoverInfo', 'loaiDetail', 'cateArr', 'price_fm', 'price_to', 'colorArr', 'loai_id', 'cate_id'));
     }
     public function ajaxTab(Request $request){
         $table = $request->type ? $request->type : 'category';

@@ -96,21 +96,25 @@
 @section('js')
 <script>
     (function($) {
-        "use strict";
+         "use strict";
         /*  [ Filter by price ]
         - - - - - - - - - - - - - - - - - - - - */
         $('#slider-range').slider({
             range: true,
             min: 0,
-            max: 500,
-            values: [0, 0],
+            max: 50000000,
+            values: [{{ $price_fm }}, {{ $price_to }}],
+            step : 2000000,
             slide: function (event, ui) {
-                $('#amount-left').text(ui.values[0] + 'k' );
-                $('#amount-right').text(ui.values[1] + 'k' );
+                $('#amount-left').text(ui.values[0]);
+                $('#price_fm').val(ui.values[0]);
+                $('#amount-right').text(ui.values[1] );
+                $('#price_to').val(ui.values[1]);
+                $('#searchForm').submit();
             }
         });
-        $('#amount-left').text($('#slider-range').slider('values', 0) + 'k');
-        $('#amount-right').text($('#slider-range').slider('values', 1) + 'k');
+        $('#amount-left').text($('#slider-range').slider('values', 0));        
+        $('#amount-right').text($('#slider-range').slider('values', 1));
     })(jQuery);
     </script>
 @stop

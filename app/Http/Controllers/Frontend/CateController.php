@@ -41,7 +41,8 @@ class CateController extends Controller
         $productArr = [];
         $slug = $request->slug;
         $loaiDetail = LoaiSp::where('slug', $slug)->first();
-        
+        $price_fm = $request->price_fm ? $request->price_fm : 0;      
+        $price_to = $request->price_to ? $request->price_to : 500000000;      
         if($loaiDetail){//danh muc cha
             $loai_id = $loaiDetail->id;
             
@@ -66,7 +67,7 @@ class CateController extends Controller
             }else{
                 $seo['title'] = $seo['description'] = $seo['keywords'] = $loaiDetail->name;
             }                                     
-            return view('frontend.cate.parent', compact('productList', 'loaiDetail', 'hoverInfo', 'socialImage', 'seo'));
+            return view('frontend.cate.parent', compact('productList', 'loaiDetail', 'hoverInfo', 'socialImage', 'seo', 'price_fm', 'price_to'));
         }else{
             // [ page ]
             $detailPage = Pages::where('slug', $slug)->first();
@@ -171,8 +172,9 @@ class CateController extends Controller
         }else{
             $seo['title'] = $seo['description'] = $seo['keywords'] = $cateDetail->name;
         }
-        
-        return view('frontend.cate.child', compact('productList', 'loaiDetail', 'cateDetail', 'hoverInfo', 'socialImage', 'seo'));
+        $price_fm = $request->price_fm ? $request->price_fm : 0;      
+        $price_to = $request->price_to ? $request->price_to : 500000000;      
+        return view('frontend.cate.child', compact('productList', 'loaiDetail', 'cateDetail', 'hoverInfo', 'socialImage', 'seo', 'price_fm', 'price_to'));
     }    
     
     

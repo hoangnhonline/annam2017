@@ -92,4 +92,8 @@
         </div><!-- /block_colors -->
     </div><!-- /block_modul -->
 </div><!-- /block_cate_left -->
+<input type="hidden" name="loai_id" value="{{ $loaiDetail->id }}">
+@if(isset($cateDetail))
+<input type="hidden" name="cate_id" value="{{ $cateDetail->id }}">
+@endif
 </form>
