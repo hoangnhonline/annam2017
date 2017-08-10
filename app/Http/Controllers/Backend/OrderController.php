@@ -16,8 +16,7 @@ use Mail;
 class OrderController extends Controller
 {
     protected $list_status = [
-        0 => 'Chờ xử lý',
-        1 => 'Đang giao hàng',    
+        0 => 'Chờ xử lý',       
         3 => 'Đã hoàn thành',
         4 => 'Đã huỷ'    
       ];
@@ -90,22 +89,10 @@ class OrderController extends Controller
         //get customer to send mail
         $customer = Customer::find($customer_id);
         $order = Orders::find($order_id);
-        $method_id = $order->method_id;
-        //check to choose which mail will be sent
-
+       
         switch ($status_id) {
             case "1":
-                /*Mail::send('frontend.email.ready',
-                    [
-                        'customer' => $customer,
-                        'order'    => $order
-                    ],
-                    function($message) use ($customer, $method_id) {
-                        $message->subject('Cảm ơn bạn đã đặt hàng tại annammobile.com');
-                        $message->to($customer->email);
-                        $message->from('annammobile.com@gmail.com', 'annammobile.com');
-                        $message->sender('annammobile.com@gmail.com', 'annammobile.com');
-                });*/
+               
                 break;
             case "3":
                 $orderDetail = OrderDetail::where('order_id', $order_id)->get();
@@ -116,15 +103,7 @@ class OrderController extends Controller
                     $so_luong_ton =  $modelProduct->so_luong_ton - $so_luong;
                     $so_luong_ton  = $so_luong_ton > 0 ? $so_luong_ton : 0;
                     $modelProduct->update(['so_luong_ton' => $so_luong_ton]);
-                }
-                /*Mail::send('frontend.email.thanks',
-                    [],
-                    function($message) use ($customer) {
-                        $message->subject('Cảm ơn bạn đã đặt hàng tại annammobile.com');
-                        $message->to($customer->email);
-                        $message->from('annammobile.com@gmail.com', 'annammobile.com');
-                        $message->sender('annammobile.com@gmail.com', 'annammobile.com');
-                });*/
+                }               
                 break;            
             case "4":
 
@@ -133,18 +112,7 @@ class OrderController extends Controller
 
                 break;
         }
-        // Mail::send('frontend.email.cart',
-        //     [
-        //         'customer'          => $customer,
-        //         'order'             => $getOrder,
-        //         'arrProductInfo'    => $arrProductInfo
-        //     ],
-        //     function($message) use ($email) {
-        //         $message->subject('Đơn đặt hàng tại annammobile.com');
-        //         $message->to($email);
-        //         $message->from('annammobile.com@gmail.com', 'annammobile.com');
-        //         $message->sender('annammobile.com@gmail.com', 'annammobile.com');
-        // });
+      
         return 'success';
     }
 }

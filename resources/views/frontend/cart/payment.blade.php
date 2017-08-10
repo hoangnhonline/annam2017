@@ -182,7 +182,8 @@
 			</div>
 			<div class="row block customer-frm">
                 <div class="col-md-6 col-sm-6 checkout-wrap">
-                    <input type="submit" name="" value="XÁC NHẬN ĐẶT HÀNG" class="btn-red sbm-checkout">
+                    <input type="submit" name="" id="btnPayment" value="XÁC NHẬN ĐẶT HÀNG" class="btn-red sbm-checkout">
+                    <button type="button" class="btn btn-danger" id="btnLoading" disabled="disabled" style="display:none;width:145px"><i class="fa fa-spin fa-spinner"></i></button>
                 </div>
                 {{ csrf_field() }}
                 <div class="col-md-6 col-sm-6 callme-wrap">
@@ -206,7 +207,12 @@
 	      }
 	      $('#city_id').change(function(){
 	      	getDistrict($(this).val());
-	      });	      
+	      });	  
+	      $('#btnPayment').click(function(){
+	      	$(this).hide();
+	      	$('#btnLoading').show();
+	      	//$(this).attr('disabled', 'disabled').val('<i class="fa fa-spin fa-spinner"></i>');
+	      });    
 	});
 	function validateEmail(email) {
       var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
