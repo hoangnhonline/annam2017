@@ -107,20 +107,21 @@
                         <div class="block_bottom_order">
                             <div class="row">
                                 <div class="col-sm-6 col-xs-12">
-                                    <img src="images/detail/thumb/1.jpg" alt="">
+                                    <img src="{{ Helper::showImageThumb($hinhArr[0]['image_url'])}}" alt="{!! $detail->name !!}">
                                     <div class="info_sp">
                                         <h3>{!! $detail->name !!}</h3>
                                         <strong>{!! $detail->is_sale == 1 ? number_format($detail->price_sale ) : number_format($detail->price)  !!}₫</strong>
                                     </div>
                                 </div>
-                                <div class="col-sm-6 col-xs-12">
-                                    <a href="javascript:;" title="Mua Ngay" class="block_order" data-id="{!! $detail->id !!}">
+                                <div class="col-sm-6 col-xs-12 block_order-bottom">
+                                    <a href="#" title="Mua Ngay" class="block_order" data-id="{!! $detail->id !!}">
                                         <i class="pw-icon-gift-2"></i>
                                         <span class="desc">
-                                            <span class="text-1">Mua hàng ngay</span>  
+                                            <span class="text-1">Mua hàng ngay</span>
+                                            <span class="text-2">Giao hàng toàn quốc</span>
                                         </span>
                                     </a>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div><!-- /block_detail_left -->
