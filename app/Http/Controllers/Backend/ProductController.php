@@ -223,7 +223,7 @@ class ProductController extends Controller
         $dataArr['so_luong_ton'] = str_replace(',', '', $request->so_luong_ton);
 
         $dataArr['status'] = 1;
-
+        $dataArr['price_sell'] = $dataArr['is_sale'] == 1 ? $dataArr['price_sale'] : $dataArr['price'];
         $dataArr['created_user'] = Auth::user()->id;
 
         $dataArr['updated_user'] = Auth::user()->id;
@@ -468,7 +468,10 @@ class ProductController extends Controller
         $dataArr['price_new'] = str_replace(',', '', $request->price_new);
         $dataArr['so_luong_ton'] = str_replace(',', '', $request->so_luong_ton);
 
-        $dataArr['updated_user'] = Auth::user()->id;        
+        $dataArr['updated_user'] = Auth::user()->id;    
+
+        $dataArr['price_sell'] = $dataArr['is_sale'] == 1 ? $dataArr['price_sale'] : $dataArr['price'];
+            
         $model = Product::find($dataArr['id']);
 
         $model->update($dataArr);

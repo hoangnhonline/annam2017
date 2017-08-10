@@ -14,10 +14,10 @@
         <div class="block block_view">
             <span>Xem theo:</span>
             <ul class="block_content">
-                <li class="active"><a href="">Mới nhất</a></li>
-                <li><a href="#" title="Cũ nhất">Cũ nhất</a></li>
-                <li><a href="#" title="Giá cao nhất">Giá cao nhất</a></li>
-                <li><a href="#" title="Giá thấp nhất">Giá thấp nhất</a></li>
+                <li class="active"><a href="javascript:;" data-sort="new" class="sort">Mới nhất</a></li>
+                <li><a href="javascript:;" data-sort="old" class="sort" title="Cũ nhất">Cũ nhất</a></li>
+                <li><a href="javascript:;" data-sort="high" class="sort" title="Giá cao nhất">Giá cao nhất</a></li>
+                <li><a href="javascript:;" data-sort="low" class="sort" title="Giá thấp nhất">Giá thấp nhất</a></li>
             </ul>
             
             <!-- <a href="#" onclick="return false;" class="filter-prod">Bộ lọc sản phẩm</a> -->

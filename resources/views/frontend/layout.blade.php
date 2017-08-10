@@ -218,6 +218,10 @@
 				$(this).next().val($(this).data('id'));
 				$('#searchForm').submit();
 			});
+			$('a.sort').click(function(){
+				$('#sort-filter').val($(this).data('sort'));
+				$('#searchForm').submit();
+			});
 		});
 	</script>
 	@yield('js')

@@ -42,7 +42,10 @@ $total = 0;
 									<div class="table-cell price-col t-r">{!! number_format($price) !!}</div><!-- /table-cell price-col t-r -->
 									<div class="table-cell numb-col t-c">
 										<select data-id="{{$product->id}}" class="change_quantity form-control">
-											@for($i = 1; $i <= 50; $i++ )
+										<?php 
+										$soluongton = DB::table('product')->where('id', $product->id)->first()->so_luong_ton;
+										?>
+											@for($i = 1; $i <= $soluongton; $i++ )
 				                            <option value="{{$i}}"
 				                            @if ($i == $getlistProduct[$product->id])
 				                              selected

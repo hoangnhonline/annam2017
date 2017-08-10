@@ -53,8 +53,8 @@ class Product extends Model  {
                     'status', 
                     'created_user', 
                     'updated_user', 
-                    'meta_id'
-                    
+                    'meta_id',
+                    'price_sell'                    
                     ];
     
     public function prices()

@@ -170,6 +170,9 @@ class HomeController extends Controller
         $colorArr = $request->color ? $request->color : [];   
         $loai_id = $request->loai_id ? $request->loai_id : null;
         $cate_id = $request->cate_id ? $request->cate_id : null;
+
+        $sort = $request->sort ? $request->sort : 'new';
+
         $colorArr = array_filter($colorArr);   
         $loaiDetail = (object) [];
         $query = Product::where('product.status', 1);
@@ -193,13 +196,19 @@ class HomeController extends Controller
         if(!empty($colorArr)){
             $query->whereIn('product.color_id', $colorArr);
         }
-        $query->where(function($query) use ($price_fm, $price_to){
-            $query->where('price', '<=', $price_to)->where('price', '>=', $price_fm)->where('is_sale', 0);
-            $query->orWhere(function($query) use ($price_fm, $price_to){
-                $query->where('price_sale', '<=', $price_to)->where('price_sale', '>=', $price_fm)->where('is_sale', 1);
-            });
-        });           
-        $productList = $query->orderBy('id', 'desc')->paginate(20);
+        
+        $query->where('price_sell', '<=', $price_to)->where('price_sell', '>=', $price_fm);
+        
+        if($sort == 'new'){
+            $query->orderBy('id', 'desc');
+        }elseif($sort=="old"){
+            $query->orderBy('id');
+        }elseif($sort == 'high'){
+            $query->orderBy('price_sell', 'desc');
+        }elseif($sort == 'low'){
+            $query->orderBy('price_sell');
+        }
+        $productList = $query->paginate(20);
         $loaiDetail->name = $seo['title'] = $seo['description'] =$seo['keywords'] = "Tìm kiếm sản phẩm theo từ khóa '".$tu_khoa."'";
         $hoverInfo = [];
         if($productList->count() > 0){
@@ -209,7 +218,7 @@ class HomeController extends Controller
             }
         }        
         //var_dump("<pre>", $hoverInfo);die;
-        return view('frontend.search.index', compact('productList', 'tu_khoa', 'seo', 'hoverInfo', 'loaiDetail', 'cateArr', 'price_fm', 'price_to', 'colorArr', 'loai_id', 'cate_id'));
+        return view('frontend.search.index', compact('productList', 'tu_khoa', 'seo', 'hoverInfo', 'loaiDetail', 'cateArr', 'price_fm', 'price_to', 'colorArr', 'loai_id', 'cate_id', 'sort'));
     }
     public function ajaxTab(Request $request){
         $table = $request->type ? $request->type : 'category';

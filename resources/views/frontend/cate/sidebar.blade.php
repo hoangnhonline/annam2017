@@ -1,4 +1,5 @@
 <form action="{!! route('search') !!}" method="GET" id="searchForm">
+<input type="hidden" name="sort" id="sort-filter" value="new">
 <div class="col-md-3 col-sm-3 col-xs-12 block_cate_left" style="padding-bottom:30px">
     <div class="block block_modul">
         <div class="block_price">
