@@ -26,7 +26,7 @@
         <div class="block block_product">
             <h3 class="block_title block_title_link">
                 {!! $loaiDetail->id != 9 ? $loaiDetail->name : "" !!} {!! $cateDetail->name !!}
-                <span class="num">29</span>
+                <span class="num">{{ $productList->total() }}</span>
             </h3>
             <div class="block_content row">
                 <ul class="list">

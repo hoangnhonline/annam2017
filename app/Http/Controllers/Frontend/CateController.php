@@ -55,9 +55,8 @@ class CateController extends Controller
                 ->select('product_img.image_url', 'product.*', 'thuoc_tinh')              
                 ->orderBy('product.id', 'desc');
 
-                $productList  = $query->limit(36)->get();
-                         
-
+                $productList  = $query->paginate(20);
+ 
             $hoverInfo = HoverInfo::where('loai_id', $loaiDetail->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
             
             $socialImage = $loaiDetail->banner_menu;
@@ -163,7 +162,7 @@ class CateController extends Controller
                         $query->where('price', '>', 0)->orderBy('product.price', 'desc');
                     }
                 $query->orderBy('product.id', 'desc');
-                $productList = $query->paginate(24);
+                $productList = $query->paginate(20);
         $hoverInfo = HoverInfo::where('loai_id', $loaiDetail->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();  
         //dd($hoverInfo);
         $socialImage = $cateDetail->icon_url;

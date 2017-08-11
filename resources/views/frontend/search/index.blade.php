@@ -24,7 +24,8 @@
         </div><!-- /block_view_by -->
         <div class="block block_product">
             <h3 class="block_title block_title_link">
-                KẾT QUẢ LỌC                
+                KẾT QUẢ LỌC            
+                <span class="num">{{ $productList->total() }}</span>    
             </h3>
             <div class="block_content row">
                 <ul class="list">

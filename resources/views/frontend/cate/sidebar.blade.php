@@ -58,8 +58,7 @@
                             @foreach( $cateArrByLoai[$loaiSp->id] as $cate)
                             <li>
                                 <input type="checkbox" class="cate-filter" name="cate[]" value="{!! $cate->id !!}" id="brand-{!! $cate->id !!}"> 
-                                <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}
-                                    <span class="number-prod">4</span>
+                                <label for="brand-{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}                                    
                                 </label>                            
                             </li>
                             @endforeach                           
