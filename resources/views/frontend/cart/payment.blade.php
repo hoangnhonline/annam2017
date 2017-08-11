@@ -186,9 +186,9 @@
                     <button type="button" class="btn btn-danger" id="btnLoading" disabled="disabled" style="display:none;width:145px"><i class="fa fa-spin fa-spinner"></i></button>
                 </div>
                 {{ csrf_field() }}
-                <div class="col-md-6 col-sm-6 callme-wrap">
+                <!--<div class="col-md-6 col-sm-6 callme-wrap">
                     <a href="javascript:;" id="callMe" class="btn btn-wht callme-now">PHỨC TẠP QUÁ!<span>GỌI LẠI CHO TÔI</span></a>
-                </div>
+                </div>-->
             </div>
 		</form>
 	</div><!-- /block_checkout-frm -->
