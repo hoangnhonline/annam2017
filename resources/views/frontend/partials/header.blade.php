@@ -73,8 +73,8 @@
 							Máy cũ giá rẻ
 						</a>
 					</li><!-- level0 -->
-					@foreach($loaiSpList as $loaiSp)
-					<li class="level0 parent {{ isset($loaiDetail) && $loaiDetail->id == $loaiSp->id ? "active" : "" }}">
+					@foreach($loaiSpList as $loaiSp)					
+					<li class="level0 parent {{ $routeName != 'search' && isset($loaiDetail) && $loaiDetail->id == $loaiSp->id ? "active" : "" }}">
 						<a href="{{ route('parent-cate', $loaiSp->slug) }}" title="{!! $loaiSp->name !!}">
 							<i class="fa fa-mobile"> </i>
 							{!! $loaiSp->name !!}
