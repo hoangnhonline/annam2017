@@ -3962,3 +3962,6 @@ a.redirect-policy i {
 .pre_checkout .block_cart_mobile {
   display: none;
 }
+.del_item_list{
+  color:red;
+}
