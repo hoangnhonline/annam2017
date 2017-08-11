@@ -36,19 +36,23 @@
                         </div>
         </div>
       </div><!-- /block_product -->
-      <div class="block block_adv">
-        <div class="block_content">
-          <a href="#" title="">
-            <img src="{{ URL::asset('assets/images/sidebar_product/fitbit-dung.jpg') }}" alt="">
-          </a>
-        </div>
-      </div><!-- /block_adv -->
-      <div class="block block_adv">
-        <div class="block_content">
-          <a href="#" title="">
-            <img src="{{ URL::asset('assets/images/sidebar_product/visen3.jpg') }}" alt="">
-          </a>                    
-        </div>
-      </div><!-- /block_adv -->
+      <?php 
+        $bannerArr = DB::table('banner')->where(['object_id' => 4, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+        ?>    
+        @if($bannerArr)
+        @foreach($bannerArr as $banner)
+          <div class="block block_adv">
+            <div class="block_content">
+              @if($banner->ads_url !='')
+              <a href="{{ $banner->ads_url }}" title="banner slide {{ $i }}">
+              @endif
+                <img src="{{ Helper::showImage($banner->image_url) }}" alt="banner quang cao">  
+              @if($banner->ads_url !='')
+                </a>
+              @endif  
+            </div>
+          </div><!-- /block_adv -->         
+        @endforeach  
+      @endif 
     </div>
   </div><!-- /block_cate_right -->

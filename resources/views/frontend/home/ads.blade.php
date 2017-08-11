@@ -1,32 +1,38 @@
 <div class="block block_newshot">
   <div class="block_content row">
-    <div class="col-md-6 col-sm-6 col-xs-12 item">
-      <div class="block_inner">
-        <!--<a href="" title="" target="_self">
-          <div class="inner">
-          <h3>MUA NGAY S8 VÀ S8+ TẠI MAI NGUYÊN</h3>
-          <span>HOÀN TIỀN 2TR hoặc TẶNG SẠC KHÔNG DÂY 1,45TR</span>
-          <i class="fa fa-angle-right"></i>
-        </div>
-        </a>-->
-        
-        <img src="{{ URL::asset('assets/images/news_hot/DATGACH-S8.jpg') }}" alt="HOÀN TIỀN 2TR hoặc TẶNG SẠC KHÔNG DÂY 1,45TR">
-     
+    <div class="col-md-6 col-sm-6 col-xs-12 item">    
+      <div class="block_inner">   
+        <?php 
+        $bannerArr = DB::table('banner')->where(['object_id' => 2, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+        ?>    
+        @if($bannerArr)
+          @foreach($bannerArr as $banner)
+            @if($banner->ads_url !='')
+            <a href="{{ $banner->ads_url }}" title="banner slide {{ $i }}">
+            @endif
+            <img src="{{ Helper::showImage($banner->image_url) }}" alt="banner trai">  
+            @if($banner->ads_url !='')
+            </a>
+            @endif
+          @endforeach  
+        @endif 
       </div>
     </div><!-- /item -->
     <div class="col-md-6 col-sm-6 col-xs-12 item">
-      <div class="block_inner">
-        <!--<a href="" title="" target="_self">
-          <div class="inner">
-          <h3>CHUYÊN TRANG PHỤ KIỆN</h3>
-          <span>VÀ HỆ SINH THÁI GALAXY S8 | S8+</span>
-          <i class="fa fa-angle-right"></i>
-        </div>
-        </a>-->
-        
-        <img src="{{ URL::asset('assets/images/news_hot/s8_accessories_big2.jpg') }}" alt="VÀ HỆ SINH THÁI GALAXY S8 | S8+">
-      
-      </div>
+      <?php 
+        $bannerArr = DB::table('banner')->where(['object_id' => 3, 'object_type' => 3])->orderBy('display_order', 'asc')->get();
+        ?>    
+        @if($bannerArr)
+          @foreach($bannerArr as $banner)
+            @if($banner->ads_url !='')
+            <a href="{{ $banner->ads_url }}" title="banner slide {{ $i }}">
+            @endif
+            <img src="{{ Helper::showImage($banner->image_url) }}" alt="banner trai">  
+            @if($banner->ads_url !='')
+            </a>
+            @endif
+          @endforeach  
+        @endif 
     </div><!-- /item -->
   </div>
 </div><!-- /block_newshot -->
