@@ -161,6 +161,10 @@
 	.block_news_related .block_title{
 		font-size: 20px;
 	}
+	.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{		
+		background-color: #000000;
+		border-color: #000000;
+	}
 </style>
 	<!-- ===== JS ===== -->
 	<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>

@@ -88,6 +88,8 @@
                     </li><!-- /product_item -->        
                     @endforeach                              
                 </ul>
+                <div class="clearfix"></div>
+                <div class="text-center">{{ $productList->links() }}</div>
             </div>
         </div><!-- /block_product -->
     </div><!-- /block_cate_right -->

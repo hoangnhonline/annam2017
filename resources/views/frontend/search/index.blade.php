@@ -89,6 +89,8 @@
                     </li><!-- /product_item -->        
                     @endforeach                              
                 </ul>
+                <div class="clearfix"></div>
+                <div class="text-center">{{ $productList->appends(['loai_id' => $loai_id, 'cate_id' => $cate_id, 'price_fm' => $price_fm, 'price_to' => $price_to, 'cate' => $cateArr, 'keyword' => $tu_khoa, 'color' => $colorArr])->links() }}</div>
             </div>
         </div><!-- /block_product -->
     </div><!-- /block_cate_right -->
