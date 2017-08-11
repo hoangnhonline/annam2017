@@ -326,4 +326,4 @@ function add_product_to_cart(product_id) {
 </script>
 @stop
 
-@include('frontend.partials.footer')
+

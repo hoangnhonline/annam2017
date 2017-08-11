@@ -61,20 +61,20 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse menu" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-left">
-					<li class="level0 menu-icon">
+					<li class="level0 menu-icon {{ $routeName == 'home' ? 'active' : '' }}" >
 						<a href="{!! route('home') !!}" title="Trang Chủ">
 							<i class="fa fa-home"></i>
 							Trang Chủ
 						</a>
 					</li><!-- level0 -->
-					<li class="level0">
+					<li class="level0  {{ $routeName == 'old-device' || $routeName == 'old-cate'  ? 'active' : '' }} ">
 						<a href="{!! route('old-device') !!}" title="Máy cũ giá rẻ">
 							<i class="fa fa-history"> </i>
 							Máy cũ giá rẻ
 						</a>
 					</li><!-- level0 -->
 					@foreach($loaiSpList as $loaiSp)
-					<li class="level0 parent">
+					<li class="level0 parent {{ isset($loaiDetail) && $loaiDetail->id == $loaiSp->id ? "active" : "" }}">
 						<a href="{{ route('parent-cate', $loaiSp->slug) }}" title="{!! $loaiSp->name !!}">
 							<i class="fa fa-mobile"> </i>
 							{!! $loaiSp->name !!}
@@ -93,7 +93,7 @@
 						</ul>
 					</li><!-- level0 -->			
 					@endforeach		
-					<li class="level0">
+					<li class="level0 {{ $routeName == 'news-list' || $routeName == 'news-detail'  ? 'active' : '' }}">
 						<a href="{{ route('news-list') }}" title="TIN TỨC">
 							<i class="fa fa-rss-square"></i>
 							TIN TỨC
