@@ -14,7 +14,7 @@
 							<button type="submit">
 								<i class="fa fa-search"></i>
 							</button>
-							<input type="text"  name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}"  placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
+							<input type="text" id="txtSearch" name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}"  placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
 							<div id="block_suggestions"></div>
 						</div>
 					</form>
@@ -51,7 +51,7 @@
 							<form name="frm_search" action="{{ route('search') }}" method="GET" class="frm-search">
 								<div class="control clearfix">
 									<button type="submit"><i class="fa fa-search"></i></button>
-									<input type="text" name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}" placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
+									<input type="text" id="txtSearch" name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}" placeholder="Bạn cần tìm sản phẩm gì ?" autocomplete="off">
 								</div>
 							</form>
 						</div>
