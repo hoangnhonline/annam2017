@@ -37,7 +37,7 @@
               <!-- ./block category  -->
               <!-- Banner silebar -->
               
-              @include('frontend.partials.banner-slidebar')
+              
               <!-- ./Banner silebar -->
           </div>
           <!-- ./left colunm -->
