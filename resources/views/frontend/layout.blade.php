@@ -78,12 +78,12 @@
 			<div class="footer_top">
 				<div class="container">
 					<ul class="row block_bottom_menu">
-	                    <li><a href="/">Trang chủ</a></li>	                  	                
-	                    <li><a href="{{ route('parent-cate', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>
-	                    <li><a href="{{ route('parent-cate', 'gioi-thieu') }}">Giới thiệu</a></li>
-	                    <li><a href="{{ route('contact') }}">Liên hệ</a></li>
-	                    <li><a href="{{ route('parent-cate', 'huong-dan-dat-hang') }}">Hướng dẫn đặt hàng</a></li>	            
-	                    <li><a href="{{ route('parent-cate', 'chinh-sach-bao-mat') }}">Chính sách bảo mật</a></li>
+	                    <li><a href="{{ route('home') }}" title="Trang chủ">Trang chủ</a></li>	                  	                
+	                    <li><a href="{{ route('parent-cate', 'chinh-sach-bao-hanh') }}" title="Chính sách bảo hành">Chính sách bảo hành</a></li>
+	                    <li><a href="{{ route('parent-cate', 'gioi-thieu') }}" title="Giới thiệu">Giới thiệu</a></li>
+	                    <li><a href="{{ route('contact') }}" title="Liên hệ">Liên hệ</a></li>
+	                    <li><a href="{{ route('parent-cate', 'huong-dan-dat-hang') }}" title="Hướng dẫn đặt hàng">Hướng dẫn đặt hàng</a></li>	            
+	                    <li><a href="{{ route('parent-cate', 'chinh-sach-bao-mat') }}" title="Chính sách bảo mật">Chính sách bảo mật</a></li>
 					</ul><!-- /block_bottom_menu -->
 				</div>
 			</div><!-- /footer_top -->
@@ -132,40 +132,11 @@
 	</div><!-- /wrapper -->
 	
 	<input type="hidden" id="route-register-customer-ajax" value="{{ route('register-customer-ajax') }}">
-	 <input type="hidden" id="route-register-newsletter" value="{{ route('register.newsletter') }}">
-	 <input type="hidden" id="route-add-to-cart" value="{{ route('add-product') }}" />
-	 <input type="hidden" id="route-payment" value="{{ route('payment') }}" />
-	 <input type="hidden" id="route-short-cart" value="{{ route('short-cart') }}" />
-	 <input type="hidden" id="route-update-product" value="{{ route('update-product') }}" />
-<style type="text/css">
-	.block_cate_top .list li a{
-		font-size: 14px;
-	}
-	.block_cate_top .list li.actused a{
-		color : #d0021b;
-	}
-	.block_cate_top .list li a:hover{
-		color: #d0021b;
-	}
-	.block_cate_top{
-		margin: 25px;
-		margin-left: 0px;
-	}
-	.block_news_related ul li a{
-		font-size: 14px;
-		height: 36px;
-	}
-	.block_news_related ul li .des{
-		margin-bottom: 40px;
-	}
-	.block_news_related .block_title{
-		font-size: 20px;
-	}
-	.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{		
-		background-color: #000000;
-		border-color: #000000;
-	}
-</style>
+	<input type="hidden" id="route-register-newsletter" value="{{ route('register.newsletter') }}">
+	<input type="hidden" id="route-add-to-cart" value="{{ route('add-product') }}" />
+	<input type="hidden" id="route-payment" value="{{ route('payment') }}" />
+	<input type="hidden" id="route-short-cart" value="{{ route('short-cart') }}" />
+	<input type="hidden" id="route-update-product" value="{{ route('update-product') }}" />
 	<!-- ===== JS ===== -->
 	<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
 	<!-- ===== JS Bootstrap ===== -->
@@ -194,40 +165,8 @@
 	@endif
 	<script src="{{ URL::asset('assets/js/general.js') }}"></script>	
 	@if($routeName != 'product-detail')
-	<script src="{{ URL::asset('assets/lib/select2/js/select2.min.js') }}"></script>
-	<script type="text/javascript">
-		function formatState (state) {
-			if (!state.id) { return state.text; }
-			var $state = $(
-				'<span><img src="images/cart/color/' + state.element.value.toLowerCase() + '.jpg" class="img-flag" /> ' + state.text + '</span>'
-			);
-			return $state;
-		};
-		$(".js-example-templating").select2({
-			templateResult: formatState
-		});		
-	</script>
-	@endif
-	<script type="text/javascript">
-		$(document).ready(function(){
-			 $.ajaxSetup({
-			      headers: {
-			          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			      }
-			  });
-			$('.cate-filter').change(function(){
-				$('#searchForm').submit();
-			});
-			$('.color-filter').click(function(){
-				$(this).next().val($(this).data('id'));
-				$('#searchForm').submit();
-			});
-			$('a.sort').click(function(){
-				$('#sort-filter').val($(this).data('sort'));
-				$('#searchForm').submit();
-			});
-		});
-	</script>
+	<script src="{{ URL::asset('assets/lib/select2/js/select2.min.js') }}"></script>	
+	@endif	
 	@yield('js')
 </body>
 </html>

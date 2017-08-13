@@ -1,4 +1,22 @@
 $(document).ready(function(){
+   $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+  $('.cate-filter').change(function(){
+    $('#searchForm').submit();
+  });
+  $('.color-filter').click(function(){
+    $(this).next().val($(this).data('id'));
+    $('#searchForm').submit();
+  });
+  $('a.sort').click(function(){
+    $('#sort-filter').val($(this).data('sort'));
+    $('#searchForm').submit();
+  });
+}); 
+$(document).ready(function(){
 $('.cart-link').click(function() {
       $.ajax({
         url: $('#route-short-cart').val(),

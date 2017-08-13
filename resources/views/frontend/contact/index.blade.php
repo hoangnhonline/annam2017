@@ -1,94 +1,78 @@
 @extends('frontend.layout')
-
 @include('frontend.partials.meta')
 @section('content')
-<article class="block block-breadcrumb">
-  <ul class="breadcrumb">
-    <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
-    <li class="active">Liên hệ</li>
-  </ul>
-</article><!-- /block-breadcrumb -->
-<section class="block-content">
-        <div class="block-common">  
-        <div id="contact" class="page-content page-contact">
-            <div id="message-box-conact"></div>
-            <div class="row">
-                
-                <div class="col-sm-8">	
-                    <h3 class="page-heading">
-                        <span class="page-heading-title2">THÔNG TIN Liên hệ</span>
-                    </h3>               
-                    <div class="content">
-                        <h4>annammobile.com - Chợ Công Nghệ Giá Sỉ</h4>                        
-                        <p>Hotline: <span class="tel">1900 63 69 75</span></p>                        
-                        <p>Email: <a href="mailto:muahang@annammobile.com">muahang@annammobile.com</a></p>
-                    </div>
-                    @if(Session::has('message'))
-	                <p class="alert alert-info" >{{ Session::get('message') }}</p>
-	                @endif
-                    <form method="POST" action="{{ route('send-contact') }}">
-                     @if (count($errors) > 0)
-	                  <div class="alert alert-danger">
-	                    <ul>	                       
-	                        <li>Vui lòng nhập đầy đủ thông tin.</li>	                        
-	                    </ul>
-	                  </div>
-	                @endif	
-                    <div class="contact-form-box">
-                        <div class="form-selector">                            
-                            <textarea style="font-size:14px" class="form-control input-sm" rows="8" id="content" name="content" placeholder="Nhập nội dung bạn muốn liên hệ hoặc góp ý với annammobile.com">{{ old('content') }}</textarea>
+<div class="block block_breadcrumb">
+    <ol class="breadcrumb">
+        <li><a href="{{ route('home') }}" title="Trở về trang chủ">Trang chủ</a></li>
+        <li class="active">Liên hệ</li>
+    </ol>
+</div><!-- /block_breadcrumb -->
 
-                        </div>
-                        <input type="hidden" name="type" value="1">                        
-                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                        <div class="form-selector col-md-4" style="padding-left:0px;padding-top:7px;height:45px">
-                            <input type="radio" name="gender" value="1" id="gender1" checked="checked"> <label for="gender1">Anh</label>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="gender" value="2" id="gender2"> <label for="gender2">Chị</label>
-                        </div>
-                        <div class="form-selector col-md-8" style="padding-right:0px;height:45px">                            
-                            <input type="text" placeholder="Họ và tên" class="form-control input-sm" id="full_name" name="full_name"  value="{{ old('full_name') }}" style="height:35px" />
-                        </div>
-                        <div class="form-selector col-md-4" style="padding-left:0px;height:45px">                            
-                            <input type="text" placeholder="Số điện thoại" class="form-control input-sm" id="phone" name="phone" value="{{ old('phone') }}" style="height:35px"/>
-                        </div>   
-                        <div class="form-selector col-md-8" style="padding-right:0px;height:45px">                           
-                            <input type="email" placeholder="Email của bạn" class="form-control input-sm" id="email" name="email" value="{{ old('email') }}" style="height:35px"/>
-                        </div>
-                        <div class="form-selector">
-                            <button type="submit" id="btn-send-contact" class="btn">GỬI LIÊN HỆ</button>
-                        </div>
+<div class="block_form" style="padding-top:20px">
+    <div class="block_contact_note">
+        <h2>MỌI NHU CẦU, QUÝ KHÁCH VUI LÒNG LIÊN HỆ</h2>
+        <p class="ctact-time">An Nam Mobile phục vụ từ 8:00 đến 21:30 Thứ 2 đến Chủ Nhật</p>
+        <div class="ctact-note-inner">           
+            <p>
+                <span>Email: <strong>abc@xyz.vn
+                </strong></span><span>cc: <strong>abc@xyz.vn</strong></span>
+            </p>
+        </div>
+    </div><!-- /block_contact_note -->
+    <div class="contact-form">
+        <div class="arr_bottom">
+            <div class="arr_bt_inner"></div>
+        </div>
+        <div class="ctact-frm-inner">
+            <header class="frm-head">
+                <h2>LIÊN HỆ</h2>
+                <p>
+                    Xin chân thành cảm ơn những ý kiến đóng góp, phản hồi từ phía
+                    khách hàng.
+                </p>
+            </header>
+            <article class="frm-content">
+                <div class="row">
+                    @if(Session::has('message'))
+                    <div class="col-md-12">
+                        <p class="alert alert-info" >{{ Session::get('message') }}</p>
                     </div>
+                    @endif
+                    @if (count($errors) > 0)
+                    <div class="col-md-12">
+                      <div class="alert alert-danger ">
+                        <ul>                           
+                            <li>Vui lòng nhập đầy đủ thông tin.</li>                            
+                        </ul>
+                      </div>
+                    </div>
+                    @endif  
+                    <form method="POST" action="{{ route('send-contact') }}">
+                    {{ csrf_field() }}                    
+                        <div class="col-md-6 col-sm-6 col-xs-12 frm-itm">
+                            <input type="text" placeholder="Họ và tên" name="full_name" id="full_name" class="ipt txt-name" value="{{ old('full_name') }}"><span class="required">*</span>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12 frm-itm">
+                            <input type="tel" placeholder="Số điện thoại" name="phone" id="phone" class="ipt txt-phone" value="{{ old('phone') }}"><span class="required">*</span>
+                        </div>
+                        <div class="col-xs-12 frm-itm">
+                            <input type="email" placeholder="Email liên lạc" value="{{ old('email') }}" name="email" id="email" class="ipt txt-email"><span class="required">*</span>
+                        </div>
+                        <div class="col-xs-12 frm-itm">
+                            <textarea placeholder="Nội dung liên hệ ..." name="content" id="content">{{ old('content') }}</textarea>
+                        </div>
+                        <div class="col-xs-12 frm-itm">
+                            <input type="submit" value="GỬI LIÊN HỆ" class="btn-submit">
+                        </div>
                     </form>
                 </div>
-                <div class="col-xs-12 col-sm-4" id="contact_form_map">                    
-                    <div class="row">
-                        <div class="col-sm-12" style="margin-bottom:20px">
-                            <div class="introduce-title">Thông tin Công ty</div>
-                            <ul id="introduce-company"  class="introduce-list">
-                                <li><a href="{{ route('parent-cate', 'gioi-thieu') }}">Giới thiệu</a></li>
-                                <li><a href="{{ route('chuong-trinh-khuyen-mai') }}">Khuyến mãi</a></li>
-                                <li><a href="{{ route('contact') }}">Liên hệ</a></li>
-                            </ul>
-                        </div>                       
-                        <div class="col-sm-12">
-                            <div class="introduce-title">CHÍNH SÁCH</div>
-                            <ul id = "introduce-support"  class="introduce-list">
-                                <li><a href="{{ route('parent-cate', 'bao-mat-thong-tin') }}">Bảo mật thông tin</a></li>
-                                <li><a href="{{ route('parent-cate', 'phuong-thuc-thanh-toan') }}">Phương thức thanh toán</a></li>
-                                <li><a href="{{ route('parent-cate', 'hinh-thuc-van-chuyen') }}">Hình thức vận chuyển</a></li>
-                                <li><a href="{{ route('parent-cate', 'chinh-sach-bao-hanh') }}">Chính sách bảo hành</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </article>
         </div>
-
-</section>
+    </div><!-- /contact-form -->
+</div><!-- /block_form -->
 <style type="text/css">
     span.required{
-        color:red;
+        color:red !important;
     }
     .contact-form-box input {
         font-size: 14px;

@@ -75,8 +75,15 @@ class CateController extends Controller
             }
             $seo['title'] = $detailPage->meta_title ? $detailPage->meta_title : $detailPage->title;
             $seo['description'] = $detailPage->meta_description ? $detailPage->meta_description : $detailPage->title;
-            $seo['keywords'] = $detailPage->meta_keywords ? $detailPage->meta_keywords : $detailPage->title;           
-            return view('frontend.pages.index', compact('detailPage', 'seo'));    
+            $seo['keywords'] = $detailPage->meta_keywords ? $detailPage->meta_keywords : $detailPage->title;        
+            $newProductList =  Product::where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                        ->where('is_new', 1)                   
+                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                        ->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id')
+                        ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
+                        ->orderBy('id', 'desc')->limit(6)->get();   
+            return view('frontend.pages.index', compact('detailPage', 'seo', 'newProductList'));    
         }
     }
     public function getSeoInfo($meta_id){
