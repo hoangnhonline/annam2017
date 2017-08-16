@@ -13,9 +13,11 @@
             <h1 class="article-title">{!! $detailPage->title !!}</h1>
             
             <div class="block" style="margin-top:30px">
+                @if($detailPage->image_url)
                 <p class="block_intro">
                     <img src="{!! Helper::showImage($detailPage->image_url ) !!}" alt="{!! $detailPage->title !!}">
                 </p>
+                @endif
                 {!! $detailPage->content !!}
             </div><!-- /block -->            
         </div>

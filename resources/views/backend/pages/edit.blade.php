@@ -4,12 +4,12 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      <span class="glyphicon glyphicon-pencil"></span> trang    
+      Cập nhật trang    
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('pages.index') }}">Thông tin trang</a></li>
-      <li class="active"><span class="glyphicon glyphicon-pencil"></span></li>
+      <li class="active">Cập nhật</li>
     </ol>
   </section>
 
