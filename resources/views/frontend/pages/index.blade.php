@@ -38,5 +38,8 @@
     #content-of-page ul , #content-of-page ol {        
         margin-left: 15px;
     }
+    #content-of-page h3 {
+        font-size: 16px;
+    }
 </style>
 @endsection  
