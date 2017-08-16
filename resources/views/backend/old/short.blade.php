@@ -5,11 +5,11 @@
 @if(Auth::user()->email != "huongll@annammobile.com")
 <section class="content-header">
   <h1>
-    Sản phẩm mới
+    Máy cũ giá rẻ
   </h1>
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-    <li><a href="{{ route( 'product.short' ) }}">Sản phẩm mới</a></li>
+    <li><a href="{{ route( 'old.short' ) }}">Máy cũ giá rẻ</a></li>
     <li class="active">Danh sách</li>
   </ol>
 </section>
@@ -21,7 +21,7 @@
         
       <div class="panel panel-default">        
         <div class="panel-body">
-          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('product.short') }}">
+          <form class="form-inline" id="searchForm" role="form" method="GET" action="{{ route('old.short') }}">
            
           
             
@@ -87,7 +87,7 @@
                 <td><span class="order">{{ $i }}</span></td>                
                
                 <td>                  
-                  <a style="color:#333;" href="{{ route( 'product.edit', [ 'id' => $item->id ]) }}">{{ $item->name }} {{ $item->name_extend }}</a> &nbsp; @if( $item->is_hot == 1 )
+                  <a style="color:#333;" href="{{ route( 'old.edit', [ 'id' => $item->id ]) }}">{{ $item->name }} {{ $item->name_extend }}</a> &nbsp; @if( $item->is_hot == 1 )
                   <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
                   
@@ -100,7 +100,7 @@
                 <td style="white-space:nowrap; text-align:right">                 
                   <button class="btn btn-warning btn-sm btnEdit" data-value="{{ $item->id }}">Chỉnh sửa</button>
 
-                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'product.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
+                  <a onclick="return callDelete('{{ $item->name }}','{{ route( 'old.destroy', [ 'id' => $item->id ]) }}');" class="btn btn-danger btn-sm">Xóa</a>
 
                 </td>
               </tr> 

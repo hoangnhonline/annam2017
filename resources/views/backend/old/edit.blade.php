@@ -4,20 +4,20 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Sản phẩm mới    
+      Máy cũ giá rẻ    
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('product.index') }}">Sản phẩm mới</a></li>
+      <li><a href="{{ route('old.index') }}">Máy cũ giá rẻ</a></li>
       <li class="active">Chỉnh sửa</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm" href="{{ route('product.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id]) }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('old.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id]) }}" style="margin-bottom:5px">Quay lại</a>
     <a class="btn btn-primary btn-sm" href="{{ route('product-detail', [$detail->slug, $detail->id] ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
-    <form role="form" method="POST" action="{{ route('product.update') }}" id="dataForm">
+    <form role="form" method="POST" action="{{ route('old.update') }}" id="dataForm">
     <div class="row">
       <!-- left column -->
       <input type="hidden" name="id" value="{{ $detail->id }}">
@@ -101,31 +101,22 @@
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug', $detail->slug) }}">
-                        </div>                        
-                        <div class="col-md-3 none-padding">
+                        </div>
+                        
+                        <div class="col-md-12 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot', $detail->is_hot) == 1 ? "checked" : "" }}> NỔI BẬT </label>
                           </div>                          
                         </div>
-                        <div class="col-md-3 none-padding">
-                          <div class="checkbox">
-                              <label><input type="checkbox" name="is_new" value="1" {{ old('is_new', $detail->is_new) == 1 ? "checked" : "" }}> NEW </label>
-                          </div>                          
-                        </div>                        
-                        <div class="col-md-3 none-padding pleft-5">
-                            <div class="checkbox">
-                              <label><input type="checkbox" name="is_sale" id="is_sale" value="1" {{ old('is_sale', $detail->is_sale) == 1 ? "checked" : "" }}> SALE </label>
-                          </div>
-                        </div>
+                        
                         <div class="form-group col-md-6 none-padding" >                  
                             <label>Giá<span class="red-star">*</span></label>
                             <input type="text" class="form-control req number" name="price" id="price" value="{{ old('price', $detail->price) }}">
-                        </div>
+                        </div>                       
                         <div class="form-group col-md-6" >                  
-                            <label>Giá SALE</label>
-                            <input type="text" class="form-control number {{ old('is_sale', $detail->is_sale) == 1  ? "req" : "" }}" name="price_sale" id="price_sale" value="{{ old('price_sale', $detail->price_sale) }}">
+                            <label>Giá máy mới</label>
+                            <input type="text" class="form-control number {{ old('is_old', $detail->is_old) == 1  ? "req" : "" }}" name="price_new" id="price_new" value="{{ old('price_new', $detail->price_new) }}">
                         </div>
-                        
                          <div class="col-md-6 none-padding">
                           <label>Số lượng tồn<span class="red-star">*</span></label>                  
                           <input type="text" class="form-control req number" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton', $detail->so_luong_ton) }}">                        
@@ -216,7 +207,7 @@
             <div class="box-footer">             
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('product.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id])}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('old.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id])}}">Hủy</a>
             </div>
             
         </div>
@@ -343,7 +334,7 @@ $(document).on('keypress', '#name_search', function(e){
         }
       });
       $('#loai_id').change(function(){
-        location.href="{{ route('product.create') }}?loai_id=" + $(this).val();
+        location.href="{{ route('old.create') }}?loai_id=" + $(this).val();
       })
       $(".select2").select2();
      

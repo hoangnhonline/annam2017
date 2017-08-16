@@ -18,7 +18,7 @@ use App\Models\MetaData;
 
 use Helper, File, Session, Auth, URL, Image;
 
-class ProductController extends Controller
+class OldController extends Controller
 {
     /**
     * Display a listing of the resource.
@@ -32,20 +32,22 @@ class ProductController extends Controller
         $arrSearch['is_hot'] = $is_hot = isset($request->is_hot) ? $request->is_hot : null;
         $arrSearch['is_sale'] = $is_sale = isset($request->is_sale) ? $request->is_sale : null;
         $arrSearch['is_new'] = $is_new = isset($request->is_new) ? $request->is_new : null;
-        $arrSearch['is_old'] = $is_old = 0;
+        $is_old = 1;
         $arrSearch['loai_id'] = $loai_id = isset($request->loai_id) ? $request->loai_id : null;
         $arrSearch['cate_id'] = $cate_id = isset($request->cate_id) ? $request->cate_id : null;
        
         $arrSearch['name'] = $name = isset($request->name) && trim($request->name) != '' ? trim($request->name) : '';
         
-        $query = Product::where('product.status', $status)->where('is_old', 0);
+        $query = Product::where('product.status', $status);
         if( $is_hot ){
             $query->where('product.is_hot', $is_hot);
         }
         if( $is_new ){
             $query->where('product.is_new', $is_new);
         }
-       
+        if( $is_old >= 0){
+            $query->where('product.is_old', $is_old);
+        }
         if( $is_sale ){
             $query->where('product.is_sale', $is_sale);
         }
@@ -79,7 +81,7 @@ class ProductController extends Controller
             $cateArr = (object) [];
         }
 
-        return view('backend.product.index', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
+        return view('backend.old.index', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
     }
     public function short(Request $request)
     {
@@ -110,7 +112,7 @@ class ProductController extends Controller
             $cateArr = (object) [];
         }
 
-        return view('backend.product.short', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
+        return view('backend.old.short', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr'));
     }    
     public function ajaxSearch(Request $request){    
         $search_type = $request->search_type;
@@ -145,7 +147,7 @@ class ProductController extends Controller
             $cateArr = (object) [];
         }
 
-        return view('backend.product.content-search', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr', 'search_type'));
+        return view('backend.old.content-search', compact( 'items', 'arrSearch', 'loaiSpArr', 'cateArr', 'search_type'));
     }
   
     /**
@@ -179,7 +181,7 @@ class ProductController extends Controller
             }
         }
         $colorArr = Color::orderBy('display_order')->get();        
-        return view('backend.product.create', compact('loaiSpArr', 'cateArr', 'colorArr', 'loai_id', 'thuocTinhArr', 'cate_id'));
+        return view('backend.old.create', compact('loaiSpArr', 'cateArr', 'colorArr', 'loai_id', 'thuocTinhArr', 'cate_id'));
     }
 
     /**
@@ -206,9 +208,9 @@ class ProductController extends Controller
         ]);
        
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0; 
-        $dataArr['is_old'] = 0;
-        $dataArr['is_new'] = isset($dataArr['is_new']) ? 1 : 0;
+        $dataArr['is_sale'] = 0; 
+        $dataArr['is_old'] = 1;
+        $dataArr['is_new'] = 0;
         
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
@@ -216,12 +218,12 @@ class ProductController extends Controller
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         
         $dataArr['price'] = str_replace(',', '', $request->price);
-        $dataArr['price_sale'] = str_replace(',', '', $request->price_sale);
-        $dataArr['price_new'] =null;
+        $dataArr['price_sale'] = null;
+        $dataArr['price_new'] = str_replace(',', '', $request->price_new);
         $dataArr['so_luong_ton'] = str_replace(',', '', $request->so_luong_ton);
 
         $dataArr['status'] = 1;
-        $dataArr['price_sell'] = $dataArr['is_sale'] == 1 ? $dataArr['price_sale'] : $dataArr['price'];
+        $dataArr['price_sell'] = $dataArr['price'];
         $dataArr['created_user'] = Auth::user()->id;
 
         $dataArr['updated_user'] = Auth::user()->id;
@@ -244,9 +246,9 @@ class ProductController extends Controller
         $this->storeMeta($product_id, 0, $dataArr);
         Session::flash('message', 'Tạo mới sản phẩm thành công');
 
-        return redirect()->route('product.index', [
+        return redirect()->route('old.index', [
                         'loai_id' => $dataArr['loai_id'], 
-                        'cate_id' => $dataArr['cate_id']            
+                        'cate_id' => $dataArr['cate_id']                        
                         ]
                         );
     }
@@ -417,13 +419,13 @@ class ProductController extends Controller
         }        
         $colorArr = Color::all();          
             
-        return view('backend.product.edit', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta'));
+        return view('backend.old.edit', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta'));
     }
     public function ajaxDetail(Request $request)
     {       
         $id = $request->id;
         $detail = Product::find($id);
-        return view('backend.product.ajax-detail', compact( 'detail' ));
+        return view('backend.old.ajax-detail', compact( 'detail' ));
     }
     /**
     * Update the specified resource in storage.
@@ -451,23 +453,20 @@ class ProductController extends Controller
 
         
         $dataArr['is_hot'] = isset($dataArr['is_hot']) ? 1 : 0;
-        $dataArr['is_sale'] = isset($dataArr['is_sale']) ? 1 : 0;  
-        $dataArr['is_old'] = 0;
-        $dataArr['is_new'] = isset($dataArr['is_new']) ? 1 : 0;
+     
 
         $dataArr['slug'] = str_replace(".", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace("(", "-", $dataArr['slug']);
         $dataArr['slug'] = str_replace(")", "", $dataArr['slug']);
         $dataArr['alias'] = Helper::stripUnicode($dataArr['name']);
 
-        $dataArr['price'] = str_replace(',', '', $request->price);
-        $dataArr['price_sale'] = str_replace(',', '', $request->price_sale);
-        $dataArr['price_new'] = null;
+        $dataArr['price'] = str_replace(',', '', $request->price);       
+        $dataArr['price_new'] = str_replace(',', '', $request->price_new);
         $dataArr['so_luong_ton'] = str_replace(',', '', $request->so_luong_ton);
 
         $dataArr['updated_user'] = Auth::user()->id;    
 
-        $dataArr['price_sell'] = $dataArr['is_sale'] == 1 ? $dataArr['price_sale'] : $dataArr['price'];
+        $dataArr['price_sell'] = $dataArr['price'];
             
         $model = Product::find($dataArr['id']);
 
@@ -481,7 +480,7 @@ class ProductController extends Controller
         $this->storeImage( $product_id, $dataArr);
         Session::flash('message', 'Chỉnh sửa sản phẩm thành công');
 
-        return redirect()->route('product.edit', $product_id);
+        return redirect()->route('old.edit', $product_id);
         
     }
     public function ajaxSaveInfo(Request $request){

@@ -30,6 +30,19 @@
           <li {{ in_array(\Request::route()->getName(), ['cate.index', 'cate.edit', 'cate.create']) ? "class=active" : "" }}><a href="{{ route('cate.index') }}"><i class="fa fa-circle-o"></i> Danh mục con</a></li>
         </ul>
       </li>
+      <li class="treeview {{ in_array(\Request::route()->getName(), ['old.index', 'old.create', 'old.edit']) ? 'active' : '' }}">
+        <a href="#">
+          <i class="fa fa-opencart"></i> 
+          <span>Máy cũ giá rẻ</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">\
+          <li {{ in_array(\Request::route()->getName(), ['old.index', 'old.edit']) ? "class=active" : "" }}><a href="{{ route('old.index') }}"><i class="fa fa-circle-o"></i> Danh sách</a></li>
+          <li {{ \Request::route()->getName() == "old.create" ? "class=active" : "" }}><a href="{{ route('old.create') }}"><i class="fa fa-circle-o"></i> Thêm sản phẩm</a></li>          
+        </ul>
+      </li>
       <li class="treeview {{ \Request::route()->getName() == "orders.index" ? "active" : "" }}">
         <a href="#">
           <i class="fa fa-reorder"></i> 
@@ -71,8 +84,7 @@
         </a>
         <ul class="treeview-menu">
           <li {{ in_array(\Request::route()->getName(), ['articles.edit', 'articles.index']) ? "class=active" : "" }}><a href="{{ route('articles.index') }}"><i class="fa fa-circle-o"></i> Bài viết</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['articles.create']) ? "class=active" : "" }} ><a href="{{ route('articles.create', ['cate_id' => 1]) }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>
-          <li {{ in_array(\Request::route()->getName(), ['articles-cate.create', 'articles-cate.index', 'articles-cate.edit']) ? "class=active" : "" }} ><a href="{{ route('articles-cate.index') }}"><i class="fa fa-circle-o"></i> Danh mục bài viết</a></li>          
+          <li {{ in_array(\Request::route()->getName(), ['articles.create']) ? "class=active" : "" }} ><a href="{{ route('articles.create', ['cate_id' => 1]) }}"><i class="fa fa-circle-o"></i> Thêm bài viết</a></li>                    
         </ul>
        
       </li>

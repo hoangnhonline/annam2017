@@ -4,11 +4,11 @@
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>
-      Sản phẩm    
+      Sản phẩm mới    
     </h1>
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
-      <li><a href="{{ route('product.index') }}">Sản phẩm</a></li>
+      <li><a href="{{ route('product.index') }}">Sản phẩm mới</a></li>
       <li class="active">Thêm mới</li>
     </ol>
   </section>
@@ -82,44 +82,35 @@
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
                           <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug') }}">
-                        </div>                        
-                        <div class="col-md-3 none-padding">
-                          <div class="checkbox">
-                              <label><input type="checkbox" name="is_old" id="is_old" value="1" {{ old('is_old') == 1 ? "checked" : "" }}> MÁY CŨ </label>
-                          </div>                          
-                        </div>
-                        <div class="col-md-3 none-padding">
+                        </div> 
+                        <div class="col-md-4 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}> NỔI BẬT </label>
                           </div>                          
                         </div>
-                        <div class="col-md-3 none-padding">
+                        <div class="col-md-4 none-padding">
                           <div class="checkbox">
                               <label><input type="checkbox" name="is_new" value="1" {{ old('is_new') == 1 ? "checked" : "" }}> NEW </label>
                           </div>                          
                         </div>                        
-                        <div class="col-md-3 none-padding pleft-5">
+                        <div class="col-md-4 none-padding pleft-5">
                             <div class="checkbox">
                               <label><input type="checkbox" name="is_sale" id="is_sale" value="1" {{ old('is_sale') == 1 ? "checked" : "" }}> SALE </label>
                           </div>
                         </div>
-                        <div class="form-group" >                  
+                        <div class="form-group col-md-6 none-padding" >                  
                             <label>Giá<span class="red-star">*</span></label>
                             <input type="text" class="form-control req number" name="price" id="price" value="{{ old('price') }}">
                         </div>
-                        <div class="form-group col-md-6 none-padding" >                  
+                        <div class="form-group col-md-6" >                  
                             <label>Giá SALE</label>
                             <input type="text" class="form-control number" name="price_sale" id="price_sale" value="{{ old('price_sale') }}">
-                        </div>
-                        <div class="form-group col-md-6" >                  
-                            <label>Giá máy mới</label>
-                            <input type="text" class="form-control number" name="price_new" id="price_new" value="{{ old('price_new') }}">
-                        </div>
+                        </div>                        
                          <div class="col-md-6 none-padding">
                           <label>Số lượng tồn<span class="red-star">*</span></label>                  
                           <input type="text" class="form-control req number" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') }}">                        
                         </div>
-                        <div class="col-md-6 none-padding pleft-5">
+                        <div class="col-md-6">
                             <label>Màu sắc</label>
                             <select name="color_id" id="color_id" class="form-control">
                                 <option value="">--chọn--</option>
