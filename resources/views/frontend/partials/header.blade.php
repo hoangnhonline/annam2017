@@ -3,7 +3,7 @@
 		<div class="block block_header_top row">
 			<div class="block_logo col-md-3 col-sm-3">
 				<a href="{!! route('home') !!}" title="">
-					<img src="{!! Helper::showImage($settingArr['logo']) !!}" alt="Logo An Nam mobile">
+					<img src="{!! Helper::showImage($settingArr['logo']) !!}" alt="Logo Ân Nam mobile">
 				</a>
 			</div><!-- /block_logo -->
 			<div class="block_search col-md-5 col-sm-5">
@@ -39,7 +39,7 @@
 	            	<a href="javascript:;" class="cart-link"><span class="order_total_quantity">{!! Session::get('products') ? array_sum(Session::get('products')) : 0 !!}</span></a>
 	            </div><!-- /block_cart_mobile -->
 	            <div class="block_logo_mobile">
-					<a href="{!! route('home') !!}"><img src="{!! URL::asset('assets/images/logo_white.png') !!}" alt="Logo An Nam Mobile"></a>
+					<a href="{!! route('home') !!}"><img src="{!! URL::asset('assets/images/logo_white.png') !!}" alt="Logo Ân Nam Mobile"></a>
 				</div><!-- /block_logo_mobile -->
 				<div class="block_call_mobile">
 					<a href="tel:+84904500057" class="mb-phone"><i class="fa fa-phone"></i></a>

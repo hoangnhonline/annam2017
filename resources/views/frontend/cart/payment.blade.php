@@ -135,7 +135,7 @@
 								<input type="text" name="phone" id="phone" value="{!! old('phone') !!}" placeholder="Điện thoại liên hệ" class="phone ip_precheck">
 							</div><!-- /row-group -->
 							<div class="row-group">
-                                <input type="email" name="email" id="email" value="{!! old('email') !!}" placeholder="Email (cần nhập email để nhận được thông tin đơn hàng từ An Nam)" class="email ip_precheck">
+                                <input type="email" name="email" id="email" value="{!! old('email') !!}" placeholder="Email (cần nhập email để nhận được thông tin đơn hàng từ Ân Nam)" class="email ip_precheck">
                             </div><!-- /row-group -->
                             <div class="row-group clearfix">
                             	<label class="titaddress"><i class="fa fa-location-arrow"></i>Địa chỉ, thời gian GIAO HÀNG NHANH</label>

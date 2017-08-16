@@ -11,7 +11,7 @@
 <div class="block_form" style="padding-top:20px">
     <div class="block_contact_note">
         <h2>MỌI NHU CẦU, QUÝ KHÁCH VUI LÒNG LIÊN HỆ</h2>
-        <p class="ctact-time">An Nam Mobile phục vụ từ 8:00 đến 21:30 Thứ 2 đến Chủ Nhật</p>
+        <p class="ctact-time">Ân Nam Mobile phục vụ từ 8:00 đến 21:30 Thứ 2 đến Chủ Nhật</p>
         <div class="ctact-note-inner">           
             <p>
                 <span>Email: <strong>abc@xyz.vn
