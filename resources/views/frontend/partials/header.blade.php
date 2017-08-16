@@ -61,14 +61,14 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse menu" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-left">
-					<li class="level0 menu-icon {{ $routeName == 'home' ? 'active' : '' }}" >
+					<li class="level0 menu-icon" >
 						<a href="{!! route('home') !!}" title="Trang Chủ">
 							<i class="fa fa-home"></i>
 							Trang Chủ
 						</a>
 					</li><!-- level0 -->
-					<li class="level0  {{ $routeName == 'old-device' || $routeName == 'old-cate'  ? 'active' : '' }} ">
-						<a href="{!! route('old-device') !!}" title="Máy cũ giá rẻ">
+					<li class="level0  {{ $routeName == 'home' || $routeName == 'old-cate'  ? 'active' : '' }} ">
+						<a href="{!! route('home') !!}" title="Máy cũ giá rẻ">
 							<i class="fa fa-history"> </i>
 							Máy cũ giá rẻ
 						</a>

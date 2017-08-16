@@ -1,7 +1,6 @@
 @extends('frontend.layout')
 @include('frontend.partials.meta')
 @section('content')
-@include('frontend.home.ads')
 <div class="block_cate_top">
   <ul class="list">
     <li style="margin-left:0px"><a href="{{ route('old-device') }}" title="Máy cũ nổi bật">Máy cũ nổi bật</a></li>
