@@ -35,59 +35,8 @@ class HomeController extends Controller
     * Display a listing of the resource.
     *
     * @return Response
-    */    
-    public function index(Request $request){
-         $productArr = $manhinhArr = [];
-        $loaiSp = LoaiSp::where('status', 1)->get();
-        $bannerArr = [];
-        $hoverInfo = [];
-        foreach( $loaiSp as $loai){            
-            $query = Product::where( [ 'status' => 1, 'loai_id' => $loai->id, 'is_old' => 1, 'is_hot' => 1])
-                            ->where('so_luong_ton', '>', 0)
-                            ->where('price', '>', 0)            
-                            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')            
-                            ->select('product_img.image_url', 'product.*')                        
-                            ->orderBy('product.display_order')            
-                            ->limit(5);
-           
-            $productArr[$loai->id] = $query->get();
-
-            if( $loai->home_style > 0 ){
-                $bannerArr[$loai->id] = Banner::where(['object_id' => $loai->id, 'object_type' => 1])->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-            }       
-
-           
-            if(count($productArr) > 0){
-                $hoverInfoTmp = HoverInfo::orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-                
-                foreach($hoverInfoTmp as $value){
-                    if($value->loai_id == $loai->id){
-                        $hoverInfo[$value->loai_id][] = $value;
-                    }
-                }
-            }            
-        
-        }// foreach
-      //  dd($hoverInfo);
-        $settingArr = Settings::whereRaw('1')->lists('value', 'name');
-        $seo = $settingArr;
-        $seo['title'] =  $seo['description'] =  $seo['keywords'] = "Máy cũ giá rẻ";
-        $socialImage = $settingArr['banner'];
-
-        $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
-                
-        return view('frontend.old.index', compact(
-                                'productArr', 
-                                'bannerArr', 
-                                'articlesArr', 
-                                'socialImage', 
-                                'seo', 
-                                'thuocTinhArr', 
-                                'loaiThuocTinhArr', 
-                                'spThuocTinhArr',
-                                'hoverInfo'));
-    }
-    public function indexs(Request $request)
+    */      
+    public function index(Request $request)
     {   
         $productArr = $manhinhArr = [];
         $loaiSp = LoaiSp::where('status', 1)->get();
