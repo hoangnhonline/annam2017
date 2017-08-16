@@ -12,7 +12,7 @@
         <div class="block_news_content">
             <h1 class="article-title">{!! $detailPage->title !!}</h1>
             
-            <div class="block" style="margin-top:30px">
+            <div class="block" style="margin-top:30px" id="content-of-page">
                 @if($detailPage->image_url)
                 <p class="block_intro">
                     <img src="{!! Helper::showImage($detailPage->image_url ) !!}" alt="{!! $detailPage->title !!}">
@@ -31,6 +31,10 @@
         height: 30px;
         display: block;
         overflow-y: hidden;
+    }
+    #content-of-page ul li {
+        list-style: circle;
+        padding-left: 15px;
     }
 </style>
 @endsection  
