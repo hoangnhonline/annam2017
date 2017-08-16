@@ -57,8 +57,7 @@
 
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" id="tab-menu" role="tablist">
-              <li role="presentation" {{ $report_type == "don-hang" ? "class=active" : "" }}><a data-value="don-hang" href="#home" aria-controls="home" role="tab" >Đơn hàng</a></li>
-              <li role="presentation" {{ $report_type == "khach-hang" ? "class=active" : "" }}><a data-value="khach-hang" href="#profile" aria-controls="profile" role="tab" >Khách hàng</a></li>
+              <li role="presentation" {{ $report_type == "don-hang" ? "class=active" : "" }}><a data-value="don-hang" href="#home" aria-controls="home" role="tab" >Đơn hàng</a></li>              
               <li role="presentation" {{ $report_type == "doanh-thu" ? "class=active" : "" }}><a data-value="doanh-thu" href="#messages" aria-controls="messages" role="tab" >Doanh thu</a></li>
               <!--<li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Sản phẩm</a></li>-->
             </ul>
@@ -69,12 +68,7 @@
                   @if($report_type =="don-hang")
                   <div id="charts-data" style="height: 500px; margin: 0 auto"></div>
                   @endif
-              </div>
-              <div role="tabpanel" class="tab-pane {{ $report_type == "khach-hang" ? "active" : "" }}" id="profile">
-                @if($report_type =="khach-hang")
-                  <div id="charts-data" style="height: 500px; margin: 0 auto"></div>
-                  @endif
-              </div>
+              </div>              
               <div role="tabpanel" class="tab-pane {{ $report_type == "doanh-thu" ? "active" : "" }}" id="messages">
                 @if($report_type =="doanh-thu")
                   <div id="charts-data" style="height: 600px; margin: 0 auto"></div>
