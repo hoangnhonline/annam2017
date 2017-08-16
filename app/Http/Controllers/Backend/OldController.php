@@ -421,6 +421,45 @@ class OldController extends Controller
             
         return view('backend.old.edit', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta'));
     }
+    public function copy($id)
+    {
+        $thuocTinhArr = [];
+        $hinhArr = (object) [];
+        $detail = Product::find($id);
+
+        $hinhArr = ProductImg::where('product_id', $id)->lists('image_url', 'id');
+        
+        $tmp = SpThuocTinh::where('product_id', $id)->select('thuoc_tinh')->first();
+
+        if( $tmp ){
+            $spThuocTinhArr = json_decode( $tmp->thuoc_tinh, true);
+        }        
+
+        $loaiSpArr = LoaiSp::all();
+        
+        $loai_id = $detail->loai_id; 
+            
+        $cateArr = Cate::where('loai_id', $loai_id)->select('id', 'name')->orderBy('display_order', 'desc')->get();
+        
+        $loaiThuocTinhArr = LoaiThuocTinh::where('loai_id', $loai_id)->orderBy('display_order')->get();
+        $meta = (object) [];
+        if ( $detail->meta_id > 0){
+            $meta = MetaData::find( $detail->meta_id );
+        }       
+        if( $loaiThuocTinhArr->count() > 0){
+            foreach ($loaiThuocTinhArr as $value) {
+
+                $thuocTinhArr[$value->id]['id'] = $value->id;
+                $thuocTinhArr[$value->id]['name'] = $value->name;
+
+                $thuocTinhArr[$value->id]['child'] = ThuocTinh::where('loai_thuoc_tinh_id', $value->id)->select('id', 'name')->orderBy('display_order')->get()->toArray();
+            }
+            
+        }        
+        $colorArr = Color::all();          
+            
+        return view('backend.old.copy', compact( 'detail', 'hinhArr', 'thuocTinhArr', 'spThuocTinhArr', 'colorArr', 'loaiSpArr', 'cateArr', 'meta'));
+    }
     public function ajaxDetail(Request $request)
     {       
         $id = $request->id;

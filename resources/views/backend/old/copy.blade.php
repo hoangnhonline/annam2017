@@ -9,27 +9,30 @@
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
       <li><a href="{{ route('old.index') }}">Máy cũ giá rẻ</a></li>
-      <li class="active">Thêm mới</li>
+      <li class="active">COPY</li>
     </ol>
   </section>
 
   <!-- Main content -->
   <section class="content">
-    <a class="btn btn-default btn-sm" href="{{ route('old.index') }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-default btn-sm" href="{{ route('old.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id]) }}" style="margin-bottom:5px">Quay lại</a>
+    <a class="btn btn-primary btn-sm" href="{{ route('product-detail', [$detail->slug, $detail->id] ) }}" target="_blank" style="margin-top:-6px"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>
     <form role="form" method="POST" action="{{ route('old.store') }}" id="dataForm">
-    <input type="hidden" name="is_copy" value="0">
+    <input type="hidden" name="is_copy" value="1">
     <div class="row">
-      <!-- left column -->
-
+      <!-- left column -->      
       <div class="col-md-8">
         <!-- general form elements -->
         <div class="box box-primary">
           <div class="box-header with-border">
-            <h3 class="box-title">Thêm mới</h3>
+            <h3 class="box-title">COPY</h3>
           </div>
           <!-- /.box-header -->               
             {!! csrf_field() !!}          
             <div class="box-body">
+                @if(Session::has('message'))
+                <p class="alert alert-info" >{{ Session::get('message') }}</p>
+                @endif
                 @if (count($errors) > 0)
                   <div class="alert alert-danger">
                     <ul>
@@ -45,92 +48,107 @@
                   <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Thông tin chi tiết</a></li>                    
                     <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">Hình ảnh</a></li>
-                    <li role="presentation"><a href="#thuoctinh" aria-controls="thuoctinh" role="tab" data-toggle="tab">Thuộc tính</a></li>
+                    <li role="presentation"><a href="#thuoctinh" aria-controls="thuoctinh" role="tab" data-toggle="tab">Thuộc tính</a></li>                                  
                   </ul>
 
                   <!-- Tab panes -->
                   <div class="tab-content">
-                   
                     <div role="tabpanel" class="tab-pane active" id="home">
                         <div class="form-group col-md-6 none-padding">
                           <label for="email">Danh mục cha<span class="red-star">*</span></label>
                           <select class="form-control req" name="loai_id" id="loai_id">
                             <option value="">--Chọn--</option>
                             @foreach( $loaiSpArr as $value )
-                            <option value="{{ $value->id }}" {{ $value->id == old('loai_id') || $value->id == $loai_id ? "selected" : "" }}>{{ $value->name }}</option>
+                            <option value="{{ $value->id }}"
+                            <?php 
+                            if( old('loai_id') && old('loai_id') == $value->id ){ 
+                              echo "selected";
+                            }else if( $detail->loai_id == $value->id ){
+                              echo "selected";
+                            }else{
+                              echo "";
+                            }
+                            ?>
+
+                            >{{ $value->name }}</option>
                             @endforeach
                           </select>
                         </div>
                           <div class="form-group col-md-6 none-padding pleft-5">
                           <label for="email">Danh mục con<span class="red-star">*</span></label>
-                          <?php 
-                          $loai_id = old('loai_id');
-                          if($loai_id > 0){
-                            $cateArr = DB::table('cate')->where('loai_id', $loai_id)->orderBy('display_order')->get();
-                          }
-                          ?>
+
                           <select class="form-control req" name="cate_id" id="cate_id">
                             <option value="">--Chọn--</option>
                             @foreach( $cateArr as $value )
-                            <option value="{{ $value->id }}" {{ $value->id == old('cate_id') || $value->id == $cate_id ? "selected" : "" }}>{{ $value->name }}</option>
+                            <option value="{{ $value->id }}" 
+                              <?php 
+                            if( old('cate_id') && old('cate_id') == $value->id ){ 
+                              echo "selected";
+                            }else if( $detail->cate_id == $value->id ){
+                              echo "selected";
+                            }else{
+                              echo "";
+                            }
+                            ?>
+                            >{{ $value->name }}</option>
                             @endforeach
                           </select>
                         </div>  
                         <div class="form-group" >                  
                           <label>Tên <span class="red-star">*</span></label>
-                          <input type="text" class="form-control req" name="name" id="name" value="{{ old('name') }}">
+                          <input type="text" class="form-control req" name="name" id="name" value="{{ old('name', $detail->name) }}">
                         </div>
                         <div class="form-group">                  
                           <label>Slug <span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug') }}">
-                        </div>                        
+                          <input type="text" class="form-control req" readonly="readonly" name="slug" id="slug" value="{{ old('slug', $detail->slug) }}">
+                        </div>
                         
                         <div class="col-md-12 none-padding">
                           <div class="checkbox">
-                              <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot') == 1 ? "checked" : "" }}> NỔI BẬT </label>
+                              <label><input type="checkbox" name="is_hot" value="1" {{ old('is_hot', $detail->is_hot) == 1 ? "checked" : "" }}> NỔI BẬT </label>
                           </div>                          
                         </div>
                         
                         <div class="form-group col-md-6 none-padding" >                  
                             <label>Giá<span class="red-star">*</span></label>
-                            <input type="text" class="form-control req number" name="price" id="price" value="{{ old('price') }}">
-                        </div>                        
-                        <div class="form-group col-md-6 " >                  
+                            <input type="text" class="form-control req number" name="price" id="price" value="{{ old('price', $detail->price) }}">
+                        </div>                       
+                        <div class="form-group col-md-6" >                  
                             <label>Giá máy mới</label>
-                            <input type="text" class="form-control number" name="price_new" id="price_new" value="{{ old('price_new') }}">
+                            <input type="text" class="form-control number {{ old('is_old', $detail->is_old) == 1  ? "req" : "" }}" name="price_new" id="price_new" value="{{ old('price_new', $detail->price_new) }}">
                         </div>
                          <div class="col-md-6 none-padding">
                           <label>Số lượng tồn<span class="red-star">*</span></label>                  
-                          <input type="text" class="form-control req number" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton') }}">                        
+                          <input type="text" class="form-control req number" name="so_luong_ton" id="so_luong_ton" value="{{ old('so_luong_ton', $detail->so_luong_ton) }}">                        
                         </div>
-                        <div class="col-md-6 ">
-                            <label>Màu sắc</label>
-                            <select name="color_id" id="color_id" class="form-control">
-                                <option value="">--chọn--</option>
-                                @if( $colorArr->count() > 0)
-                                  @foreach( $colorArr as $color )
-                                      <option value="{{ $color->id }}">{{ $color->name }}</option>
-                                  @endforeach
-                                @endif
-                            </select>
+                      <div class="col-md-6">
+                          <label>Màu sắc</label>
+                          <select name="color_id" id="color_id" class="form-control">
+                              <option value="">--chọn--</option>
+                              @if( $colorArr->count() > 0)
+                                @foreach( $colorArr as $color )
+                                    <option value="{{ $color->id }}" {{ old('color_id', $detail->color_id) == $color->id ? "selected" : "" }}>{{ $color->name }}</option>
+                                @endforeach
+                              @endif
+                          </select>
+                      </div>
+                      <div style="margin-bottom:10px;clear:both"></div>
+                      <div class="form-group col-md-6 none-padding">
+                          <label>Mô tả</label>
+                          <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta', $detail->mo_ta) }}</textarea>
                         </div>
-                        <div style="margin-bottom:10px;clear:both"></div>
-                        <div class="form-group col-md-6 none-padding">
-                            <label>Mô tả</label>
-                            <textarea class="form-control" rows="4" name="mo_ta" id="mo_ta">{{ old('mo_ta') }}</textarea>
-                          </div>
-                        <div class="form-group col-md-6 none-padding pleft-5">
-                          <label>Khuyến mãi</label>
-                          <textarea class="form-control" rows="4" name="khuyen_mai" id="khuyen_mai">{{ old('khuyen_mai') }}</textarea>
-                        </div>
-                         
-                        <div class="form-group">
-                          <label>Chi tiết</label>
-                          <textarea class="form-control" rows="10" name="chi_tiet" id="chi_tiet">{{ old('chi_tiet') }}</textarea>
-                        </div>
+                      <div class="form-group col-md-6 none-padding pleft-5">
+                        <label>Khuyến mãi</label>
+                        <textarea class="form-control" rows="4" name="khuyen_mai" id="khuyen_mai">{{ old('khuyen_mai', $detail->khuyen_mai) }}</textarea>
+                      </div>
+                       
+                      <div class="form-group">
+                        <label>Chi tiết</label>
+                        <textarea class="form-control" rows="10" name="chi_tiet" id="chi_tiet">{{ old('chi_tiet', $detail->chi_tiet) }}</textarea>
+                      </div>
                         <div class="clearfix"></div>
                     </div><!--end thong tin co ban-->                    
-                    
+                   
                      <div role="tabpanel" class="tab-pane" id="settings">
                         <div class="form-group" style="margin-top:10px;margin-bottom:10px">  
                          
@@ -140,7 +158,21 @@
                          
                             <button class="btn btn-primary" id="btnUploadImage" type="button"><span class="glyphicon glyphicon-upload" aria-hidden="true"></span> Upload</button>
                             <div class="clearfix"></div>
-                            <div id="div-image" style="margin-top:10px"></div>
+                            <div id="div-image" style="margin-top:10px">                              
+                              @if( $hinhArr )
+                                @foreach( $hinhArr as $k => $hinh)
+                                  <div class="col-md-3">
+                                    <img class="img-thumbnail" src="{{ Helper::showImage($hinh) }}" style="width:100%">
+                                    <div class="checkbox">                                   
+                                      <label><input type="radio" name="thumbnail_id" class="thumb" value="{{ $k }}" {{ $detail->thumbnail_id == $k ? "checked" : "" }}> Ảnh đại diện </label>
+                                      <button class="btn btn-danger btn-sm remove-image" type="button" data-value="{{  $hinh }}" data-id="{{ $k }}" >Xóa</button>
+                                    </div>
+                                    <input type="hidden" name="image_id[]" value="{{ $k }}">
+                                  </div>
+                                @endforeach
+                              @endif
+
+                            </div>
                           </div>
                           <div style="clear:both"></div>
                         </div>
@@ -158,7 +190,7 @@
                           @foreach( $loaithuoctinh['child'] as $thuoctinh)
                           <tr>
                             <td width="150">{{ $thuoctinh['name']}}</td>
-                            <td><input type="text" class="form-control" name="thuoc_tinh[{{ $thuoctinh['id'] }}]" value="{{ old('thuoc_tinh')[$thuoctinh['id']] }}"></td>
+                            <td><input type="text" class="form-control" name="thuoc_tinh[{{ $thuoctinh['id'] }}]" value="{{ isset($spThuocTinhArr[$thuoctinh['id']]) ?  $spThuocTinhArr[$thuoctinh['id']] : "" }}" ></td>
                           </tr>
                           @endforeach
                         @endif
@@ -167,17 +199,15 @@
                      @endif
                      
                      </div>
-              
-                    
                   </div>
 
                 </div>
                   
             </div>
-            <div class="box-footer">              
+            <div class="box-footer">             
               <button type="button" class="btn btn-default" id="btnLoading" style="display:none"><i class="fa fa-spin fa-spinner"></i></button>
               <button type="submit" class="btn btn-primary" id="btnSave">Lưu</button>
-              <a class="btn btn-default" class="btn btn-primary" href="{{ route('old.index')}}">Hủy</a>
+              <a class="btn btn-default" class="btn btn-primary" href="{{ route('old.index', ['loai_id' => $detail->loai_id, 'cate_id' => $detail->cate_id])}}">Hủy</a>
             </div>
             
         </div>
@@ -192,31 +222,33 @@
 
           <!-- /.box-header -->
             <div class="box-body">
+              <input type="hidden" name="meta_id" value="{{ $detail->meta_id }}">
               <div class="form-group">
                 <label>Meta title </label>
-                <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ old('meta_title') }}">
+                <input type="text" class="form-control" name="meta_title" id="meta_title" value="{{ !empty((array)$meta) ? $meta->title : "" }}">
               </div>
               <!-- textarea -->
               <div class="form-group">
                 <label>Meta desciption</label>
-                <textarea class="form-control" rows="6" name="meta_description" id="meta_description">{{ old('meta_description') }}</textarea>
+                <textarea class="form-control" rows="6" name="meta_description" id="meta_description">{{ !empty((array)$meta) ? $meta->description : "" }}</textarea>
               </div>  
 
               <div class="form-group">
                 <label>Meta keywords</label>
-                <textarea class="form-control" rows="4" name="meta_keywords" id="meta_keywords">{{ old('meta_keywords') }}</textarea>
+                <textarea class="form-control" rows="4" name="meta_keywords" id="meta_keywords">{{ !empty((array)$meta) ? $meta->keywords : "" }}</textarea>
               </div>  
               <div class="form-group">
                 <label>Custom text</label>
-                <textarea class="form-control" rows="6" name="custom_text" id="custom_text">{{ old('custom_text') }}</textarea>
+                <textarea class="form-control" rows="6" name="custom_text" id="custom_text">{{ !empty((array)$meta) ? $meta->custom_text : ""  }}</textarea>
               </div>
             
-        </div>
+          </div>
         <!-- /.box -->     
 
       </div>
       <!--/.col (left) -->      
     </div>
+
     </form>
     <!-- /.row -->
   </section>
@@ -243,9 +275,15 @@ $(document).on('click', '.remove-image', function(){
   }
 });
 
+$(document).on('keypress', '#name_search', function(e){
+  if(e.which == 13) {
+      e.preventDefault();
+      filterAjax($('#search_type').val());
+  }
+});
 
     $(document).ready(function(){
-      $('#btnSave').click(function(){
+           $('#btnSave').click(function(){
         var errReq = 0;
         $('#dataForm .req').each(function(){
           var obj = $(this);
@@ -273,7 +311,6 @@ $(document).on('click', '.remove-image', function(){
              return false;
           }
         }
-
       });
       $('#is_old').change(function(){
         if($(this).prop('checked') == true){
@@ -300,21 +337,7 @@ $(document).on('click', '.remove-image', function(){
         location.href="{{ route('old.create') }}?loai_id=" + $(this).val();
       })
       $(".select2").select2();
-      $('#dataForm').submit(function(){
-        /*var no_cate = $('input[name="category_id[]"]:checked').length;
-        if( no_cate == 0){
-          swal("Lỗi!", "Chọn ít nhất 1 thể loại!", "error");
-          return false;
-        }
-        var no_country = $('input[name="country_id[]"]:checked').length;
-        if( no_country == 0){
-          swal("Lỗi!", "Chọn ít nhất 1 quốc gia!", "error");
-          return false;
-        }        
-        */
-        $('#btnSave').hide();
-        $('#btnLoading').show();
-      });
+     
       var editor = CKEDITOR.replace( 'chi_tiet',{
           language : 'vi',
           height: 300,
@@ -394,7 +417,7 @@ $(document).on('click', '.remove-image', function(){
 
       $('#name').change(function(){
          var name = $.trim( $(this).val() );
-         if( name != ''){
+         if( name != '' && $('#slug').val() == ''){
             $.ajax({
               url: $('#route_get_slug').val(),
               type: "POST",
@@ -417,10 +440,7 @@ $(document).on('click', '.remove-image', function(){
               }
             });
          }
-      });  
-     
-     
-      
+      }); 
     });
     
 </script>

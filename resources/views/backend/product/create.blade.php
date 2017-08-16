@@ -17,6 +17,7 @@
   <section class="content">
     <a class="btn btn-default btn-sm" href="{{ route('product.index') }}" style="margin-bottom:5px">Quay lại</a>
     <form role="form" method="POST" action="{{ route('product.store') }}" id="dataForm">
+    <input type="hidden" name="is_copy" value="1">
     <div class="row">
       <!-- left column -->
 

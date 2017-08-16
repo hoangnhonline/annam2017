@@ -149,6 +149,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::get('/create/', ['as' => 'old.create', 'uses' => 'OldController@create']);
         Route::post('/store', ['as' => 'old.store', 'uses' => 'OldController@store']);
         Route::get('{id}/edit',   ['as' => 'old.edit', 'uses' => 'OldController@edit']);
+        Route::get('{id}/copy',   ['as' => 'old.copy', 'uses' => 'OldController@copy']);
         Route::post('/update', ['as' => 'old.update', 'uses' => 'OldController@update']);
         Route::get('{id}/destroy', ['as' => 'old.destroy', 'uses' => 'OldController@destroy']);
     });
@@ -160,6 +161,7 @@ Route::group(['namespace' => 'Backend', 'prefix' => 'backend', 'middleware' => '
         Route::post('/store', ['as' => 'product.store', 'uses' => 'ProductController@store']);
         Route::post('/ajax-save-info', ['as' => 'product.ajax-save-info', 'uses' => 'ProductController@ajaxSaveInfo']);
         Route::get('{id}/edit',   ['as' => 'product.edit', 'uses' => 'ProductController@edit']);
+        Route::get('{id}/copy',   ['as' => 'product.copy', 'uses' => 'ProductController@copy']);
         Route::post('/update', ['as' => 'product.update', 'uses' => 'ProductController@update']);
         Route::post('/ajax-search', ['as' => 'product.ajax-search', 'uses' => 'ProductController@ajaxSearch']);        
         Route::get('{id}/destroy', ['as' => 'product.destroy', 'uses' => 'ProductController@destroy']);        
