@@ -39,5 +39,8 @@ class Pages extends Model  {
                             'created_user', 
                             'updated_user'
                         ];
-    
+    public function account()
+    {
+        return $this->belongsTo('App\Models\Account', 'created_user');
+    }   
 }

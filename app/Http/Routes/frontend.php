@@ -76,6 +76,7 @@ Route::group(['namespace' => 'Frontend'], function()
     Route::get('{slugLoaiSp}/{slug}/', ['as' => 'child-cate', 'uses' => 'CateController@cate']);
     Route::post('/dang-ki-newsletter', ['as' => 'register.newsletter', 'uses' => 'HomeController@registerNews']);
     Route::get('/cap-nhat-thong-tin', ['as' => 'cap-nhat-thong-tin', 'uses' => 'CartController@updateUserInformation']);        
+    Route::post('/search', ['as' => 'ajax-search', 'uses' => 'HomeController@ajaxSearch']);        
     Route::get('/tin-tuc/{slug}-p{id}.html', ['as' => 'news-detail', 'uses' => 'NewsController@newsDetail']);
     Route::post('/get-district', ['as' => 'get-district', 'uses' => 'DistrictController@getDistrict']);
     Route::post('/get-ward', ['as' => 'get-ward', 'uses' => 'WardController@getWard']);
