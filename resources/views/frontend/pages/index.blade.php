@@ -33,8 +33,7 @@
         overflow-y: hidden;
     }
     #content-of-page ul li, #content-of-page ol li {
-        list-style: circle;
-        padding-left: 15px;
+        list-style: circle;   
     }
     #content-of-page ul , #content-of-page ol {        
         margin-left: 15px;
