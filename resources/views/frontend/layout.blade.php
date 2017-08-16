@@ -146,7 +146,7 @@
 	<script src="{{ URL::asset('assets/lib/carousel/owl.carousel.min.js') }}"></script>
 	<!-- sticky -->
     <script src="{{ URL::asset('assets/lib/jquery-ui/jquery-ui.js') }}"></script>
-    
+    <script src="{{ URL::asset('assets/js/lazy.js') }}"></script>	
    	@if($routeName == 'home')
     <script src="{{ URL::asset('assets/js/plugins.min.js') }}"></script>
     <script src="{{ URL::asset('assets/lib/slick/slick.min.js') }}"></script>

@@ -18,7 +18,7 @@
         <div class="item">
           <a href="{{ route('product-detail', [$product->slug, $product->id]) }}" title="{!! $product->name !!}">
             <div class="product_img">              
-              <img src="{{ $product->image_url ? Helper::showImageThumb($product->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="{!! $product->name !!}" title="{!! $product->name !!}">
+              <img class="lazy" data-original="{{ $product->image_url ? Helper::showImageThumb($product->image_url) : URL::asset('admin/dist/img/no-image.jpg') }}" alt="{!! $product->name !!}" title="{!! $product->name !!}">
             </div>
             <div class="product_info">
               <h3 class="product_name">{!! $product->name !!}</h3>
@@ -30,6 +30,9 @@
             </div>
             @if($product->is_new)
             <span class="new">NEW</span>
+            @endif
+            @if($product->is_sale)
+            <span class="sale_off">GIẢM {{ ceil(($product->price-$product->price_sale)*100/$product->price) }}%</span>
             @endif
             </div>
             <div class="product_detail">

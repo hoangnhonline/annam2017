@@ -19,6 +19,7 @@ $(document).ready(function() {
         $('#sort-filter').val($(this).data('sort'));
         $('#searchForm').submit();
     });
+    $('img.lazy').lazyload();
 });
 $(document).ready(function() {
     $('.cart-link').click(function() {
