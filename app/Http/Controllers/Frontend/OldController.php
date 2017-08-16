@@ -39,6 +39,11 @@ class OldController extends Controller
     */    
     public function cate(Request $request)
     {   
+        $cate_id = $request->c ? $request->c : null;
+        $price_from = $request->pf ? $request->pf : 0;
+        $price_to = $request->pt ? $request->pt : 500000000;
+        $sort = $request->s ? $request->s : 1;
+
         $productArr = [];
         $slug = $request->slug;
         $loaiDetail = LoaiSp::where('slug', $slug)->first();
@@ -51,25 +56,39 @@ class OldController extends Controller
         $query = Product::where('loai_id', $loai_id)
             ->where('so_luong_ton', '>', 0)
             ->where('price', '>', 0)       
-            ->where('is_old', 1)               
-            ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+            ->where('is_old', 1);
+        if($cate_id > 0){
+            $query->where('cate_id', $cate_id);
+        }
+        if($price_from){
+            $query->where('price_sell','>=', $price_from);
+        }
+        if($price_to){
+            $query->where('price_sell','<=', $price_to);
+        }
+            $query->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
             ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
-            ->select('product_img.image_url', 'product.*', 'thuoc_tinh')              
-            ->orderBy('product.id', 'desc');
+            ->select('product_img.image_url', 'product.*', 'thuoc_tinh');
+            if($sort == 1){
+                $query->orderBy('price_sell', 'desc');
+            }else{
+                $query->orderBy('price_sell', 'asc');
+            }
 
-            $productList  = $query->limit(36)->get();
+            $query->orderBy('product.id', 'desc');
+
+            $productList  = $query->paginate(36);
                      
 
         $hoverInfo = HoverInfo::where('loai_id', $loaiDetail->id)->orderBy('display_order', 'asc')->orderBy('id', 'asc')->get();
-        
+      
         $socialImage = $loaiDetail->banner_menu;
 
-        if( $loaiDetail->meta_id > 0){
-           $seo = MetaData::find( $loaiDetail->meta_id )->toArray();
-        }else{
-            $seo['title'] = $seo['description'] = $seo['keywords'] = $loaiDetail->name . " cũ giá rẻ";
-        }                                     
-        return view('frontend.old.cate', compact('productList', 'loaiDetail', 'hoverInfo', 'socialImage', 'seo'));
+       
+        $seo['title'] = $seo['description'] = $seo['keywords'] = $loaiDetail->name . " cũ giá rẻ";
+                  
+        $is_old = 1;                         
+        return view('frontend.old.cate', compact('productList', 'loaiDetail', 'hoverInfo', 'socialImage', 'seo', 'is_old', 'cate_id', 'price_from', 'price_to', 'sort'));
         
     }
 
@@ -109,12 +128,8 @@ class OldController extends Controller
       //  dd($hoverInfo);
         $settingArr = Settings::whereRaw('1')->lists('value', 'name');
         $seo = $settingArr;
-        $seo['title'] = $settingArr['site_title'];
-        $seo['description'] = $settingArr['site_description'];
-        $seo['keywords'] = $settingArr['site_keywords'];
+        $seo['title'] =  $seo['description'] =  $seo['keywords'] = "Máy cũ giá rẻ";
         $socialImage = $settingArr['banner'];
-
-
 
         $articlesArr = Articles::where(['cate_id' => 1, 'is_hot' => 1])->orderBy('id', 'desc')->get();
                 

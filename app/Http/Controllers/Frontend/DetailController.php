@@ -98,7 +98,7 @@ class DetailController extends Controller
                         });
                     });
                     $otherList = $query->orderBy('product.id', 'desc')->limit(6)->get();
-
+        
         return view('frontend.detail.index', compact('detail', 'loaiDetail', 'cateDetail', 'hinhArr', 'ttArr','thuocTinhArr', 'loaiThuocTinhArr', 'spThuocTinhArr', 'productArr', 'seo', 'socialImage', 'hoverInfo', 'otherList'));
     }
 
