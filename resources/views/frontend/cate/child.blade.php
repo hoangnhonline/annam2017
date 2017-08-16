@@ -45,6 +45,9 @@
                                   <span class="product_price_old">{{ number_format($product->price) }}đ</span>
                                   @endif
                                 </div>
+                                @if($product->is_sale)
+                                <span class="sale_off">GIẢM {{ ceil(($product->price-$product->price_sale)*100/$product->price) }}%</span>
+                                @endif
                                 @if($product->is_new)
                                 <span class="new">NEW</span>
                                 @endif
@@ -90,7 +93,11 @@
                     @endforeach                          
                 </ul>
                 <div class="clearfix"></div>
-                <div class="text-center">{{ $productList->links() }}</div>
+                <div class="text-center">
+                    <div class="block_pagination">
+                    {{ $productList->links() }}
+                    </div>
+                </div>
             </div>
         </div><!-- /block_product -->
     </div><!-- /block_cate_right -->

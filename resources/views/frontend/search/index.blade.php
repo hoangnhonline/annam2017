@@ -47,6 +47,9 @@
                                 @if($product->is_new)
                                 <span class="new">NEW</span>
                                 @endif
+                                @if($product->is_sale)
+                                <span class="sale_off">GIẢM {{ ceil(($product->price-$product->price_sale)*100/$product->price) }}%</span>
+                                @endif
                                 </div>
                                 <div class="product_detail">
                                   <p class="name">{!! $product->name !!}</p>
@@ -90,7 +93,11 @@
                     @endforeach                              
                 </ul>
                 <div class="clearfix"></div>
-                <div class="text-center">{{ $productList->appends(['loai_id' => $loai_id, 'cate_id' => $cate_id, 'price_fm' => $price_fm, 'price_to' => $price_to, 'cate' => $cateArr, 'keyword' => $tu_khoa, 'color' => $colorArr])->links() }}</div>
+                <div class="text-center">
+                    <div class="block_pagination">
+                        {{ $productList->appends(['loai_id' => $loai_id, 'cate_id' => $cate_id, 'price_fm' => $price_fm, 'price_to' => $price_to, 'cate' => $cateArr, 'keyword' => $tu_khoa, 'color' => $colorArr])->links() }}   
+                    </div>                
+                </div>
             </div>
         </div><!-- /block_product -->
     </div><!-- /block_cate_right -->

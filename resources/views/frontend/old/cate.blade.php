@@ -15,47 +15,33 @@
 <form method="GET" action="{{ url()->current() }}" id="filterForm">
     <ul class="list">
         @if($loaiDetail->id == 2)
-        <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == 6 ? "actived" : "" }}" data-value="6" title="Apple" class="old-cid">Apple</a></li>
-        <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == 8 ? "actived" : "" }}" data-value="8" title="Dell" class="old-cid">Dell</a></li>
-        <?php 
-        $cate_id_1 = 6;
-        $cate_id_2 = 8;
-        ?>
+        <li class="parent-brand"><a href="javascript:void(0);" class="old-cid {{ $cate_id == 6 ? "actived" : "" }}" data-value="6" title="Apple" class="old-cid">Apple</a></li>
+        <li class="parent-brand"><a href="javascript:void(0);" class="old-cid {{ $cate_id == 8 ? "actived" : "" }}" data-value="8" title="Dell" class="old-cid">Dell</a></li>        
         @elseif($loaiDetail->id == 10)
-        <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == 57 ? "actived" : "" }}" data-value="57" title="Apple" class="old-cid">Apple</a></li>
-        <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == 56 ? "actived" : "" }}" data-value="56" title="Samsung" class="old-cid">Samsung</a></li>
-        <?php 
-        $cate_id_1 = 57;
-        $cate_id_2 = 56;
-        ?>
+        <li class="parent-brand"><a href="javascript:void(0);" class="old-cid {{ $cate_id == 57 ? "actived" : "" }}" data-value="57" title="Apple" class="old-cid">Apple</a></li>
+        <li class="parent-brand"><a href="javascript:void(0);" class="old-cid {{ $cate_id == 56 ? "actived" : "" }}" data-value="56" title="Samsung" class="old-cid">Samsung</a></li>       
         @elseif($loaiDetail->id == 8)
-        <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == 37 ? "actived" : "" }}" data-value="37" title="Apple" class="old-cid">Apple</a></li>
-        <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == 38 ? "actived" : "" }}" data-value="38" title="Samsung" class="old-cid">Samsung</a></li>
-        <?php 
-        $cate_id_1 = 37;
-        $cate_id_2 = 38;
-        ?>
+        <li class="parent-brand"><a href="javascript:void(0);" class="old-cid {{ $cate_id == 37 ? "actived" : "" }}" data-value="37" title="Apple" class="old-cid">Apple</a></li>
+        <li class="parent-brand"><a href="javascript:void(0);" class="old-cid {{ $cate_id == 38 ? "actived" : "" }}" data-value="38" title="Samsung" class="old-cid">Samsung</a></li>       
         @endif
 
-        <li class="manu-other">
-            <a href="javascript:void(0);" onclick="return false;" title="Hãng Khác">Hãng Khác <i class="fa fa-caret-down"></i></a>
+        <li class="manu-other filter-brand">
+            <a href="javascript:void(0);" onclick="return false;" title="Hãng Khác">Hãng <span>Khác</span> <i class="fa fa-caret-down"></i></a>
             <div class="manufacture">
                 <ul>
                     <li><a  href="javascript:void(0)" class="rm-cate @if(!$cate_id) actived @endif" title="Tất cả hãng sản xuất">Tất cả hãng</a></li>
-                    @foreach( $cateArrByLoai[$loaiDetail->id] as $cate)                    
-                    @if($cate->id != $cate_id_1 && $cate->id != $cate_id_2)
+                    @foreach( $cateArrByLoai[$loaiDetail->id] as $cate)
                     <li><a href="javascript:void(0);" class="old-cid {{ $cate_id == $cate->id ? "actived" : "" }}" data-value="{!! $cate->id !!}" title="{!! $cate->name !!}">{!! $cate->name !!}</a></li> 
-                    @endif
                     @endforeach
                     
                                       
                 </ul>
             </div>
         </li>
-        <li><a href="javascript:void(0);" data-fm="0" data-to="1000000" class="old-price {{ $price_to == 1000000 ?  "actived" : "" }}"  title="">Dưới 1tr</a></li>
-        <li><a href="javascript:void(0);" data-fm="0" data-to="2000000" class="old-price {{ $price_to == 2000000 ?  "actived" : "" }}"  title="">Dưới 2tr</a></li>
+        <li class="filter-price"><a href="javascript:void(0);" data-fm="0" data-to="1000000" class="old-price {{ $price_to == 1000000 ?  "actived" : "" }}"  title="">Dưới 1tr</a></li>
+        <li class="filter-price"><a href="javascript:void(0);" data-fm="0" data-to="2000000" class="old-price {{ $price_to == 2000000 ?  "actived" : "" }}"  title="">Dưới 2tr</a></li>
         <li class="manu-other">
-            <a href="javascript:void(0);" onclick="return false;" title="Hãng Khác">Giá Khác <i class="fa fa-caret-down"></i></a>
+            <a href="javascript:void(0);" onclick="return false;" title="Hãng Khác">Giá <span>Khác</span> <i class="fa fa-caret-down"></i></a>
             <div class="manufacture">
                 <ul>
                     <li><a class="{{ $price_from == 0 && $price_to == 500000000 ?  "actived" : "" }} rm-price" href="#" title="Tất cả mức giá">Tất cả mức giá</a></li>
@@ -71,7 +57,7 @@
         </li>       
         <li class="manu-other pull-right">
             <a href="#" onclick="return false;" title="{{ $sort == 1 ? "Giá giảm dần" : "Giá tăng dần" }}">{{ $sort==1 ? "Giá giảm dần" : "Giá tăng dần" }} <i class="fa fa-caret-down"></i></a>
-            <div class="manufacture manufunction">
+            <div class="manufacture manufunction manuprice">
                 <ul>
                     <li><a href="javascript:void(0)" class="{{ $sort == 1 ? "actived" : "" }} old-sort" data-value="1" href="#" title="Giá giảm dần">Giá giảm dần</a></li>
                     <li><a href="javascript:void(0)" class="{{ $sort==2 ? "actived" : "" }} old-sort" data-value="2" title="Giá tăng dần">Giá tăng dần</a></li>
@@ -170,7 +156,10 @@
 
                 <p class="price_title price_compare">Rẻ hơn máy mới: <span>{{ number_format($product->price_new - $product->price) }}₫</span></p>
                 @endif
-            </div>           
+            </div> 
+            @if($product->is_sale)
+            <span class="sale_off">GIẢM {{ ceil(($product->price-$product->price_sale)*100/$product->price) }}%</span>
+            @endif          
             </div>
           </li><!-- /product_item -->
           @endforeach

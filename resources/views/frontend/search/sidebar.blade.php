@@ -114,7 +114,7 @@
                     <div class="block_content">
                         <ul class="search-color">
                             @foreach($colorList as $color)
-                            <li @if(in_array($color->id, $colorArr)) class="active" @endif><a href="javascript:;" class="color-filter" data-id="{{ $color->id }}" style="background:{!! $color->color_code !!};"></a>
+                            <li ><a href="javascript:;" class="color-filter @if(in_array($color->id, $colorArr)) active @endif" data-id="{{ $color->id }}" style="background:{!! $color->color_code !!};"></a>
                             <input type="hidden" name="color[]" value="{{ in_array($color->id, $colorArr) ? $color->id : "" }}" />
                             </li>
                             @endforeach                            

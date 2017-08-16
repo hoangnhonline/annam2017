@@ -62,7 +62,10 @@
 
                 <p class="price_title price_compare">Rẻ hơn máy mới: <span>{{ number_format($product->price_new - $product->price) }}₫</span></p>
                 @endif
-            </div>           
+            </div> 
+            @if($product->is_sale)
+            <span class="sale_off">GIẢM {{ ceil(($product->price-$product->price_sale)*100/$product->price) }}%</span>
+            @endif          
             </div>
           </li><!-- /product_item -->
           @endforeach

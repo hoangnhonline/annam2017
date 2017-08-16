@@ -8,7 +8,11 @@ $(document).ready(function() {
         $('#searchForm').submit();
     });
     $('.color-filter').click(function() {
-        $(this).next().val($(this).data('id'));
+        if($(this).hasClass('active')){
+            $(this).next().val('');    
+        }else{
+            $(this).next().val($(this).data('id'));
+        }        
         $('#searchForm').submit();
     });
     $('a.sort').click(function() {
@@ -32,7 +36,6 @@ $(document).ready(function() {
 
     $('.btn-checkout').click(function() {
         $('form#shopping-cart').submit();
-        //location.href = "{{ route('shipping-step-1') }}";
     });
 
 
