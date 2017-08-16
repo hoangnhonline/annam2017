@@ -7,7 +7,7 @@
 </div><!-- /block_hero -->
 @include('frontend.home.ads')  
 @foreach( $loaiSpList as $loaiSp)
-<div class="block block_product">
+<div class="block block_product block_product-home">
   <h3 class="block_title">
     <span>{!! $loaiSp->name !!}</span>
   </h3>

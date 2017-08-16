@@ -22,7 +22,7 @@
             
             <!-- <a href="#" onclick="return false;" class="filter-prod">Bộ lọc sản phẩm</a> -->
         </div><!-- /block_view_by -->
-        <div class="block block_product">
+        <div class="block block_product block_pg-product">
             <h3 class="block_title block_title_link">
                 {!! $loaiDetail->name !!}
                 <span class="num">{{ $productList->total() }}</span>
