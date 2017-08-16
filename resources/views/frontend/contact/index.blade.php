@@ -12,10 +12,14 @@
     <div class="block_contact_note">
         <h2>MỌI NHU CẦU, QUÝ KHÁCH VUI LÒNG LIÊN HỆ</h2>
         <p class="ctact-time">Ân Nam Mobile phục vụ từ 8:00 đến 21:30 Thứ 2 đến Chủ Nhật</p>
-        <div class="ctact-note-inner">           
+        <div class="ctact-note-inner">
             <p>
-                <span>Email: <strong>abc@xyz.vn
-                </strong></span><span>cc: <strong>abc@xyz.vn</strong></span>
+                <span>Tel: <strong>0904500057 / 0968678767
+                </strong></span>
+            </p>           
+            <p>
+                <span>Email: <strong>pnhtin@gmail.com / tinphan@annammobile.com
+                </strong></span>
             </p>
         </div>
     </div><!-- /block_contact_note -->

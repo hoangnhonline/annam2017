@@ -93,11 +93,11 @@
 						<div class="col-md-8 col-sm-12 col-xs-12 block_copy">
 							<a href="{!! route('home') !!}" class="logo"><img src="{{ URL::asset('assets/images/logo_white.png') }}" alt="Logo Ân Nam Mobile"></a>
 							<div class="copyright">
-                                <p>Công ty TNHH Công nghệ Di động Ân Nam - Q.1, TP.HCM</p>
-                                <p>Email: contact@annam.vn</p>
-                                <p>Chịu trách nhiệm quản lý nội dung: Hoàng Ngọc XX</p>
-                                <p>Giấy phép số xx/GP-ICP-STTTT</p>
-                                <p>Copyrights © 2012 Annam.vn. All Rights Reserved</p>
+                                <p>Cửa hàng điện thoại Ân Nam</p>
+                                <p>Đ/C : 683/1B An Dương Vương, P.Bình Trị Đông, Q.Bình Tân, Tp.HCM</p>
+                                <p>Email: contact@annam.vn</p>                               
+                                <p>Hotline: 0904500057 / 0968678767</p>
+                                <p>Copyrights © 2017 annammobile.com. All Rights Reserved</p>
                             </div>
 						</div><!-- /block_copy -->
 						<div class="col-md-2 col-sm-3 col-xs-4 block_pay">
