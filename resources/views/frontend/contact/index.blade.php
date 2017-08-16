@@ -9,6 +9,7 @@
 </div><!-- /block_breadcrumb -->
 
 <div class="block_form" style="padding-top:20px">
+
     <div class="block_contact_note">
         <h2>MỌI NHU CẦU, QUÝ KHÁCH VUI LÒNG LIÊN HỆ</h2>
         <p class="ctact-time">Ân Nam Mobile phục vụ từ 8:00 đến 21:30 Thứ 2 đến Chủ Nhật</p>
@@ -23,10 +24,11 @@
             </p>
         </div>
     </div><!-- /block_contact_note -->
-    <div class="contact-form">
-        <div class="arr_bottom">
-            <div class="arr_bt_inner"></div>
-        </div>
+     <div class="col-md-6">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3919.7021140509805!2d106.62289311480056!3d10.757425592334439!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752c291bd8bd93%3A0xbbcd65e4ee9dfba4!2zNjgzIEFuIETGsMahbmcgVsawxqFuZywgcGjGsOG7nW5nIDEzLCBCw6xuaCBUw6JuLCBI4buTIENow60gTWluaCwgVmnhu4d0IE5hbQ!5e0!3m2!1svi!2s!4v1502895046090" width="100%" height="439" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </div>
+    <div class="contact-form col-md-6">
+        
         <div class="ctact-frm-inner">
             <header class="frm-head">
                 <h2>LIÊN HỆ</h2>
@@ -73,6 +75,7 @@
             </article>
         </div>
     </div><!-- /contact-form -->
+   
 </div><!-- /block_form -->
 <style type="text/css">
     span.required{
@@ -81,6 +84,9 @@
     .contact-form-box input {
         font-size: 14px;
         border: 1px solid #ccc
+    }
+    .block_contact_note{
+        margin-bottom: 30px;
     }
 </style>
 @endsection

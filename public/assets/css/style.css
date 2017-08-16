@@ -3017,7 +3017,6 @@ select[multiple], select[size] {
 }
 
 .ctact-frm-inner {
-  width: 680px;
   margin: 0 auto;
   background-color: #fff;
   -webkit-box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.2);
