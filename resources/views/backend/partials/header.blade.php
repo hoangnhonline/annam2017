@@ -1,6 +1,6 @@
 <header class="main-header">
   <!-- Logo -->
-  <a href="{{ Auth::user()->email != "huongll@annammobile.com" ? route('product.index') : route('product.short') }}" class="logo">
+  <a href="{{ route('old.index') }}" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
     <span class="logo-mini"><b>annammobile.com</b></span>
     <!-- logo for regular state and mobile devices -->

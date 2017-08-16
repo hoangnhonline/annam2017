@@ -28,7 +28,7 @@ class UserController extends Controller
         ));*/
         //dd(Hash::make('123465@'));
         if(Auth::check()){
-            return redirect()->route('product.index');
+            return redirect()->route('old.index');
         }
         return view('backend.login');
     }
@@ -58,12 +58,9 @@ class UserController extends Controller
         if (Auth::validate($dataArr)) {
 
             if (Auth::attempt($dataArr)) {
-              if($request->email == "huongll@annammobile.com"){
-                return redirect()->route('product.short');
-              }else{
-                return redirect()->route('product.index');
-              }
-              
+             
+                return redirect()->route('old.index');
+                          
 
             }
 
