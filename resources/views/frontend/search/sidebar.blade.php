@@ -13,8 +13,8 @@
                     </div>
                 </div>
             </div>
-            <input type="hidden" name="price_fm" value="0" id="price_fm" />
-            <input type="hidden" name="price_to" value="500000000" id="price_to" />
+            <input type="hidden" name="price_fm" value="{{ $price_fm }}" id="price_fm" />
+            <input type="hidden" name="price_to" value="{{ $price_to }}" id="price_to" />
             <input type="hidden" name="keyword" value="{!! isset($tu_khoa) ? $tu_khoa : "" !!}" >
         </div>
     </div><!-- /block_modul -->
