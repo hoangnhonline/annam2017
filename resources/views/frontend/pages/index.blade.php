@@ -32,7 +32,7 @@
         display: block;
         overflow-y: hidden;
     }
-    #content-of-page ul li {
+    #content-of-page ul li, #content-of-page ol li {
         list-style: circle;
         padding-left: 15px;
     }
