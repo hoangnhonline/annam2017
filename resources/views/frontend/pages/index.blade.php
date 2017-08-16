@@ -36,5 +36,8 @@
         list-style: circle;
         padding-left: 15px;
     }
+    #content-of-page ul , #content-of-page ol {        
+        margin-left: 15px;
+    }
 </style>
 @endsection  
