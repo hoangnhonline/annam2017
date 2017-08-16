@@ -55,12 +55,12 @@
           <li {{ \Request::route()->getName() == "orders.index" ? "class=active" : "" }}><a href="{{ route('orders.index') }}"><i class="fa fa-circle-o"></i> Đơn hàng</a></li>          
         </ul>
       </li>
-      <li {{ in_array(\Request::route()->getName(), ['customer.edit', 'customer.index']) ? "class=active" : "" }}>
+      <!--<li {{ in_array(\Request::route()->getName(), ['customer.edit', 'customer.index']) ? "class=active" : "" }}>
         <a href="{{ route('customer.index') }}">
           <i class="fa fa-pencil-square-o"></i> 
           <span>Khách hàng</span>         
         </a>       
-      </li>
+      </li>-->
       <li class="treeview {{ in_array(\Request::route()->getName(), ['pages.index', 'pages.create']) ? 'active' : '' }}">
         <a href="#">
           <i class="fa fa-twitch"></i> 
