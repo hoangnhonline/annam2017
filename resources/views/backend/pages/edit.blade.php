@@ -71,7 +71,7 @@
                 <!-- textarea -->
                 <div class="form-group">
                   <label>Mô tả</label>
-                  <textarea class="form-control" rows="6" name="description" id="description">{{ $detail->description }}</textarea>
+                  <textarea class="form-control" rows="3" name="description" id="description">{{ $detail->description }}</textarea>
                 </div> 
                 
                 <div class="form-group">
@@ -151,7 +151,8 @@
           filebrowserFlashBrowseUrl: "{{ URL::asset('/admin/dist/js/kcfinder/browse.php?type=flash') }}",
           filebrowserUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=files') }}",
           filebrowserImageUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=images') }}",
-          filebrowserFlashUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=flash') }}"
+          filebrowserFlashUploadUrl: "{{ URL::asset('/admin/dist/js/kcfinder/upload.php?type=flash') }}",
+          height: 500
       });
       $('#btnUploadImage').click(function(){        
         $('#file-image').click();
