@@ -23,7 +23,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">\
+        <ul class="treeview-menu">
           <li {{ in_array(\Request::route()->getName(), ['product.index', 'product.edit']) ? "class=active" : "" }}><a href="{{ route('product.index') }}"><i class="fa fa-circle-o"></i> Sản phẩm</a></li>
           <li {{ \Request::route()->getName() == "product.create" ? "class=active" : "" }}><a href="{{ route('product.create') }}"><i class="fa fa-circle-o"></i> Thêm sản phẩm</a></li>
           <li {{ in_array(\Request::route()->getName(), ['loai-sp.index', 'loai-sp.edit', 'loai-sp.create']) ? "class=active" : "" }}><a href="{{ route('loai-sp.index') }}"><i class="fa fa-circle-o"></i> Danh mục cha</a></li>
@@ -38,7 +38,7 @@
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
-        <ul class="treeview-menu">\
+        <ul class="treeview-menu">
           <li {{ in_array(\Request::route()->getName(), ['old.index', 'old.edit']) ? "class=active" : "" }}><a href="{{ route('old.index') }}"><i class="fa fa-circle-o"></i> Danh sách</a></li>
           <li {{ \Request::route()->getName() == "old.create" ? "class=active" : "" }}><a href="{{ route('old.create') }}"><i class="fa fa-circle-o"></i> Thêm sản phẩm</a></li>          
         </ul>
