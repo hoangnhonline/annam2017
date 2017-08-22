@@ -26,6 +26,7 @@ class BaoHanh extends Model  {
     protected $fillable = [
                             'order_id', 
                             'serial_no',
+                            'ten_sp',
                             'start_date',
                             'end_date',
                             'status'
