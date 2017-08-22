@@ -90,6 +90,7 @@ class HomeController extends Controller
     }
     public function timBaoHanh(Request $request){
         $kq = 4;
+        $end_date = '';
         $serial_no = $request->serial_no ? $request->serial_no : null;
         if($serial_no){
             $rs = BaoHanh::where('serial_no', $serial_no)->first();
@@ -114,7 +115,7 @@ class HomeController extends Controller
                         ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
                         ->orderBy('id', 'desc')->limit(6)->get();
 
-        return view('frontend.bao-hanh.index', compact('kq', 'serial_no', 'seo', 'newProductList'));
+        return view('frontend.bao-hanh.index', compact('kq', 'serial_no', 'seo', 'newProductList', 'end_date'));
     }
     public function indexs(Request $request)
     {   

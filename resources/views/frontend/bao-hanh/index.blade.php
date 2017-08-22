@@ -23,11 +23,11 @@
                 @if($kq!=4)
                 <div id="infowarranty">
                     @if($kq == 1)
-                    <p></p>
+                    <p style="color:#0084CB">Sản phẩm còn bảo hành đến : <strong style="font-size:17px">{{ date('d/m/Y', strtotime($end_date)) }}</strong> </p>
                     @elseif($kq == 2)
-                    <p>Sản phẩm đã hết bảo hành. </p>
+                    <p style="color:#db0000">Sản phẩm đã hết bảo hành. </p>
                     @elseif($kq == 3)
-                    <p>Sản phẩm không tồn tại</p>
+                    <p style="color:#db0000">Sản phẩm không tồn tại</p>
                     @endif
                 </div>
                 @endif
@@ -48,19 +48,20 @@
     }
     #warranty_service {
     float: left;
-    width: 900px;
+    width: 100%;
     min-height: 460px;
     background: #fff;
     padding-top: 5px;
     margin: 10px 0;
 }#infowarranty {
+    text-align: center;
     padding-top: 20px;
     float: left;
-    width: 880px;
+    width: 80%;
     max-height: 350px;
     overflow-x: hidden;
     overflow-y: auto;
-    font-size: 12.5px;
+    font-size: 17px;
     margin-top: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -86,7 +87,7 @@
     margin: 10px 10px 20px 20px;
 }
 .warranty_input_search_serial {
-    width: 530px;
+    width: 70%;
     height: 31px;
     line-height: 25px;
     -moz-border-radius: 0;
