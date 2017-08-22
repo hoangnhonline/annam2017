@@ -54,7 +54,7 @@
     padding-top: 5px;
     margin: 10px 0;
 }#infowarranty {
-    padding-top: 30px;
+    padding-top: 20px;
     float: left;
     width: 880px;
     max-height: 350px;
