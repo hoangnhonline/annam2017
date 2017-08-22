@@ -93,6 +93,12 @@
 						</ul>
 					</li><!-- level0 -->			
 					@endforeach		
+					<li class="level0 {{ $routeName == 'bao-hanh' ? 'active' : '' }}">
+						<a href="{{ route('bao-hanh') }}" title="BẢO HÀNH">
+							<i class="fa fa-rss-square"></i>
+							BẢO HÀNH
+						</a>
+					</li><!-- level0 -->
 					<li class="level0 {{ $routeName == 'news-list' || $routeName == 'news-detail'  ? 'active' : '' }}">
 						<a href="{{ route('news-list') }}" title="TIN TỨC">
 							<i class="fa fa-rss-square"></i>

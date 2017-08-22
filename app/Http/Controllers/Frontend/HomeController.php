@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Models\LoaiSp;
+use App\Models\BaoHanh;
 use App\Models\Cate;
 use App\Models\Product;
 use App\Models\SpThuocTinh;
@@ -86,6 +87,34 @@ class HomeController extends Controller
                                 'loaiThuocTinhArr', 
                                 'spThuocTinhArr',
                                 'hoverInfo'));
+    }
+    public function timBaoHanh(Request $request){
+        $kq = 4;
+        $serial_no = $request->serial_no ? $request->serial_no : null;
+        if($serial_no){
+            $rs = BaoHanh::where('serial_no', $serial_no)->first();
+            if(!$rs){
+                $kq = 3; // khong ton tai
+            }else{
+                $end_date = $rs->end_date;
+                if(date('Y-m-d', strtotime($end_date)) >= date('Y-m-d')){
+                    $kq = 1; // con bao hanh
+                }else{
+                    $kq = 2; // het bao hanh
+                }
+            }
+        }
+        $seo['title'] =  $seo['description'] =  $seo['keywords'] = "Bảo hành";
+
+        $newProductList =  Product::where('so_luong_ton', '>', 0)->where('price', '>', 0)
+                        ->where('is_new', 1)                   
+                        ->leftJoin('product_img', 'product_img.id', '=','product.thumbnail_id')
+                        ->leftJoin('sp_thuoctinh', 'sp_thuoctinh.product_id', '=','product.id')
+                        ->join('loai_sp', 'loai_sp.id', '=', 'product.loai_id')
+                        ->select('product_img.image_url', 'product.*', 'thuoc_tinh')
+                        ->orderBy('id', 'desc')->limit(6)->get();
+
+        return view('frontend.bao-hanh.index', compact('kq', 'serial_no', 'seo', 'newProductList'));
     }
     public function indexs(Request $request)
     {   
