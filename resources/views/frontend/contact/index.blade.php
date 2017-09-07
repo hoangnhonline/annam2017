@@ -15,7 +15,7 @@
         <p class="ctact-time">Ân Nam Mobile phục vụ từ 8:00 đến 21:30 Thứ 2 đến Chủ Nhật</p>
         <div class="ctact-note-inner">
             <p>
-                <span>Tel: <strong>0904500057 / 0968678767
+                <span>Tel: <strong>0904500057
                 </strong></span>
             </p>           
             <p>

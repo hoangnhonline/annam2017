@@ -22,8 +22,7 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:description" content="@yield('site_description')" />
     <meta name="twitter:title" content="@yield('title')" />        
-    <meta name="twitter:image" content="{{ Helper::showImage($socialImage) }}" />
-	<meta name="robots" content="noindex,nofollow" />
+    <meta name="twitter:image" content="{{ Helper::showImage($socialImage) }}" />	
 	<!-- <link rel="shortcut icon" href="{{ URL::asset('public/assets/images/favicon.ico') }}" type="image/x-icon">
 	<link rel="icon" href="{{ URL::asset('public/assets/images/favicon.ico') }}" type="image/x-icon"> -->
 	<!-- ===== Style CSS ===== -->
@@ -96,7 +95,7 @@
                                 <p>Cửa hàng điện thoại Ân Nam</p>
                                 <p>Đ/C : 683/1B An Dương Vương, P.Bình Trị Đông, Q.Bình Tân, Tp.HCM</p>
                                 <p>Email: contact@annam.vn</p>                               
-                                <p>Hotline: 0904500057 / 0968678767</p>
+                                <p>Hotline: 0904500057</p>
                                 <p>Copyrights © 2017 annammobile.com. All Rights Reserved</p>
                             </div>
 						</div><!-- /block_copy -->

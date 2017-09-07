@@ -8,7 +8,7 @@
 			</div><!-- /block_logo -->
 			<div class="block_search col-md-5 col-sm-5">
 				<div class="block_search_inner">
-					<p class="block_call_support">HOTLINE<a href="tel:+0904500057">0904500057 / 0968678767</a></p>
+					<p class="block_call_support">HOTLINE<a href="tel:+0904500057">0904500057</a></p>
 					<form name="frm_search" action="{{ route('search') }}" method="GET" class="frm-search">
 						<div class="control clearfix">
 							<button type="submit">
