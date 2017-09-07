@@ -24,12 +24,12 @@
     <meta name="twitter:title" content="@yield('title')" />        
     <meta name="twitter:image" content="{{ Helper::showImage($socialImage) }}" />
 	<meta name="robots" content="noindex,nofollow" />
-	<!-- <link rel="shortcut icon" href="{{ URL::asset('assets/images/favicon.ico') }}" type="image/x-icon">
-	<link rel="icon" href="{{ URL::asset('assets/images/favicon.ico') }}" type="image/x-icon"> -->
+	<!-- <link rel="shortcut icon" href="{{ URL::asset('public/assets/images/favicon.ico') }}" type="image/x-icon">
+	<link rel="icon" href="{{ URL::asset('public/assets/images/favicon.ico') }}" type="image/x-icon"> -->
 	<!-- ===== Style CSS ===== -->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/style.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/assets/css/style.css') }}">
 	<!-- ===== Responsive CSS ===== -->
-	<link rel="stylesheet" type="text/css" href="{{ URL::asset('assets/css/responsive.css') }}">
+	<link rel="stylesheet" type="text/css" href="{{ URL::asset('public/assets/css/responsive.css') }}">
 
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300,300italic&amp;subset=latin,vietnamese" rel="stylesheet" type="text/css">
 	<link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,800italic,400,700,800,300&amp;subset=latin,vietnamese" rel="stylesheet" type="text/css">
@@ -37,12 +37,12 @@
 
 
 	<!-- ===== Responsive CSS ===== -->
-  	<!-- <link href="{{ URL::asset('assets/responsive.css') }}" rel="stylesheet"> -->
+  	<!-- <link href="{{ URL::asset('public/assets/responsive.css') }}" rel="stylesheet"> -->
 
   	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
-		<link href='{{ URL::asset('assets/animations-ie-fix.css') }}' rel='stylesheet'>
+		<link href='{{ URL::asset('public/assets/animations-ie-fix.css') }}' rel='stylesheet'>
 		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
 	<![endif]-->
@@ -91,7 +91,7 @@
 				<div class="container">
 					<div class="row">
 						<div class="col-md-8 col-sm-12 col-xs-12 block_copy">
-							<a href="{!! route('home') !!}" class="logo"><img src="{{ URL::asset('assets/images/logo_white.png') }}" alt="Logo Ân Nam Mobile"></a>
+							<a href="{!! route('home') !!}" class="logo"><img src="{{ URL::asset('public/assets/images/logo_white.png') }}" alt="Logo Ân Nam Mobile"></a>
 							<div class="copyright">
                                 <p>Cửa hàng điện thoại Ân Nam</p>
                                 <p>Đ/C : 683/1B An Dương Vương, P.Bình Trị Đông, Q.Bình Tân, Tp.HCM</p>
@@ -109,7 +109,7 @@
 						</div><!-- /block_pay -->
 						<div class="col-md-2 col-sm-3 col-xs-4 block_indus">
 							<a href="http://online.gov.vn/CustomWebsiteDisplay.aspx?DocId=5895" target="_blank" class="block_industry">
-                            	<img src="{{ URL::asset('assets/images/logo-bocongthuong.png') }}" alt="TMĐT">
+                            	<img src="{{ URL::asset('public/assets/images/logo-bocongthuong.png') }}" alt="TMĐT">
                             </a>
 						</div>
 					</div>
@@ -138,34 +138,34 @@
 	<input type="hidden" id="route-short-cart" value="{{ route('short-cart') }}" />
 	<input type="hidden" id="route-update-product" value="{{ route('update-product') }}" />
 	<!-- ===== JS ===== -->
-	<script src="{{ URL::asset('assets/js/jquery.min.js') }}"></script>
+	<script src="{{ URL::asset('public/assets/js/jquery.min.js') }}"></script>
 	<!-- ===== JS Bootstrap ===== -->
-	<script src="{{ URL::asset('assets/lib/bootstrap/bootstrap.min.js') }}"></script>	<!-- ===== Plugins ===== -->
+	<script src="{{ URL::asset('public/assets/lib/bootstrap/bootstrap.min.js') }}"></script>	<!-- ===== Plugins ===== -->
 	
 	<!-- carousel -->
-	<script src="{{ URL::asset('assets/lib/carousel/owl.carousel.min.js') }}"></script>
+	<script src="{{ URL::asset('public/assets/lib/carousel/owl.carousel.min.js') }}"></script>
 	<!-- sticky -->
-    <script src="{{ URL::asset('assets/lib/jquery-ui/jquery-ui.js') }}"></script>
-    <script src="{{ URL::asset('assets/js/lazy.js') }}"></script>	
+    <script src="{{ URL::asset('public/assets/lib/jquery-ui/jquery-ui.js') }}"></script>
+    <script src="{{ URL::asset('public/assets/js/lazy.js') }}"></script>	
    	@if($routeName == 'home')
-    <script src="{{ URL::asset('assets/js/plugins.min.js') }}"></script>
-    <script src="{{ URL::asset('assets/lib/slick/slick.min.js') }}"></script>
+    <script src="{{ URL::asset('public/assets/js/plugins.min.js') }}"></script>
+    <script src="{{ URL::asset('public/assets/lib/slick/slick.min.js') }}"></script>
     @endif
     <!-- Select2 --> 
     @if($routeName == 'product-detail')
-	<script src="{{ URL::asset('assets/lib/bxslider/bxslider.min.js') }}"></script>
-	<script src="{{ URL::asset('assets/lib/lightbox/js/lightbox.js') }}"></script>
+	<script src="{{ URL::asset('public/assets/lib/bxslider/bxslider.min.js') }}"></script>
+	<script src="{{ URL::asset('public/assets/lib/lightbox/js/lightbox.js') }}"></script>
 	
 	@endif
-	<script src="{{ URL::asset('assets/lib/sticky/jquery.sticky.js') }}"></script>
+	<script src="{{ URL::asset('public/assets/lib/sticky/jquery.sticky.js') }}"></script>
     <!-- Slick -->    
-    <script src="{{ URL::asset('assets/js/common.js') }}"></script>
+    <script src="{{ URL::asset('public/assets/js/common.js') }}"></script>
     @if($routeName == 'home')
-	<script src="{{ URL::asset('assets/js/home.js') }}"></script>	
+	<script src="{{ URL::asset('public/assets/js/home.js') }}"></script>	
 	@endif
-	<script src="{{ URL::asset('assets/js/general.js') }}"></script>	
+	<script src="{{ URL::asset('public/assets/js/general.js') }}"></script>	
 	@if($routeName != 'product-detail')
-	<script src="{{ URL::asset('assets/lib/select2/js/select2.min.js') }}"></script>	
+	<script src="{{ URL::asset('public/assets/lib/select2/js/select2.min.js') }}"></script>	
 	@endif	
 	@yield('js')
 </body>

@@ -75,7 +75,7 @@
                             <a href="tel:02838888999">38.888.999</a>
                         </div>
                         <div class="support_img">
-                            <img src="{{ URL::asset('assets/images/msg_color.jpg') }}" alt="Sopport">
+                            <img src="{{ URL::asset('public/assets/images/msg_color.jpg') }}" alt="Sopport">
                         </div>
                         <div class="support_content">
                             <ul>

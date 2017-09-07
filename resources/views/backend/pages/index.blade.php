@@ -49,7 +49,6 @@
             <tr>
               <th style="width: 1%">#</th>                            
               <th>Tiêu đề</th>
-              <th width="10%">Người tạo</th>
               <th width="1%;white-space:nowrap">Thao tác</th>
             </tr>
             <tbody>
@@ -64,12 +63,12 @@
                   <a href="{{ route( 'pages.edit', [ 'id' => $item->id ]) }}">{{ $item->title }}</a>
                   
                   @if( $item->is_hot == 1 )
-                  <img class="img-thumbnail" src="{{ URL::asset('admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
+                  <img class="img-thumbnail" src="{{ URL::asset('public/admin/dist/img/star.png')}}" alt="Nổi bật" title="Nổi bật" />
                   @endif
 
                   <p>{{ $item->description }}</p>
                 </td>
-                <td>{{ $item->account->full_name }}</td>
+
                 <td style="white-space:nowrap">   
                 
                   <a class="btn btn-default btn-sm" href="{{ route('parent-cate', $item->slug ) }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i> Xem</a>               

@@ -39,7 +39,7 @@
 	            	<a href="javascript:;" class="cart-link"><span class="order_total_quantity">{!! Session::get('products') ? array_sum(Session::get('products')) : 0 !!}</span></a>
 	            </div><!-- /block_cart_mobile -->
 	            <div class="block_logo_mobile">
-					<a href="{!! route('home') !!}"><img src="{!! URL::asset('assets/images/logo_white.png') !!}" alt="Logo Ân Nam Mobile"></a>
+					<a href="{!! route('home') !!}"><img src="{!! URL::asset('public/assets/images/logo_white.png') !!}" alt="Logo Ân Nam Mobile"></a>
 				</div><!-- /block_logo_mobile -->
 				<div class="block_call_mobile">
 					<a href="tel:+84904500057" class="mb-phone"><i class="fa fa-phone"></i></a>

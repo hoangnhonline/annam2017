@@ -8,7 +8,7 @@
   </ol>
 </div><!-- /block_breadcrumb -->
 <div class="block block_after-payment">
-  <img src="{{ URL::asset('assets/images/ops-blk.jpg') }}" alt="Mua hang thanh cong">
+  <img src="{{ URL::asset('public/assets/images/ops-blk.jpg') }}" alt="Mua hang thanh cong">
   <div class="a-payment-ct">
     <div class="a-payment-w">
       <h1 class="main-msg">CẢM ƠN QUÝ KHÁCH ĐÃ ĐẶT HÀNG!</h1>

@@ -33,7 +33,7 @@
     <a href="{{ route('news-list') }}" title="Xem thêm">
       Tin công nghệ
       <span>xem thêm...</span>
-      <i style="background-image: url('{{ URL::asset('assets/images/ico-chicken.png') }}')" class="ic-event"></i>
+      <i style="background-image: url('{{ URL::asset('public/assets/images/ico-chicken.png') }}')" class="ic-event"></i>
     </a>
   </h3>
   <div class="block_content">
